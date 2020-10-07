@@ -30,6 +30,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="public\javascripts\jquery.js" />
+    <Content Include="public\javascripts\verify.js" />
     <Content Include="routes\index.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
@@ -37,6 +39,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\EW\EW1.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\GQ\questionary\A.html">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
@@ -48,6 +53,8 @@
     <Folder Include="routes\" />
     <Folder Include="views\" />
     <Folder Include="views\EW\" />
+    <Folder Include="views\GQ\" />
+    <Folder Include="views\GQ\questionary\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
