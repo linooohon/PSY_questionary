@@ -155,10 +155,41 @@ router.post('/changePassword', function (req, res) {
  ./EW/updateData(AJAX)
  1.查看存在帳號密碼
  2.更新(upsert:true)
-
  ***********************/
-router.post('/updateData', function (req, res) {
 
+function updateDataUpdate(db,ID,data) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("EW").collection("personal_data");
+        var goal = { ID: ID };
+        try {
+            data.split('_').forEach(item => {
+                let json = item.split('~');
+                goal[json[0]] = json[1];
+            });
+        }
+        catch (e) {
+            reject({ result: '傳遞格式錯誤' });
+            throw e;
+        }
+        table.updateOne({ ID: ID }, { $set: goal }, { upsert : true }, function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            resolve({ result: 'success' });
+        });
+    });
+}
+
+router.post('/updateData', function (req, res) {
+    var ID = req.body.ID;
+    var password = req.body.password;
+    var data = req.body.data;
+    MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
+        //此處因功能相同, 續用前一個API的function
+        changePasswordCheckPassword(db, ID, password)
+            .then(updateDataUpdate(db, ID, data))
+            .then(pkg => res.json(pkg))
+            .catch(error => res.json(error));
+    });
 });
 
 module.exports = router;

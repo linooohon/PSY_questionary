@@ -50,7 +50,13 @@
     <Content Include="views\EW\EW2.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\EW\EW3.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\EW\EW4.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\EW\EW5.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\GQ\questionary\A.html">
