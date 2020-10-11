@@ -3,9 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    我是入口網站首頁
+    <header>
+        <div name="Title" class="jumbotron  mb-0 " >
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <div id="btn" style="text-align:center">
+            <button name="Introduce" type="button" class="btn btn-primary col-md-4">計畫介紹</button>
+            <button name="Login" type="button" class="btn btn-secondary col-md-4">測試者登入</button>
+        </div>
+        <br>
+        <div id="Introduce" style="text-align:center">
+            <h1>我是本計畫的介紹</h1>
+            <p>啦啦啦啦啦啦拉,啦啦啦啦啦啦拉,啦啦啦啦啦啦拉,啦啦啦啦啦啦拉啦啦啦啦啦啦拉啦啦啦啦啦啦拉啦啦啦啦啦啦拉啦啦啦啦啦啦拉</p>
+            <p>啦啦啦啦啦啦拉,啦啦啦啦啦啦拉,啦啦啦啦啦啦拉,啦啦啦啦啦啦拉啦啦啦啦啦啦拉啦啦啦啦啦啦拉啦啦啦啦啦啦拉啦啦啦啦啦啦拉</p>       
+        </div>
+        <div id="Login" style="text-align:center">
+            <form action="/EW/login" method="post">
+                <input name="ID" type="text" class="col-md-4"/><br />
+                <input name="password" type="password"  class="col-md-4"/><br />
+                <input  type="submit" class="btn btn-success col-md-4" value="登入" />
+            </form>
+        </div>
+    </div>
+    <script>
+        var btnMode = 'Introduce';
+        $("#Login").hide();
+        $(document).ready(function () {
+            $('#btn > button').click(function () {
+                if ($(this).attr('name') != btnMode) {
+                    $("#" + btnMode).hide();
+                    btnMode = $(this).attr('name');
+                    $("#" + btnMode).show();
+                    var secondary = $('#btn').find('.btn-secondary');
+                    var primary = $('#btn').find('.btn-primary');
+                    secondary.removeClass("btn-secondary").addClass('btn-primary');
+                    primary.removeClass("btn-primary").addClass('btn-secondary');
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>

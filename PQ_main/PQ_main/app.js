@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var EW = require('./routes/EW');
 
 var app = express();
 
@@ -25,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-
+app.use('/EW', EW);
 //// catch 404 and forward to error handler
 //app.use(function (req, res, next) {
 //    var err = new Error('Not Found');
@@ -57,8 +58,9 @@ app.use('/', routes);
 //    });
 //});
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 1337);
 
 var server = app.listen(app.get('port'), function () {
     debug('Express server listening on port ' + server.address().port);
+    console.log(process.env.PORT || 1337);
 });
