@@ -49,8 +49,10 @@ function loginNotFirstRender(db, res, ID, password) {
         var table = db.db("EW").collection("personal_data");
         table.findOne({ ID: ID }, { projection: { _id: 0 } }, function (err, result) {
             if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
-            if (result != null)
-                res.render('EW/EW4', { ID: ID, password: password, data: result });
+            if (result != null) {
+                res.render('EW/EW4', { ID: ID, password: password, data: JSON.stringify(result) });
+                //console.log({ ID: ID, password: password, data: JSON.stringify(result) });
+            }
             else
                 res.render('EW/EW2', { ID: ID, password: password });
             resolve({});
@@ -69,7 +71,7 @@ router.post('/login', function (req, res) {
                     loginFirstRender(db, res, ID, password)
                 else
                     loginNotFirstRender(db, res, ID, password)
-            }).then(new function () { })
+            }).then(pkg => new function () { })
             .catch(error => res.render('warming', error));
     });
 });
@@ -124,7 +126,7 @@ function changePasswordCheckPassword(db, ID, password) {
                 reject({ result: '不存在此帳號' });
             else
                 if (result.password == password)
-                    resolve({ });
+                    resolve(1);
                 else
                     reject({ result: "密碼錯誤" });
         });
@@ -146,7 +148,7 @@ router.post('/changePassword', function (req, res) {
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
         changePasswordCheckPassword(db, ID, password)
-            .then(changePasswordUpdatePassword(db, ID, new_password))
+            .then(pkg =>changePasswordUpdatePassword(db, ID, new_password))
             .then(pkg => res.json(pkg))
             .catch(error => res.json(error));
     });
@@ -186,7 +188,7 @@ router.post('/updateData', function (req, res) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
         //此處因功能相同, 續用前一個API的function
         changePasswordCheckPassword(db, ID, password)
-            .then(updateDataUpdate(db, ID, data))
+            .then(pkg => updateDataUpdate(db, ID, data))
             .then(pkg => res.json(pkg))
             .catch(error => res.json(error));
     });
