@@ -59,6 +59,9 @@
     <Content Include="views\EW\EW5.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\goto.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\GQ\questionary\A.html">
       <SubType>Code</SubType>
     </Content>
