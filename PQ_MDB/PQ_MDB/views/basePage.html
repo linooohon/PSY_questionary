@@ -1,0 +1,57 @@
+﻿﻿
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="text-align:center">
+        <br>
+        <input type="button"  id="buildUser" class="btn btn-primary" style="font-size:200%" value="創建新測驗者" />
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadAllTable" class="btn btn-primary" style="font-size:200%" value="下載完整表格" />
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadOneTable" class="btn btn-primary" style="font-size:200%" value="下載個人資料" />
+        <br>
+    </div>
+    <script>
+        $(document).ready(function () {
+            //建立新測試者
+            $("#buildUser").click(function () {
+                var $this = $(this);
+                $.post('/Create/newUser', { ID: '<%=ID%>', password: '<%=password%>', tag: prompt("請輸入實驗編號標記") }, function (result) {
+                    if (result.result == "success") {
+                        $("h2").remove();
+                        $this.after("<h2>帳號 : " + result.ID + "</h2><h2>密碼 : " + result.password + "</h2>");
+                    }
+                    else {
+                        alert(result.result);
+                    }
+                })
+            });
+            //取得整個表格
+            $("#loadAllTable").click(function () {
+
+            });
+            //取得個人表格
+            $("#loadOneTable").click(function () {
+
+            });
+        })
+    </script>
+</body>
+</html>

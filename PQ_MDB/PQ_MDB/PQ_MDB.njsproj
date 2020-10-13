@@ -30,13 +30,37 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="routes\Create.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\Get.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\GetConst.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\index.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="routes\Update.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\basePage.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\error.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\GQPage.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\signPage.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\switchPage.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\warming.html">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

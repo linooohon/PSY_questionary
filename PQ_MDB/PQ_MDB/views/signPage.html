@@ -3,9 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    我是MDB登入頁
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫<small>管理網站</small></h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <br>
+        <div id="Login" style="text-align:center">
+            <form action="/login" method="post">
+                <input name="ID" type="text" class="col-md-4" placeholder="請輸入您的帳號" required /><br />
+                <input name="password" type="password" class="col-md-4" placeholder="請輸入您的密碼" required /><br />
+                <input type="submit" class="btn btn-success col-md-4" value="登入" />
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+     
+
+        });
+    </script>
 </body>
 </html>
