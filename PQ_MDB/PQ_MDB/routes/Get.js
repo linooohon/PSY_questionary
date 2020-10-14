@@ -16,7 +16,7 @@ function FindCollection(db, DB, collection, fillterKey, fillterValue, type) {
     return new Promise((resolve, reject) => {
         var table = db.db(DB).collection(collection);
         var findThing = {};
-        if (type == "1")
+        if (type == 1)
             findThing[fillterKey] = fillterValue;
         var set = { projection: { _id: 0 } };
         if (type == 1)
@@ -32,7 +32,7 @@ function FindCollection(db, DB, collection, fillterKey, fillterValue, type) {
     });
 }
 
-router.post('/newUser', function (req, res) {
+router.post('/table', function (req, res) {
     var ID = req.body.ID;
     var password = req.body.password;
     var DB = req.body.DB;

@@ -1,11 +1,170 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>認知作業管理</title>
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="text-align:center">
+        <br>
+        <input type="button" id="UpdatePR" class="btn btn-primary" style="font-size:200%" value="更新報表分界值" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <input id="NowPR" type="button" value="目前資料下載" />
+            <input id="UpdatePRFile" type="file" /><br>
+            <a id="UpdatePR_link" style="display:none" >Click here to Download</a>
+        </div>
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="UpdateResource" class="btn btn-primary" style="font-size:200%" value="更新問卷資源表" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <select id="ResourceWhich">
+                <option value="" disabled selected hidden>請選擇你要更新哪份問卷的資源</option>
+                <option value="Ltable">L問卷</option>
+                <option value="Mtable">M問卷</option>
+            </select>
+            <br><br>
+            <input id="NowResource" type="button" value="目前資料下載" />
+            <input id="UpdateResourceFile" type="file" /><br>
+            <a id="UpdateResource_link" style="display:none">Click here to Download</a>
+        </div>
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadAllTable" class="btn btn-primary" style="font-size:200%" value="下載完整表格" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <select id="AllWhich">
+                <option value="" disabled selected hidden>請選擇你要下載哪份問卷</option>
+                <option value="A">A問卷</option>
+                <option value="B">B問卷</option>
+                <option value="C">C問卷</option>
+                <option value="D">D問卷</option>
+                <option value="E">E問卷</option>
+                <option value="F">F問卷</option>
+                <option value="G">G問卷</option>
+                <option value="H">H問卷</option>
+                <option value="I">I問卷</option>
+                <option value="J">J問卷</option>
+                <option value="K">K問卷</option>
+                <option value="L">L問卷</option>
+                <option value="M">M問卷</option>
+            </select>
+            <br>
+            <select id="AllMode">
+                <option value="" disabled selected hidden>請選擇你要下載哪種資料</option>
+                <option value="one">過程資料</option>
+                <option value="group">整合資料</option>
+            </select>
+            <br>
+            <a href="" id="All_link" style="display:none">Click here to download</a>
+        </div>
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadPersonalTable" class="btn btn-primary" style="font-size:200%" value="下載個人資料" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <input id="PersonalID" type="text" placeholder="請填入目標ID(實驗編號)" />
+            <br>
+            <select id="PersonalWhich">
+                <option value="" disabled selected hidden>請選擇你要下載哪份問卷</option>
+                <option value="A">A問卷</option>
+                <option value="B">B問卷</option>
+                <option value="C">C問卷</option>
+                <option value="D">D問卷</option>
+                <option value="E">E問卷</option>
+                <option value="F">F問卷</option>
+                <option value="G">G問卷</option>
+                <option value="H">H問卷</option>
+                <option value="I">I問卷</option>
+                <option value="J">J問卷</option>
+                <option value="K">K問卷</option>
+                <option value="L">L問卷</option>
+                <option value="M">M問卷</option>
+            </select>
+            <br>
+            <select id="PersonalMode">
+                <option value="" disabled selected hidden>請選擇你要下載哪種資料</option>
+                <option value="one">過程資料</option>
+                <option value="group">整合資料</option>
+            </select>
+            <br>
+            <a href="" id="Personal_link" style="display:none">Click here to download</a>
+        </div>
+        <br>
+    </div>
+    <script>
+        function transferCSV(mode, data) {
+            var CSVstr = "\uFEFF";
+            if (mode == 'NowPR') {
+                //把JSON LIST 轉成csv
+                if (data.length > 0) {
+                    for (var i in data[0])
+                        CSVstr += i + ',';
+                    CSVstr += "\r\n";
+                    for (var i in data) {
+                        for (var j in data[i])
+                            CSVstr += data[i][j] + ',';
+                        CSVstr += "\r\n";
+                    }
+                }
+            }
+            return CSVstr;
+        }
+        function makeLink($link, CSVstr, name) {
+            //console.log(CSVstr);
+            var blob = new Blob([CSVstr],
+                { type: "application/octect-stream" });
+            var blobUrl = URL.createObjectURL(blob);
+            var fileName = name + ".csv";
+            $link.attr({ href: blobUrl, download: fileName }).show();
+            alert("點擊連結可下載")
+            //document.getElementById($link.attr('id')).click();
+        }
+        $(document).ready(function () {
+            //更新個人報告分界值表格
+            $("#NowPR").click(function () {
+                $.post("/Get/table",
+                    {
+                        ID: "<%=ID%>", password: "<%=password%>",
+                        DB: "data", collection: "critical_value",
+                        fillterKey: "NA", fillterValue: "NA",
+                        type: 0
+                    }, function (result) {
+                        if (result.result == 'success')
+                            makeLink($("#UpdatePR_link"), transferCSV("NowPR", result.data), "critical_value");
+                        else
+                            alert(result.result);
+                    });
+            });
+            $("#UpdatePR").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            //更新問卷資源表格
+            $("#UpdateResource").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            //獲取全部問卷結果整合成的表格
+            $("#loadAllTable").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            //獲取個人問卷結果的表格
+            $("#loadPersonalTable").click(function () {
+                $(this).next('div').toggle('30');
+            });
+        })
+    </script>
 </body>
 </html>

@@ -19,37 +19,140 @@
     </header>
     <div class="container" style="text-align:center">
         <br>
-        <input type="button"  id="buildUser" class="btn btn-primary" style="font-size:200%" value="創建新測驗者" />
+        <input type="button" id="buildUser" class="btn btn-primary" style="font-size:200%" value="創建新測驗者" />
         <br>
         <hr style="border:5px" />
         <input type="button" id="loadAllTable" class="btn btn-primary" style="font-size:200%" value="下載完整表格" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <select id="AllMode">
+                <option value="" disabled selected hidden>請選擇你要下載甚麼個人資料</option>
+                <option value="personal_information">帳號密碼</option>
+                <option value="personal_data">個人資訊</option>
+            </select>
+            <br>
+            <a href="" id="All_link" style="display:none">Click here to download</a>
+        </div>
         <br>
         <hr style="border:5px" />
         <input type="button" id="loadOneTable" class="btn btn-primary" style="font-size:200%" value="下載個人資料" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <input id="One_ID" type="text" placeholder="請填入目標ID(實驗編號)" />
+            <select id="OneMode">
+                <option value="" disabled selected hidden>請選擇你要下載甚麼個人資料</option>
+                <option value="personal_information">帳號密碼</option>
+                <option value="personal_data">個人資訊</option>
+            </select>
+            <br>
+            <a href="" id="One_link" style="display:none">Click here to download</a>
+        </div>
         <br>
     </div>
     <script>
+        function transferCSV(mode, data) {
+            var CSVstr = "\uFEFF";
+            if (mode == 0) {
+                //把JSON LIST 轉成csv
+                if (data.length > 0) {
+                    for (var i in data[0]) {
+                        CSVstr += i + ',';
+                    }
+                    CSVstr += "\r\n";
+                    for (var i in data) {
+                        for (var j in data[i]) {
+                            CSVstr += data[i][j] + ',';
+                        }
+                        CSVstr += "\r\n";
+                    }
+                }
+            }
+            else if (mode == 1) {
+                //console.log(data)
+                //把JSON 轉成csv
+                for (var i in data) {
+                    CSVstr += i + ',' + data[i] + '\r\n';
+                }
+            }
+            return CSVstr;
+        }
+        function makeLink($link, CSVstr, name) {
+            //console.log(CSVstr);
+            var blob = new Blob([CSVstr],
+                { type: "application/octect-stream" });
+            var blobUrl = URL.createObjectURL(blob);
+            var fileName = name + ".csv";
+            $link.attr({ href: blobUrl, download: fileName }).show();
+            alert('點擊連結即可下載');
+        }
+        function DownLoad($link, collection, fillterKey, fillterValue, type) {
+            if (type == 0) {
+                $.post("/Get/table",
+                    {
+                        ID: "<%=ID%>", password: "<%=password%>",
+                        DB: "EW", collection: collection,
+                        fillterKey: "NA", fillterValue: "NA",
+                        type: type
+                    }, function (result) {
+                        if (result.result == 'success')
+                            makeLink($link, transferCSV(0, result.data), "AllDataFor" + collection);
+                        else
+                            alert(result.result);
+                    });
+            }
+            else if (type == 1) {
+                $.post("/Get/table",
+                    {
+                        ID: "<%=ID%>", password: "<%=password%>",
+                        DB: "EW", collection: collection,
+                        fillterKey: fillterKey, fillterValue: fillterValue,
+                        type: type
+                    }, function (result) {
+                        if (result.result == 'success')
+                            makeLink($link, transferCSV(1, result.data), fillterValue+ "_DataFor" + collection);
+                        else
+                            alert(result.result);
+                    });
+            }
+        }
         $(document).ready(function () {
             //建立新測試者
             $("#buildUser").click(function () {
                 var $this = $(this);
-                $.post('/Create/newUser', { ID: '<%=ID%>', password: '<%=password%>', tag: prompt("請輸入實驗編號標記") }, function (result) {
-                    if (result.result == "success") {
-                        $("h2").remove();
-                        $this.after("<h2>帳號 : " + result.ID + "</h2><h2>密碼 : " + result.password + "</h2>");
-                    }
-                    else {
-                        alert(result.result);
-                    }
-                })
+                var tag = prompt("請輸入實驗編號標記", "A");
+                if (tag != null)
+                    $.post('/Create/newUser', { ID: '<%=ID%>', password: '<%=password%>', tag: tag }, function (result) {
+                        if (result.result == "success") {
+                            $this.next("div").remove();
+                            $this.after("<div><h2>帳號 : " + result.ID + "</h2><h2>密碼 : " + result.password + "</h2></div>");
+                        }
+                        else {
+                            alert(result.result);
+                        }
+                    })
+                else {
+                    alert("請寫入編號標記");
+                    $this.next("div").remove();
+                }
             });
             //取得整個表格
             $("#loadAllTable").click(function () {
-
+                $(this).next("div").toggle('30');
+            });
+            $("#AllMode").change(function () {
+                DownLoad($("#All_link"), $(this).val() , "NA", "NA", 0);
             });
             //取得個人表格
             $("#loadOneTable").click(function () {
-
+                $(this).next("div").toggle('30');
+            });
+            $("#OneMode").change(function () {
+                if ($("#One_ID").val() != "")
+                    DownLoad($("#One_link"), $(this).val(), "ID", $("#One_ID").val(), 1);
+                else {
+                    alert("請輸入目標帳號(實驗號)");
+                    $(this).find('option:eq(0)').prop('selected', true);
+                }
             });
         })
     </script>
