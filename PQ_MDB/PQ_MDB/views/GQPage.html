@@ -23,8 +23,8 @@
         <div style="font-size:150%;display:none">
             <br>
             <input id="NowPR" type="button" value="目前資料下載" />
-            <input id="UpdatePRFile" type="file" /><br>
-            <a id="UpdatePR_link" style="display:none" >Click here to Download</a>
+            <input id="UpdatePRFile" type="file" accept=".csv" onchange="onUpload(this)"/><br>
+            <a id="UpdatePR_link" style="display:none">Click here to Download</a>
         </div>
         <br>
         <hr style="border:5px" />
@@ -38,7 +38,7 @@
             </select>
             <br><br>
             <input id="NowResource" type="button" value="目前資料下載" />
-            <input id="UpdateResourceFile" type="file" /><br>
+            <input id="UpdateResourceFile" type="file" accept=".csv" /><br>
             <a id="UpdateResource_link" style="display:none">Click here to Download</a>
         </div>
         <br>
@@ -106,6 +106,38 @@
         <br>
     </div>
     <script>
+        function onUpload(input) {
+            var file = input.files[0];
+            var reader = new FileReader();
+            if (typeof reader == 'undefined') {
+                alert("請使用chrome瀏覽器");
+                return;
+            }
+            var fileName = file.name;
+            var pointIndex = fileName.lastIndexOf(".");
+            var fileSuffix = fileName.substr(pointIndex);
+            if (fileSuffix == ".CSV" || fileSuffix == ".csv") {
+                try {
+                    reader.readAsText(file, 'utf-8');
+                    reader.onload = function (f) {
+                        if (this.result != null) {
+                            console.log(this.result);
+                            $.post("/Update/criticalNumber", { ID: '<%=ID%>', password: '<%=password%>', data: this.result, where: 'critical_value' }, function (result) {
+                                result.result == 'success' ? alert("更新完成") : console.log(result);
+                            });
+                        } else {
+                            alert("不要上傳空文件");
+                        }
+                        input.value = '';
+                    }
+                } catch (e) {
+                    alert("讀取失敗請再試一次");
+                    console.log(e);
+                }
+            } else {
+                alert("請存入csv格式文件");
+            }
+        }
         function transferCSV(mode, data) {
             var CSVstr = "\uFEFF";
             if (mode == 'NowPR') {

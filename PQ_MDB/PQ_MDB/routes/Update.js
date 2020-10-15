@@ -20,9 +20,10 @@ const criticalNumber_license = ['critical_value'];
 function removeTable(db, where) {
     return new Promise((resolve, reject) => {
         var table = db.db("data").collection(where);
-        table.remove({}, function (err, result) {
+        table.deleteMany({}, function (err, result) {
             if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
-            resolve();
+            resolve({ result: "remove完成" });
+            console.log("移除完成");
         });
     });
 }
@@ -47,6 +48,7 @@ function CsvToJsonListTable(CsvString,where) {
             jsonList.push(json)
         }
     }
+    console.log(jsonList);
     return jsonList;
 }
 
@@ -56,6 +58,7 @@ function InsertJsonList(db, where, jsonList) {
         table.insertMany(jsonList, function (err, result) {
             if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
             resolve({ result: 'success' });
+            console.log("insert success");
         });
     });
 }
@@ -65,7 +68,7 @@ router.post('/table', function (req, res) {
     var password = req.body.password;
     var data = req.body.data;
     var where = req.body.where;
-
+    console.log(data);
     if (core_ID == ID && core_password == password) {
         MongoClient.connect(Get("mongoPath") + 'data', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
@@ -131,6 +134,7 @@ function CsvToJsonListCritialNumber(CsvString,where) {
             jsonList.push(json)
         }
     }
+    console.log(jsonList);
     return jsonList;
 }
 
@@ -139,7 +143,7 @@ router.post('/criticalNumber', function (req, res) {
     var password = req.body.password;
     var data = req.body.data;
     var where = req.body.where;
-
+    console.log(data);
     if (core_ID == ID && core_password == password) {
         MongoClient.connect(Get("mongoPath") + 'data', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
