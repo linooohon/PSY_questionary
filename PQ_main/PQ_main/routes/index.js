@@ -13,4 +13,9 @@ router.post('/QQ/EQ', function (req, res) {
     res.render('goto', { url: Get('QQ/EQ') });
 });
 
+//test
+router.get('/test', function (req, res) {
+    res.render('testBW');
+});
+
 module.exports = router;

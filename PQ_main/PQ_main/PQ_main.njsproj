@@ -30,12 +30,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="public\favicon.ico" />
     <Content Include="public\javascripts\jquery.js" />
     <Content Include="public\javascripts\verify.js" />
     <Content Include="routes\EW.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\GetConst.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\GQ\GQ.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\GQ\SQ.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
@@ -65,6 +72,9 @@
     <Content Include="views\GQ\questionary\A.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\testBW.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\warming.html">
       <SubType>Code</SubType>
     </Content>
@@ -75,6 +85,7 @@
     <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
+    <Folder Include="routes\GQ\" />
     <Folder Include="views\" />
     <Folder Include="views\EW\" />
     <Folder Include="views\GQ\" />
