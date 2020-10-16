@@ -23,16 +23,16 @@ function removeTable(db, where) {
         table.deleteMany({}, function (err, result) {
             if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
             resolve({ result: "remove完成" });
-            console.log("移除完成");
+            //console.log("移除完成");
         });
     });
 }
 
 function CsvToJsonListTable(CsvString,where) {
     var jsonList = [];
-    var jsons = CsvString.spilt('\n')
+    var jsons = CsvString.split('\r\n')
     for (var i in jsons) {
-        var elements = jsons[i].spilt(',')
+        var elements = jsons[i].split(',')
         var json = {}
         if (where == 'Mtable' && elements.length >= 4) {
             json['filepath'] = elements[0]
@@ -48,17 +48,22 @@ function CsvToJsonListTable(CsvString,where) {
             jsonList.push(json)
         }
     }
-    console.log(jsonList);
+    //console.log(jsonList);
     return jsonList;
 }
 
 function InsertJsonList(db, where, jsonList) {
     return new Promise((resolve, reject) => {
+        //console.log("insert start");
         var table = db.db("data").collection(where);
         table.insertMany(jsonList, function (err, result) {
-            if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
+            if (err) {
+                reject({ result: "伺服器連線錯誤" });
+                //console.log(err.message);
+                throw err;
+            }
             resolve({ result: 'success' });
-            console.log("insert success");
+            //console.log("insert success");
         });
     });
 }
@@ -68,7 +73,7 @@ router.post('/table', function (req, res) {
     var password = req.body.password;
     var data = req.body.data;
     var where = req.body.where;
-    console.log(data);
+    //console.log(data);
     if (core_ID == ID && core_password == password) {
         MongoClient.connect(Get("mongoPath") + 'data', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
@@ -95,9 +100,10 @@ router.post('/table', function (req, res) {
   **************************************/
 function CsvToJsonListCritialNumber(CsvString,where) {
     var jsonList = [];
-    var jsons = CsvString.spilt('\n')
+    var jsons = CsvString.split('\r\n')
     for (var i in jsons) {
-        var elements = jsons[i].spilt(',')
+        var elements = jsons[i].split(',')
+        //console.log(elements);
         var json = {}
         if (where == 'critical_value' && elements.length >= 31) {
             json['mode'] = elements[0]
@@ -134,7 +140,7 @@ function CsvToJsonListCritialNumber(CsvString,where) {
             jsonList.push(json)
         }
     }
-    console.log(jsonList);
+    //console.log(jsonList);
     return jsonList;
 }
 
@@ -143,13 +149,14 @@ router.post('/criticalNumber', function (req, res) {
     var password = req.body.password;
     var data = req.body.data;
     var where = req.body.where;
-    console.log(data);
+    //console.log(data);
     if (core_ID == ID && core_password == password) {
         MongoClient.connect(Get("mongoPath") + 'data', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
             if (criticalNumber_license.indexOf(where) > -1)
                 removeTable(db, where)
                     .then(pkg => InsertJsonList(db, where, CsvToJsonListCritialNumber(data, where)))
+                    //.then(pkg => console.log(CsvToJsonListCritialNumber(data, where)))
                     .then(pkg => res.json(pkg))
                     .catch(error => res.json(error));
             else

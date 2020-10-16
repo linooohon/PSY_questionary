@@ -16,9 +16,12 @@ function FindCollection(db, DB, collection, fillterKey, fillterValue, type) {
     return new Promise((resolve, reject) => {
         var table = db.db(DB).collection(collection);
         var findThing = {};
-        if (type == 1)
+        if (type == 1 || type == 2 || type == 3)
             findThing[fillterKey] = fillterValue;
-        var set = { projection: { _id: 0 } };
+        var projection = { _id: 0 };
+        if (type == 3)
+            projection["data"] = 0;
+        var set = { projection: projection };
         if (type == 1)
             table.findOne(findThing, set, function (err, result) {
                 if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
