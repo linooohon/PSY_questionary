@@ -1,0 +1,408 @@
+﻿﻿
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="text-align:center">
+        <br>
+        <input type="button" id="UpdatePR" class="btn btn-primary" style="font-size:200%" value="更新報表分界值" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <input id="NowPR" type="button" value="目前資料下載" />
+            <input id="UpdatePRFile" type="file" accept=".csv" onchange="onUpload(this,'criticalNumber')" /><br>
+            <a id="UpdatePR_link" style="display:none">Click here to Download</a>
+        </div>
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="UpdateResource" class="btn btn-primary" style="font-size:200%" value="更新問卷資源表" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <select id="ResourceWhich">
+                <option value="" disabled selected hidden>請選擇你要更新哪份問卷的資源</option>
+                <option value="Ltable">L問卷</option>
+                <option value="Mtable">M問卷</option>
+            </select>
+            <br><br>
+            <input id="NowResource" type="button" value="目前資料下載" />
+            <input id="UpdateResourceFile" type="file" accept=".csv" onchange="onUpload(this,'table')" /><br>
+            <a id="UpdateResource_link" style="display:none">Click here to Download</a>
+        </div>
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadAllTable" class="btn btn-primary" style="font-size:200%" value="下載完整表格" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <select id="AllWhich">
+                <option value="" disabled selected hidden>請選擇你要下載哪份問卷</option>
+                <option value="A">A問卷</option>
+                <option value="B">B問卷</option>
+                <option value="C">C問卷</option>
+                <option value="D">D問卷</option>
+                <option value="E">E問卷</option>
+                <option value="F">F問卷</option>
+                <option value="G">G問卷</option>
+                <option value="H">H問卷</option>
+                <option value="I">I問卷</option>
+                <option value="J">J問卷</option>
+                <option value="K">K問卷</option>
+                <option value="L">L問卷</option>
+                <option value="M">M問卷</option>
+            </select>
+            <br>
+            <select id="AllMode">
+                <option value="" disabled selected hidden>請選擇你要下載哪種資料</option>
+                <option value="one">過程資料</option>
+                <option value="group">整合資料</option>
+            </select>
+            <br>
+            <a href="" id="All_link" style="display:none">Click here to download</a>
+        </div>
+        <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadPersonalTable" class="btn btn-primary" style="font-size:200%" value="下載個人資料" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <input id="PersonalID" type="text" placeholder="請填入目標ID(實驗編號)" />
+            <br>
+            <select id="PersonalDisassemble">
+                <option value="no" selected>不依照日期拆解同號檔案</option>
+                <option value="yes">依照日期拆解檔案</option>
+            </select>
+            <br>
+            <select id="PersonalWhich">
+                <option value="" disabled selected hidden>請選擇你要下載哪份問卷</option>
+                <option value="A">A問卷</option>
+                <option value="B">B問卷</option>
+                <option value="C">C問卷</option>
+                <option value="D">D問卷</option>
+                <option value="E">E問卷</option>
+                <option value="F">F問卷</option>
+                <option value="G">G問卷</option>
+                <option value="H">H問卷</option>
+                <option value="I">I問卷</option>
+                <option value="J">J問卷</option>
+                <option value="K">K問卷</option>
+                <option value="L">L問卷</option>
+                <option value="M">M問卷</option>
+            </select>
+            <br>
+            <select id="PersonalMode">
+                <option value="" disabled selected hidden>請選擇你要下載哪種資料</option>
+                <option value="one">過程資料</option>
+                <option value="group">整合資料</option>
+            </select>
+            <br>
+            <a href="" id="Personal_link" style="display:none">Click here to download</a>
+        </div>
+        <br>
+    </div>
+    <script>
+        function AllOneAddTitle(data, type,num) {
+            var output = "";
+            if (type == "list") {
+                output = "ID,Date,";
+                for (var j in data[num].data) {
+                    for (var k in data[num].data[j]) {
+                        output += k.toString() + ',';
+                    }
+                }
+                output += "\r\n";
+            }
+            else {
+                output = "ID,Date,";
+                for (var j in data[num].data) {
+                    for (var k in data[num].data[j]) {
+                        for (var l in data[num].data[j][k]) {
+                            output += j.toString() + '_' + l.toString() + ',';
+                        }
+                    }
+                }
+                output += "\r\n";
+            }
+            return output;
+        }
+        function AllOneData(mode, data,moreTitle) {
+            //console.log(data);
+            var output = "";
+            if (!moreTitle)
+                output += AllOneAddTitle(data, mode, 0);
+            for (var i in data) {
+                if (moreTitle)
+                    output += AllOneAddTitle(data, mode, i);
+                output += data[i].ID + ',' + data[i].Date + ',';
+                if (mode == "list") {
+                    for (var j in data[i].data) {
+                        for (var k in data[i].data[j]) {
+                            output += data[i].data[j][k] + ',';
+                        }
+                    }
+                    output += "\r\n";
+                }
+                else {
+                    for (var j in data[i].data) {
+                        for (var k in data[i].data[j]) {
+                            for (var l in data[i].data[j][k]) {
+                                output += data[i].data[j][k][l] + ',';
+                            }
+                        }
+                    }
+                    output += "\r\n";
+                }
+            }
+            return output;
+        }
+        function AllGroupData(data) {
+            //console.log(data);
+            var output = "ID,Date,";
+            for (var j in data[0].data) {
+                output += j.toString() + ',';
+            }
+            for (var i in data) {
+                output += "\r\n" + data[i].ID + ',' + data[i].Date + ',';
+                for (var j in data[i].data) {
+                    output += data[i].data[j] + ",";
+                }
+            }
+            return output;
+        }
+        function onUpload(input, mode) {
+            var file = input.files[0];
+            var reader = new FileReader();
+            if (typeof reader == 'undefined') {
+                alert("請使用chrome瀏覽器");
+                return;
+            }
+            var fileName = file.name;
+            var pointIndex = fileName.lastIndexOf(".");
+            var fileSuffix = fileName.substr(pointIndex);
+            if (fileSuffix == ".CSV" || fileSuffix == ".csv") {
+                try {
+                    reader.readAsText(file, 'utf-8');
+                    reader.onload = function (f) {
+                        if (this.result != null) {
+                            var string = this.result;
+                            //console.log(string);
+                            if (mode == 'criticalNumber')
+                                $.post("/Update/" + mode, { ID: '<%=ID%>', password: '<%=password%>', data: string, where: 'critical_value' }, function (result) {
+                                    result.result == 'success' ? alert("更新完成") : alert(result.result);
+                                });
+                            else if (mode == 'table')
+                                if ($("#ResourceWhich").val() != '')
+                                    $.post("/Update/" + mode, { ID: '<%=ID%>', password: '<%=password%>', data: string, where: $("#ResourceWhich").val() }, function (result) {
+                                        result.result == 'success' ? alert("更新完成") : alert(result.result);
+                                    });
+                                else
+                                    alert("請選擇對象");
+                            else
+                                alert("非法行為");
+                        } else {
+                            alert("不要上傳空文件");
+                        }
+                        input.value = '';
+                    }
+                } catch (e) {
+                    alert("讀取失敗請再試一次");
+                    console.log(e);
+                }
+            } else {
+                alert("請存入csv格式文件");
+            }
+        }
+        function transferCSV(mode, data,moreTitle) {
+            //console.log(data);
+            var CSVstr = "\uFEFF";
+            if (mode == 'NowPR') {
+                //把JSON LIST 轉成csv
+                if (data.length > 0) {
+                    for (var i in data) {
+                        for (var j in data[i])
+                            CSVstr += data[i][j] + ',';
+                        CSVstr += "\r\n";
+                    }
+                }
+            }
+            else if (mode == "ResourceWhich") {
+                if (data.length > 0) {
+                    for (var i in data) {
+                        for (var j in data[i])
+                            CSVstr += data[i][j] + ',';
+                        CSVstr += "\r\n";
+                    }
+                }
+            }
+            else {
+                var type = mode.split('_');
+                if (type[1] == "one") {
+                    switch (type[0]) {
+                        case 'A':
+                        case 'B':
+                        case 'E':
+                        case 'F':
+                        case 'I':
+                        case 'K':
+                        case 'L':
+                        case 'M':
+                            if (data.length > 0)
+                                CSVstr += AllOneData("list", data,moreTitle);
+                            break;
+                        case 'C':
+                        case 'D':
+                        case 'G':
+                        case 'H':
+                        case 'J':
+                            if (data.length > 0)
+                                CSVstr += AllOneData('json', data,moreTitle);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+                    if (data.length > 0)
+                        CSVstr += AllGroupData(data);
+                }
+            }
+            return CSVstr;
+        }
+        function makeLink($link, CSVstr, name) {
+            //console.log(CSVstr);
+            var blob = new Blob([CSVstr],
+                { type: "application/octect-stream" });
+            var blobUrl = URL.createObjectURL(blob);
+            var fileName = name + ".csv";
+            $link.attr({ href: blobUrl, download: fileName }).show();
+            alert("點擊連結可下載")
+            //document.getElementById($link.attr('id')).click();
+        }
+        $(document).ready(function () {
+            //更新個人報告分界值表格
+            $("#NowPR").click(function () {
+                $.post("/Get/table",
+                    {
+                        ID: "<%=ID%>", password: "<%=password%>",
+                        DB: "data", collection: "critical_value",
+                        fillterKey: "NA", fillterValue: "NA",
+                        type: 0
+                    }, function (result) {
+                        if (result.result == 'success')
+                            makeLink($("#UpdatePR_link"), transferCSV("NowPR", result.data, false), "critical_value");
+                        else
+                            alert(result.result);
+                    });
+            });
+            $("#UpdatePR").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            //更新問卷資源表格
+            $("#NowResource").click(function () {
+                if ($("#ResourceWhich").val() != '')
+                    $.post("/Get/table",
+                        {
+                            ID: "<%=ID%>", password: "<%=password%>",
+                            DB: "data", collection: $("#ResourceWhich").val(),
+                            fillterKey: "NA", fillterValue: "NA",
+                            type: 0
+                        }, function (result) {
+                            if (result.result == 'success')
+                                makeLink($("#UpdateResource_link"), transferCSV("ResourceWhich", result.data, false), $("#ResourceWhich").val());
+                            else
+                                alert(result.result);
+                        });
+                else
+                    alert("請選擇目標表格")
+            });
+            $("#UpdateResource").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            //獲取全部問卷結果整合成的表格
+            $("#AllWhich").change(function () {
+                document.getElementById("AllMode").options[0].selected = true;
+            });
+            $("#AllMode").change(function () {
+                if (document.getElementById("AllWhich").options[0].selected == false) {
+                    $.post("/Get/table",
+                        {
+                            ID: "<%=ID%>", password: "<%=password%>",
+                            DB: "GQ_data", collection: $("#AllWhich").val() + '_' + $("#AllMode").val(),
+                            fillterKey: "NA", fillterValue: "NA",
+                            type: 0
+                        }, function (result) {
+                            //console.log(result.data);
+                            if (result.result == 'success')
+                                makeLink($("#All_link"), transferCSV($("#AllWhich").val() + '_' + $("#AllMode").val(), result.data, false), $("#AllWhich").val() + '_' + $("#AllMode").val());
+                            else
+                                alert(result.result);
+                        });
+                }
+                else
+                    alert("請選擇要哪種問卷");
+            });
+            $("#loadAllTable").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            //獲取個人問卷結果的表格
+            $("#PersonalWhich").change(function () {
+                document.getElementById("PersonalMode").options[0].selected = true;
+            });
+            $("#PersonalMode").change(function () {
+                if ($("#PersonalID").val() == '')
+                    alert("請填入目標帳號(實驗號)");
+                else {
+                    if (document.getElementById("PersonalWhich").options[0].selected == false) {
+                        if ($("#PersonalDisassemble").val() == "no") {
+                            $.post("/Get/table",
+                                {
+                                    ID: "<%=ID%>", password: "<%=password%>",
+                                    DB: "GQ_data", collection: $("#PersonalWhich").val() + '_' + $("#PersonalMode").val(),
+                                    fillterKey: "ID", fillterValue: $("#PersonalID").val(),
+                                    type: 2
+                                }, function (result) {
+                                    //console.log(result.data);
+                                    if (result.result == 'success')
+                                        makeLink($("#Personal_link"), transferCSV($("#PersonalWhich").val() + '_' + $("#PersonalMode").val(), result.data, false), $("#PersonalID").val() + '_' + $("#PersonalWhich").val() + '_' + $("#PersonalMode").val());
+                                    else
+                                        alert(result.result);
+                                });
+                        }
+                        else {
+                            $.post("/Get/table",
+                                {
+                                    ID: "<%=ID%>", password: "<%=password%>",
+                                    DB: "GQ_data", collection: $("#PersonalWhich").val() + '_' + $("#PersonalMode").val(),
+                                    fillterKey: "ID", fillterValue: $("#PersonalID").val(),
+                                    type: 2
+                                }, function (result) {
+                                    console.log(result.data);
+                                    if (result.result == 'success') {
+                                        makeLink($("#Personal_link"), transferCSV($("#PersonalWhich").val() + '_' + $("#PersonalMode").val(), result.data, true), $("#PersonalID").val() + '_' + $("#PersonalWhich").val() + '_' + $("#PersonalMode").val());
+                                    }
+                                    else
+                                        alert(result.result);
+                                });
+                        }
+                    }
+                    else
+                        alert("請選擇要哪種問卷");
+                }
+            });
+            $("#loadPersonalTable").click(function () {
+                $(this).next('div').toggle('30');
+            });
+        })
+    </script>
+</body>
+</html>

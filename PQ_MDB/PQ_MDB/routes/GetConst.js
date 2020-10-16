@@ -1,10 +1,11 @@
-﻿
-function Get(thing) {
+﻿function Get(thing) {
     switch (thing) {
         case "mongoPath":
             return 'mongodb://localhost:27017/';
-        case "QQ/EQ":
-            return 'https://leon123858.github.io/questionareSystem/UCS/confirm.html';
+        case 'ID':
+            return 'admin';
+        case 'password':
+            return '0000';
         default:
             return '';
     }
