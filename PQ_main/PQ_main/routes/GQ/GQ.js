@@ -8,4 +8,12 @@ var SQ = require('./SQ');
  ***********************/
 router.use('/SQ', SQ);
 
+/**********************
+ ./GQ/EQ
+ ***********************/
+
+router.post('/EQ', function (req, res) {
+    res.render('GQ/EQ', { ID: req.body.ID, password: req.body.password });
+});
+
 module.exports = router;

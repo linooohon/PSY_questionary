@@ -69,6 +69,9 @@
     <Content Include="views\goto.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\GQ\EQ.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\GQ\questionary\A.html">
       <SubType>Code</SubType>
     </Content>
