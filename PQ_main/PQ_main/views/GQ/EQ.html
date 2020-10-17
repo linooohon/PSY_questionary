@@ -55,7 +55,7 @@
                 <div class="modal-body">
                     <p>請點擊您想要前往哪一張問卷</p>
                     <div class="modal-btn">
-                        
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -63,35 +63,51 @@
                 </div>
             </div>
         </div>
+        <form id="form" action="" method="post" style="display:none">
+            <input name="ID" type="text" value="<%=ID%>" /><br />
+            <input name="password" type="password" value="<%=password%>" /><br />
+            <input name="goal" type="text" value="EW5" /><br />
+        </form>
     </div>
     <script>
+        //跳問卷
+        function movePage(name) {
+            $("#form").attr("action", "Questionary/" + name).submit();
+        }
         $(document).ready(function () {
             $(".btn-link").click(function () {
                 $('#modal').modal('show');
                 $(".modal-title").html($(this).text());
                 switch ($(this).attr("name")) {
                     case "stop":
-                        $(".modal-btn").html("<input type='button' value='衝動控制作業' name='A'/><br><input type='button' value='停止訊號作業' name='B'/>");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='衝動控制作業' name='A'/><br><input onclick ='movePage(this.name)'  type='button' value='停止訊號作業' name='B'/>");
                         break;
                     case "predict":
-                        $(".modal-btn").html("<input type='button' value='發球預測作業' name='L' /><br><input type='button' value='桌球比賽記錄員檢定作業' name='M' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='發球預測作業' name='L' /><br><input onclick ='movePage(this.name)'  type='button' value='桌球比賽記錄員檢定作業' name='M' />");
                         break;
                     case "emotion":
-                        $(".modal-btn").html("<input type='button' value='情緒詞觸發作業' name='K' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='情緒詞觸發作業' name='K' />");
                         break;
                     case "see":
-                        $(".modal-btn").html("<input type='button' value='點協調作業' name='C' /><br><input type='button' value='運動抑制作業' name='D' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='點協調作業' name='C' /><br><input onclick ='movePage(this.name)'  type='button' value='運動抑制作業' name='D' />");
                         break;
                     case "remember":
-                        $(".modal-btn").html("<input type='button' value='逆敘數字記憶闊度' name='I' /><br><input type='button' value='空間記憶作業' name='J' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='逆敘數字記憶闊度' name='I' /><br><input onclick ='movePage(this.name)'  type='button' value='空間記憶作業' name='J' />");
                         break;
                     case "concentration":
-                        $(".modal-btn").html("<input type='button' value='注意力網路作業' name='E' /><br><input type='button' value='眼神線索典範' name='F' /><br><input type='button' value='多物件追蹤作業' name='G' /><br><input type='button' value='反應時間作業' name='H' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='注意力網路作業' name='E' /><br><input onclick ='movePage(this.name)'  type='button' value='眼神線索典範' name='F' /><br><input onclick ='movePage(this.name)'  type='button' value='多物件追蹤作業' name='G' /><br><input onclick ='movePage(this.name)'  type='button' value='反應時間作業' name='H' />");
                         break;
                     default:
                         $(".modal-btn").html("");
                         break;
                 }
+            });
+            //跳功能頁
+            $(".btn-primary").click(function () {
+                $("#form").attr("action", "/EW/jumpBoard").submit();
+            });
+            $(".btn-success").click(function () {
+                $("#form").attr("action", "/GQ/PR").submit();
             });
         });
     </script>

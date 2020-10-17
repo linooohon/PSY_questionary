@@ -42,6 +42,9 @@
     <Content Include="routes\GQ\GQ.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="routes\GQ\PR.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\GQ\SQ.js">
       <SubType>Code</SubType>
     </Content>
@@ -70,6 +73,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\GQ\EQ.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\GQ\PR.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\GQ\questionary\A.html">
