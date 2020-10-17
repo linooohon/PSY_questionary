@@ -179,31 +179,89 @@ router.post('/saveData', function (req, res) {
 
 /**********************
  ./GQ/SQ/videoResult
- 存影片結果到M_video裡
+ 存影片結果到M_video裡(AJAX)
  ***********************/
 
 function CheckPassword(db, ID, password) {
-
+    return new Promise((resolve, reject) => {
+        var table = db.db("EW").collection("personal_information");
+        table.findOne({ ID: ID }, { projection: { _id: 0 } }, function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            if (result == null)
+                reject({ result: '不存在此帳號' });
+            else
+                if (result.password == password)
+                        resolve(1);
+                else
+                    reject({ result: "密碼錯誤" });
+        });
+    });
 }
 
-function updateVideo(db,file,operate) {
+function CheckIfHave(db,pathname) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("GQ_data").collection("M_video");
+        table.findOne({ pathname: pathname }, { projection: { _id: 0 } }, function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            if (result == null)
+                resolve(false);
+            else
+                resolve(true);//存在
+        });
+    });
+}
 
+function InsertVideo(db, pathname) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("GQ_data").collection("M_video");
+        table.insertOne({ pathname: pathname, Corr: 0, InCorr:0 }, function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            resolve(1);
+        });
+    });
+}
+
+function updateVideo(db, pathname, ans) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("GQ_data").collection("M_video");
+        var Addthing = {};
+        Addthing[ans] = 1;
+        table.updateOne({ pathname: pathname }, { $inc: Addthing } , function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            resolve({ result: 'success' });
+        });
+    });
 }
 
 router.post('/videoResult', function (req, res) {
     var ID = req.body.ID;
     var password = req.body.password;
-    var data = req.body.data;//string
-    //console.log(req.body);
-    MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-        if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
-        
-    });
+    var pathname = req.body.pathname;
+    var ans = req.body.ans;
+    if (ans == 'Corr' || ans == 'InCorr') {
+        //console.log(req.body);
+        MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+            if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
+            CheckPassword(db, ID, password)
+                .then(pkg => CheckIfHave(db, pathname)).then(pkg => {
+                if (pkg)
+                    InsertVideo(db, pathname).then(pkg => updateVideo(db, pathname, ans));
+                else
+                    updateVideo(db, pathname, ans);
+                })
+                .then(pkg => res.json(pkg))
+                .catch(error => res.json(error));
+        });
+    }
+    else {
+        res.json({ result: 'api非法' });
+    }
 });
 
 /**********************
  ./GQ/SQ/savePR
  存計算結果到GQ_personal.personal_critical_data裡
+ 調用data資料中的各4分位數 求出該使用者該項結果估計PR值存到個人資料中
  ***********************/
 
 router.post('/savePR', function (req, res) {
