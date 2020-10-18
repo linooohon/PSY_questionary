@@ -31,6 +31,9 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="public\favicon.ico" />
+    <Content Include="public\javascripts\chart.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascripts\jquery.js" />
     <Content Include="public\javascripts\verify.js" />
     <Content Include="routes\EW.js">
