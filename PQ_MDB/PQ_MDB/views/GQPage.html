@@ -109,9 +109,21 @@
             <a href="" id="Personal_link" style="display:none">Click here to download</a>
         </div>
         <br>
+        <hr style="border:5px" />
+        <input type="button" id="loadSpecialTable" class="btn btn-primary" style="font-size:200%" value="下載特殊資料" />
+        <div style="font-size:150%;display:none">
+            <br>
+            <select id="SpecialTableWhich">
+                <option value="" disabled selected hidden>請選擇你要下載哪份特殊表格</option>
+                <option value="M_video">M問卷各影片正確率</option>
+            </select>
+            <br>
+            <a href="" id="SpecialTable_link" style="display:none">Click here to download</a>
+        </div>
+        <br>
     </div>
     <script>
-        function AllOneAddTitle(data, type,num) {
+        function AllOneAddTitle(data, type, num) {
             var output = "";
             if (type == "list") {
                 output = "ID,Date,";
@@ -135,7 +147,7 @@
             }
             return output;
         }
-        function AllOneData(mode, data,moreTitle) {
+        function AllOneData(mode, data, moreTitle) {
             //console.log(data);
             var output = "";
             if (!moreTitle)
@@ -222,7 +234,7 @@
                 alert("請存入csv格式文件");
             }
         }
-        function transferCSV(mode, data,moreTitle) {
+        function transferCSV(mode, data, moreTitle) {
             //console.log(data);
             var CSVstr = "\uFEFF";
             if (mode == 'NowPR') {
@@ -257,7 +269,7 @@
                         case 'L':
                         case 'M':
                             if (data.length > 0)
-                                CSVstr += AllOneData("list", data,moreTitle);
+                                CSVstr += AllOneData("list", data, moreTitle);
                             break;
                         case 'C':
                         case 'D':
@@ -265,7 +277,7 @@
                         case 'H':
                         case 'J':
                             if (data.length > 0)
-                                CSVstr += AllOneData('json', data,moreTitle);
+                                CSVstr += AllOneData('json', data, moreTitle);
                             break;
                         default:
                             break;
@@ -401,6 +413,49 @@
             });
             $("#loadPersonalTable").click(function () {
                 $(this).next('div').toggle('30');
+            });
+            //獲取特殊表格
+            function GeneralTransfer(data) {
+                var CSVstr = "\uFEFF";
+                if (data.length > 0) {
+                    for (var i in data[0]) {
+                        CSVstr += i + ',';
+                    }
+                    CSVstr += "\r\n";
+                    for (var i in data) {
+                        for (var j in data[i]) {
+                            CSVstr += data[i][j] + ',';
+                        }
+                        CSVstr += "\r\n";
+                    }
+                }
+                return CSVstr;
+            }
+            $("#loadSpecialTable").click(function () {
+                $(this).next('div').toggle('30');
+            });
+            $("#SpecialTableWhich").change(function () {
+                if (document.getElementById("SpecialTableWhich").options[0].selected == false) {
+                    switch ($(this).val()) {
+                        case "M_video":
+                            $.post("/Get/table",
+                                {
+                                    ID: "<%=ID%>", password: "<%=password%>",
+                                    DB: "GQ_data", collection: 'M_video',
+                                    fillterKey: "NA", fillterValue: "NA",
+                                    type: 0
+                                }, function (result) {
+                                    //console.log(result.data);
+                                    if (result.result == 'success')
+                                        makeLink($("#SpecialTable_link"), GeneralTransfer(result.data), 'M_video');
+                                    else
+                                        alert(result.result);
+                                });
+                            break;
+                        default:
+                            break;
+                    }
+                }
             });
         })
     </script>

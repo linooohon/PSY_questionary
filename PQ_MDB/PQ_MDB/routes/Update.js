@@ -7,7 +7,13 @@ const core_ID = Get('ID');
 const core_password = Get('password');
 const table_license = ['Mtable', 'Ltable'];
 const criticalNumber_license = ['critical_value'];
-
+const criticalNumber = [
+    'mode',
+    'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
+    'B1', 'B2', 'B3', 'B4', 'B5',
+    'C1_1', 'C1_2', 'C2', 'C3', 'C4', 'C5_1', 'C5_2', 'C5_3', 'C6_1', 'C6_2', 'C6_3', 'C7', 'C8', 'C9', 'C10_1', 'C10_2', 'C10_3',
+    'D1_1', 'D1_2', 'D2_1', 'D2_2', 'D3_1', 'D3_2', 'D3_3', 'D4_1', 'D4_2', 'D5'
+];//43
 /**************************************
 ./Update/table
 1. 測帳密
@@ -28,7 +34,7 @@ function removeTable(db, where) {
     });
 }
 
-function CsvToJsonListTable(CsvString,where) {
+function CsvToJsonListTable(CsvString, where) {
     var jsonList = [];
     var jsons = CsvString.split('\r\n')
     for (var i in jsons) {
@@ -79,7 +85,7 @@ router.post('/table', function (req, res) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
             if (table_license.indexOf(where) > -1)
                 removeTable(db, where)
-                    .then(pkg => InsertJsonList(db, where, CsvToJsonListTable(data,where)))
+                    .then(pkg => InsertJsonList(db, where, CsvToJsonListTable(data, where)))
                     .then(pkg => res.json(pkg))
                     .catch(error => res.json(error));
             else
@@ -98,46 +104,18 @@ router.post('/table', function (req, res) {
 4. 資料處理 (csv to string)
 5  存資料
   **************************************/
-function CsvToJsonListCritialNumber(CsvString,where) {
+function CsvToJsonListCritialNumber(CsvString, where) {
     var jsonList = [];
     var jsons = CsvString.split('\r\n')
     for (var i in jsons) {
         var elements = jsons[i].split(',')
         //console.log(elements);
-        var json = {}
-        if (where == 'critical_value' && elements.length >= 31) {
-            json['mode'] = elements[0]
-            json['A1'] = elements[1]
-            json['A2'] = elements[2]
-            json['A3'] = elements[3]
-            json['A4'] = elements[4]
-            json['A5'] = elements[5]
-            json['A6'] = elements[6]
-            json['A7'] = elements[7]
-            json['A8'] = elements[8]
-            json['A9'] = elements[9]
-            json['A10'] = elements[10]
-            json['B1'] = elements[11]
-            json['B2'] = elements[12]
-            json['B3'] = elements[13]
-            json['B4'] = elements[14]
-            json['B5'] = elements[15]
-            json['C1'] = elements[16]
-            json['C2'] = elements[17]
-            json['C3'] = elements[18]
-            json['C4'] = elements[19]
-            json['C5'] = elements[20]
-            json['C6'] = elements[21]
-            json['C7'] = elements[22]
-            json['C8'] = elements[23]
-            json['C9'] = elements[24]
-            json['C10'] = elements[25]
-            json['D1'] = elements[26]
-            json['D2'] = elements[27]
-            json['D3'] = elements[28]
-            json['D4'] = elements[29]
-            json['D5'] = elements[30]
-            jsonList.push(json)
+        if (where == 'critical_value' && elements.length >= criticalNumber.length) {
+            var json = {};
+            for (var j in criticalNumber) {
+                json[criticalNumber[j]] = elements[j];
+            }
+            jsonList.push(json);
         }
     }
     //console.log(jsonList);
