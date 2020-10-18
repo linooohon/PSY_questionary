@@ -258,21 +258,6 @@ router.post('/videoResult', function (req, res) {
     }
 });
 
-/**********************
- ./GQ/SQ/savePR
- 存計算結果到GQ_personal.personal_critical_data裡
- 調用data資料中的各4分位數 求出該使用者該項結果估計PR值存到個人資料中
- ***********************/
 
-router.post('/savePR', function (req, res) {
-    var ID = req.body.ID;
-    var password = req.body.password;
-    var data = req.body.data;//string
-    //console.log(req.body);
-    MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
-        if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
-
-    });
-});
 
 module.exports = router;

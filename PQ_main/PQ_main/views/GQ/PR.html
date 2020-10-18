@@ -3,9 +3,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>PR</title>
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫<small>個人報告</small></h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <div>
+            <table style="text-align:center" align="center">
+                <tbody class="table table-bordered">
+                    <tr>
+                        <td bgcolor="yellow">姓名</td>
+                        <td><%=name%></td>
+                        <td bgcolor="yellow">性別</td>
+                        <td id="gender"><%=gender%></td>
+                        <td bgcolor="yellow">年齡</td>
+                        <td><%=age%></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="yellow">球齡</td>
+                        <td><%=year%></td>
+                        <td bgcolor="yellow">慣用手</td>
+                        <td id="Ghand"><%=Ghand%></td>
+                        <td bgcolor="yellow">打球慣用手</td>
+                        <td id="Phand"><%=Phand%></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="yellow">最佳成績</td>
+                        <td colspan="5"><%=nice%></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        var PersonalData;
+        var CriticalData;
+        function outputResult(mydata,PRvalue) {
 
+        }
+        function init() {
+            //數字轉中文
+            $("#Ghand").text() == 0 ? $("#Ghand").text("左手") : $("#Ghand").text("右手");
+            $("#Phand").text() == 0 ? $("#Phand").text("左手") : $("#Phand").text("右手");
+            $("#gender").text() == 0 ? $("#gender").text("男性") : $("#gender").text("女性");
+            //呼叫資料
+            $.post("/GQ/PR/GetPersonalData", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                if (result.result == "success") {
+                    PersonalData = result;
+                    console.log(PersonalData);
+                    $.post("/GQ/PR/GetCriticalData", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                        if (result.result == "success") {
+                            CriticalData = result;
+                            console.log(CriticalData);
+                            outputResult(PersonalData, CriticalData);
+                        }
+                        else
+                            alert(result.result + ",請重新整理後再試");
+                    });
+                }
+                else
+                    alert(result.result + ",請重新整理後再試");
+            });
+        }
+        $(document).ready(function () {
+            init();
+        });
+    </script>
 </body>
 </html>
