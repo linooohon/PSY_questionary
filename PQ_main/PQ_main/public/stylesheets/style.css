@@ -1,0 +1,66 @@
+html {
+    width: 1024px;
+    height: 768px;
+    background-color: rgb(117, 117, 117);
+}
+/* ten style*/
+
+.cross-28 {
+    background: rgb(0, 0, 0);
+    height: 28px;
+    position: relative;
+    width: 8px;
+}
+
+    .cross-28:after {
+        background: rgb(0, 0, 0);
+        content: "";
+        height: 8px;
+        left: -9.7px;
+        position: absolute;
+        top: 10px;
+        width: 28px;
+    }
+
+.cross-big {
+    background: rgb(0, 0, 0);
+    height: 45px;
+    position: relative;
+    width: 10px;
+}
+
+    .cross-big:after {
+        background: rgb(0, 0, 0);
+        content: "";
+        height: 10px;
+        left: -18px;
+        position: absolute;
+        top: 18px;
+        width: 45px;
+    }
+
+
+.center-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/*ball */
+.ball-me {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.ball-sm {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: aliceblue;
+}
