@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>I:逆敘數字記憶廣度作業</title>
+</head>
+
+<body>
+    <!-- main modal -->
+    <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
+                </div>
+                <div class="modal-body m-2" style="background-color: rgb(255, 217, 217);height: 15em;">
+                    測試資料介紹
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
+                </div>
+                <div class="d-flex m-2">
+                    <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="input-div" class=" center-screen">
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+        <label style="font-size: 45px; padding: 0px 10px;display: none;">_</label>
+    </div>
+
+    <!-- cross -->
+    <ten id="cross" class="center-screen cross-28" style="font-size: 45px;color: black;"></ten>
+    <!-- finish btn for game -->
+    <button id="finish_btn" style="display: none;"></button>
+    <!-- post form -->
+    <form method="POST" action="/GQ/EQ" style="display: none;">
+        <input name="ID">
+        <input name="password">
+    </form>
+
+
+    <!--script-->
+    <script type="text/javascript" src="/javascripts/Class_inform.js"></script>
+    <script type="text/javascript">
+        var game_get = null;
+        var game;
+        $(window).on('load', function () {
+            $('#main-model').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            if (localStorage.getItem("one") != null) {
+                $.post("/GQ/SQ/saveData", {
+                    ID: "ID",
+                    password: "password",
+                    one: localStorage.getItem("one"),
+                    group: localStorage.getItem("group"),
+                    type: 'I',
+                },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            localStorage.clear();
+                        }
+                    },
+                    "json"
+                );
+            }
+        });
+
+        //create the process
+        $('#start').on('click', function () {
+            if (game_get == "practice") {
+                game = new I([3, [4]]);
+                game.process();
+                $('#main-model').modal('hide');
+            } else if (game_get == "reality") {
+                game = new I([3, [5, 6, 7, 8, 9]]);
+                game.process();
+                $('#main-model').modal('hide');
+            }
+        });
+
+        $('.btn-group').on('click', '.btn', function () {
+            game_get = $(this).val();
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+
+        $('#finish_btn').on('click', function () {
+            console.log(game.one);
+            console.log(game.group);
+            if (game_get == "reality") {
+                $('form').children('input[name="one"]').val(game.one);
+                $('form').children('input[name="group"]').val(game.group);
+                localStorage.setItem("one", game.one);
+                localStorage.setItem("group", game.group);
+                // console.log(game.one);
+                // console.log(game.group);
+                $.post("/GQ/SQ/saveData", {
+                    ID: "ID",
+                    password: "password",
+                    one: game.one,
+                    group: game.group,
+                    type: 'I',
+                },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            localStorage.clear();
+                            $('form').submit();
+                        }
+                    },
+                    "json"
+                );
+            } else {
+                //   location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

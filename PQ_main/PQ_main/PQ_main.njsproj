@@ -31,6 +31,7 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="public\favicon.ico" />
+    <Content Include="public\javascripts\Class_inform.js" />
     <Content Include="public\javascripts\chart.js">
       <SubType>Code</SubType>
     </Content>
@@ -84,6 +85,12 @@
     <Content Include="views\GQ\questionary\A.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\GQ\questionary\B.html" />
+    <Content Include="public\voice\bee.mp3" />
+    <Content Include="views\GQ\questionary\H.html" />
+    <Content Include="views\GQ\questionary\I.html" />
+    <Content Include="views\GQ\questionary\K.html" />
+    <Content Include="public\stylesheets\style.css" />
     <Content Include="views\testBW.html">
       <SubType>Code</SubType>
     </Content>
@@ -95,6 +102,7 @@
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
+    <Folder Include="public\voice\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="routes\GQ\" />
