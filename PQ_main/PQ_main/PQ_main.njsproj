@@ -32,6 +32,9 @@
     <Content Include="app.js" />
     <Content Include="public\favicon.ico" />
     <Content Include="public\javascripts\Class_inform.js" />
+    <Content Include="public\javascripts\chart.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascripts\jquery.js" />
     <Content Include="public\javascripts\verify.js" />
     <Content Include="routes\EW.js">
@@ -41,6 +44,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\GQ\GQ.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\GQ\PR.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\GQ\SQ.js">
@@ -68,6 +74,12 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\goto.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\GQ\EQ.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\GQ\PR.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\GQ\questionary\A.html">

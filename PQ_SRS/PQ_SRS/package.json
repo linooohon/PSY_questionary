@@ -1,0 +1,12 @@
+{
+  "name": "pq_srs",
+  "version": "0.0.0",
+  "description": "PQ_SRS",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "url": "^0.11.0"
+  }
+}
