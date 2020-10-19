@@ -1,9 +1,11 @@
 var http = require('http'),
     fs = require('fs'),
     url = require('url');
-const local_path = "127.0.0.1";
-const local_port = 1337;
-const local_uri = 'http://127.0.0.1:1337/';
+//const local_path = "127.0.0.1";
+//const local_port = 1337; 
+//const local_uri = 'http://127.0.0.1:1337/';
+const local_port = 1340; 
+const local_uri = 'http://140.116.183.54:1340/';
 
 http.createServer(function (req, res) {
     var parseObj = url.parse(req.url, true);
@@ -38,5 +40,5 @@ http.createServer(function (req, res) {
     catch (err) {
         res.end(err.message);
     }
-}).listen(local_port, local_path);
+}).listen(local_port);
 console.log('Server running at ' + local_uri);
