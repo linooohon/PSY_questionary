@@ -55,6 +55,15 @@
     <Content Include="routes\index.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="routes\QQ\PR.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\QQ\QQ.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\QQ\SQ.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\error.html">
       <SubType>Code</SubType>
     </Content>
@@ -91,6 +100,24 @@
     <Content Include="views\GQ\questionary\I.html" />
     <Content Include="views\GQ\questionary\K.html" />
     <Content Include="public\stylesheets\style.css" />
+    <Content Include="views\QQ\EQ.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\PR.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q1.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q2.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q3.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q4.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\testBW.html">
       <SubType>Code</SubType>
     </Content>
@@ -106,10 +133,13 @@
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="routes\GQ\" />
+    <Folder Include="routes\QQ\" />
     <Folder Include="views\" />
     <Folder Include="views\EW\" />
     <Folder Include="views\GQ\" />
     <Folder Include="views\GQ\questionary\" />
+    <Folder Include="views\QQ\" />
+    <Folder Include="views\QQ\questionary\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

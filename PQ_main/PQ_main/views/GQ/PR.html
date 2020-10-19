@@ -397,11 +397,11 @@
                     datasets: [
                         {
                             label: '你的認知屬性分數',
-                            data: [(getPR("D1_1", true) + getPR("D1_2", true)) / 2,
-                            (getPR("D2_1", true) + getPR("D2_2", true)) / 2,
-                            (getPR("D3_1", true) + getPR("D3_2", true) + getPR("D3_3", true)) / 3,
-                            (getPR("D4_1", true) + getPR("D4_2", true)) / 2,
-                            getPR("D5", true)],
+                            data: [(myChart3.data.datasets[0].data[0] + myChart3.data.datasets[0].data[1]) / 2,
+                            (myChart3.data.datasets[0].data[2] + myChart3.data.datasets[0].data[3]) / 2,
+                            (myChart3.data.datasets[0].data[4] + myChart3.data.datasets[0].data[5] + myChart3.data.datasets[0].data[6]) / 3,
+                            (myChart3.data.datasets[0].data[7] + myChart3.data.datasets[0].data[8]) / 2,
+                            myChart3.data.datasets[0].data[9]],
                             backgroundColor: [
                                 clr1, clr1, clr1, clr1, clr1
                             ],
