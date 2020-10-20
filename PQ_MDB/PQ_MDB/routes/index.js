@@ -49,4 +49,16 @@ router.post('/GQ', function (req, res) {
         res.render('warming', { message: "帳號或密碼錯誤" });
 });
 
+/**************************************
+ ./QQ
+  **************************************/
+router.post('/QQ', function (req, res) {
+    var ID = req.body.ID;
+    var password = req.body.password
+    if (core_ID == ID && core_password == password)
+        res.render('QQPage', { ID: ID, password: password })
+    else
+        res.render('warming', { message: "帳號或密碼錯誤" });
+});
+
 module.exports = router;
