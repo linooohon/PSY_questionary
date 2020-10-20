@@ -118,6 +118,18 @@
     <Content Include="views\QQ\questionary\Q4.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\QQ\questionary\Q5.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q6.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q7.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\QQ\questionary\Q8.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\testBW.html">
       <SubType>Code</SubType>
     </Content>
