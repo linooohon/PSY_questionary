@@ -3,9 +3,490 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>桌球運動員精準計畫</title>
+    <script src="../javascripts/chart.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫<small>個人報告</small></h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:100%">
+        <h1 style="text-align:center">桌球選手心智評估結果報告</h1>
+        <p style="text-align:center">
+            各項作業以五等評比表示，順序是★★、★、●、▼、▼▼，其中★★表示選手表現非常
+            好，●表示與一般人表現無差異，▼▼表示該作業需再加強。
+        </p>
+        <br>
+        <div>
+            <table style="text-align:center" align="center">
+                <tbody class="table table-bordered">
+                    <tr>
+                        <td bgcolor="yellow">姓名</td>
+                        <td><%=name%></td>
+                        <td bgcolor="yellow">性別</td>
+                        <td id="gender"><%=gender%></td>
+                        <td bgcolor="yellow">年齡</td>
+                        <td><%=age%></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="yellow">球齡</td>
+                        <td><%=year%></td>
+                        <td bgcolor="yellow">慣用手</td>
+                        <td id="Ghand"><%=Ghand%></td>
+                        <td bgcolor="yellow">打球慣用手</td>
+                        <td id="Phand"><%=Phand%></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="yellow">最佳成績</td>
+                        <td colspan="5"><%=nice%></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="Chart1"></canvas>
+                </div>
+                <table style="text-align:center" class="col-md-6">
+                    <tbody class="table table-bordered">
+                        <tr>
+                            <td colspan="6">運動意象能力</td>
+                        </tr>
+                        <tr>
+                            <td>項目</td>
+                            <td>技巧意象</td>
+                            <td>策略意象</td>
+                            <td>目標意象</td>
+                            <td>情緒意象</td>
+                            <td>精熟意象</td>
+                        </tr>
+                        <tr>
+                            <td>等級</td>
+                            <td id="A_1"></td>
+                            <td id="A_2"></td>
+                            <td id="A_3"></td>
+                            <td id="A_4"></td>
+                            <td id="A_5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="Chart2"></canvas>
+                </div>
+                <table style="text-align:center" class="col-md-6">
+                    <tbody class="table table-bordered">
+                        <tr>
+                            <td colspan="6">流暢體驗能力</td>
+                        </tr>
+                        <tr>
+                            <td>項目</td>
+                            <td>清楚回饋</td>
+                            <td>勝任感</td>
+                            <td>控制自如</td>
+                            <td>專注力</td>
+                            <td>自成性</td>
+                        </tr>
+                        <tr>
+                            <td>等級</td>
+                            <td id="B_1"></td>
+                            <td id="B_2"></td>
+                            <td id="B_3"></td>
+                            <td id="B_4"></td>
+                            <td id="B_5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="Chart3"></canvas>
+                </div>
+                <table style="text-align:center" class="col-md-6">
+                    <tbody class="table table-bordered">
+                        <tr>
+                            <td colspan="5">情緒智力</td>
+                        </tr>
+                        <tr>
+                            <td>項目</td>
+                            <td>自我情緒評估</td>
+                            <td>識別他人情緒</td>
+                            <td>情緒管理</td>
+                            <td>情緒運用</td>
+                        </tr>
+                        <tr>
+                            <td>等級</td>
+                            <td id="C_1"></td>
+                            <td id="C_2"></td>
+                            <td id="C_3"></td>
+                            <td id="C_4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="Chart4"></canvas>
+                </div>
+                <table style="text-align:center" class="col-md-6">
+                    <tbody class="table table-bordered">
+                        <tr>
+                            <td colspan="8">運動因應技能</td>
+                        </tr>
+                        <tr>
+                            <td>項目</td>
+                            <td>因應困境</td>
+                            <td>適應壓力</td>
+                            <td>目標設定</td>
+                            <td>專注</td>
+                            <td>免於擔憂</td>
+                            <td>成就動機</td>
+                            <td>適應教練</td>
+                        </tr>
+                        <tr>
+                            <td>等級</td>
+                            <td id="D_1"></td>
+                            <td id="D_2"></td>
+                            <td id="D_3"></td>
+                            <td id="D_4"></td>
+                            <td id="D_5"></td>
+                            <td id="D_6"></td>
+                            <td id="D_7"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="Chart5"></canvas>
+                </div>
+                <table style="text-align:center" class="col-md-6">
+                    <tbody class="table table-bordered">
+                        <tr>
+                            <td colspan="4">競賽狀態焦慮</td>
+                        </tr>
+                        <tr>
+                            <td>項目</td>
+                            <td>自信心</td>
+                            <td>身體焦慮</td>
+                            <td>認知焦慮</td>
+                        </tr>
+                        <tr>
+                            <td>等級</td>
+                            <td id="E_1"></td>
+                            <td id="E_2"></td>
+                            <td id="E_3"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+    </div>
+    <script>
+        var mydata;
+        var clr1 = "rgba(255, 159, 255, 0.6)";
+        var clr2 = "rgba(255, 159, 64, 0.6)";
 
+        function exchange(num, list) {
+            if (num > list[0])
+                return 5;
+            else if (num > list[1])
+                return 4;
+            else if (num > list[2])
+                return 3;
+            else if (num > list[3])
+                return 2;
+            else
+                return 1;
+        }
+        function toLevel(num, type) {
+            //console.log(num)
+            //console.log(type)
+            switch (type) {
+                case 0:
+                    return exchange(num, [4.2, 3.4, 2.6, 1.8]);
+                case 1:
+                    return exchange(num, [4.2, 3.4, 2.6, 1.8]);
+                case 2:
+                    return exchange(num, [5.8, 4.6, 3.4, 2.2]);
+                case 3:
+                    return exchange(num, [3.4, 2.8, 2.2, 1.6]);
+                case 4:
+                    return exchange(num, [3.4, 2.8, 2.2, 1.6]);
+                default:
+                    return 0;
+            }
+        }
+        function toIcon(num) {
+            //console.log(num);
+            switch (num) {
+                case 1:
+                    return "▼▼";
+                case 2:
+                    return "▼";
+                case 3:
+                    return "●";
+                case 4:
+                    return "★";
+                case 5:
+                    return "★★";
+                default:
+                    return "NA";
+            }
+        }
+        function average(which, list, inverse, m) {
+            var sum = 0.0;
+            for (var i = 0; i < list.length; i++)
+                sum += parseFloat(mydata["Q" + which + "_" + list[i]]);
+            if (inverse)
+                return 5 - (sum / list.length) * m;
+            else
+                return (sum / list.length) * m;
+        }
+
+        function outputResult() {
+            var Chart1 = document.getElementById('Chart1').getContext('2d');
+            var myChart1 = new Chart(Chart1, {
+                type: 'radar',
+                data: {
+                    labels: ['技巧意象', '策略意象', '目標意象', '情緒意象', '精熟意象'],
+                    datasets: [
+                        {
+                            label: '你的運動意象能力',
+                            data: [average(4, [1, 2, 3], false, 1), average(4, [4, 5, 6, 7], false, 1), average(4, [8, 9, 10, 11], false, 1), average(4, [12, 13, 14], false, 1), average(4, [15, 16, 17, 18], false, 1),],
+                            backgroundColor: [
+                                clr1, clr1, clr1, clr1, clr1
+                            ],
+                            borderColor: [
+                                clr1, clr1, clr1, clr1, clr1
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: '中等運動意象能力',
+                            data: [3, 3, 3, 3, 3],
+                            backgroundColor: [
+                                clr2, clr2, clr2, clr2, clr2
+                            ],
+                            borderColor: [
+                                clr2, clr2, clr2, clr2, clr2
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    //tooltips: { enabled: false }
+                }
+            });
+            var Chart2 = document.getElementById('Chart2').getContext('2d');
+            var myChart2 = new Chart(Chart2, {
+                type: 'radar',
+                data: {
+                    labels: ['清楚回饋', '勝任感', '控制自如', '專注力', '自成性'],
+                    datasets: [
+                        {
+                            label: '你的流暢體驗能力',
+                            data: [average(5, [5, 7, 9, 10, 15], false, 1), average(5, [1, 2, 3], false, 1), average(5, [4, 6, 11, 12, 13, 16], false, 1), average(5, [8, 18, 19, 21, 22], false, 1), average(5, [14, 17, 20, 23, 24, 25], false, 1),],
+                            backgroundColor: [
+                                clr1, clr1, clr1, clr1, clr1
+                            ],
+                            borderColor: [
+                                clr1, clr1, clr1, clr1, clr1
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: '中等流暢體驗能力',
+                            data: [3, 3, 3, 3, 3],
+                            backgroundColor: [
+                                clr2, clr2, clr2, clr2, clr2
+                            ],
+                            borderColor: [
+                                clr2, clr2, clr2, clr2, clr2
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    //tooltips: { enabled: false }
+                }
+            });
+            var Chart3 = document.getElementById('Chart3').getContext('2d');
+            var myChart3 = new Chart(Chart3, {
+                type: 'radar',
+                data: {
+                    labels: ['自我情緒評估', '識別他人情緒', '情緒管理', '情緒運用'],
+                    datasets: [
+                        {
+                            label: '你的情緒智力',
+                            data: [average(7, [1, 2, 3, 4], false, 1), average(7, [5, 6, 7, 8], false, 1), average(7, [9, 10, 11, 12], false, 1), average(7, [13, 14, 15, 16], false, 1)],
+                            backgroundColor: [
+                                clr1, clr1, clr1, clr1
+                            ],
+                            borderColor: [
+                                clr1, clr1, clr1, clr1
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: '中等情緒智力',
+                            data: [3.5, 3.5, 3.5, 3.5],
+                            backgroundColor: [
+                                clr2, clr2, clr2, clr2
+                            ],
+                            borderColor: [
+                                clr2, clr2, clr2, clr2
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    //tooltips: { enabled: false }
+                }
+            });
+            var Chart4 = document.getElementById('Chart4').getContext('2d');
+            var myChart4 = new Chart(Chart4, {
+                type: 'radar',
+                data: {
+                    labels: ['因應困境', '適應壓力', '目標設定', '專注', '免於擔憂', '成就動機', '適應教練'],
+                    datasets: [
+                        {
+                            label: '你的運動因應技能',
+                            data: [average(1, [5, 17, 21, 24], false, 1), average(1, [6, 18, 22, 28], false, 1), average(1, [1, 8, 13, 20], false, 1), average(1, [4, 11, 16, 25], false, 1), average(1, [3, 7, 12, 19, 23], true, 1), average(1, [2, 9, 14, 26], false, 1), average(1, [10, 15, 27], false, 1)],
+                            backgroundColor: [
+                                clr1, clr1, clr1, clr1, clr1, clr1, clr1
+                            ],
+                            borderColor: [
+                                clr1, clr1, clr1, clr1, clr1, clr1, clr1
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: '中等運動因應技能',
+                            data: [2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5],
+                            backgroundColor: [
+                                clr2, clr2, clr2, clr2, clr2, clr2, clr2
+                            ],
+                            borderColor: [
+                                clr2, clr2, clr2, clr2, clr2, clr2, clr2
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    //tooltips: { enabled: false }
+                }
+            });
+            var Chart5 = document.getElementById('Chart5').getContext('2d');
+            var myChart5 = new Chart(Chart5, {
+                type: 'radar',
+                data: {
+                    labels: ['自信心', '身體焦慮', '認知焦慮'],
+                    datasets: [
+                        {
+                            label: '你的競賽狀態焦慮',
+                            data: [average(1, [1, 3, 5, 8, 9, 12, 15, 18, 21], false, 1), average(1, [2, 7, 11, 14, 17, 20], true, 1), average(1, [4, 6, 10, 13, 16, 19], true, 1)],
+                            backgroundColor: [
+                                clr1, clr1, clr1
+                            ],
+                            borderColor: [
+                                clr1, clr1, clr1
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: '中等競賽狀態焦慮',
+                            data: [2.5, 2.5, 2.5],
+                            backgroundColor: [
+                                clr2, clr2, clr2
+                            ],
+                            borderColor: [
+                                clr2, clr2, clr2
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    //tooltips: { enabled: false }
+                }
+            });
+            var ChartList = [];
+            ChartList.push(myChart1);
+            ChartList.push(myChart2);
+            ChartList.push(myChart3);
+            ChartList.push(myChart4);
+            ChartList.push(myChart5);
+            var list = [];
+            for (var i in ChartList) {
+                var in_list = [];
+                for (var j in ChartList[i].data.datasets[0].data) {
+                    in_list.push(toLevel(ChartList[i].data.datasets[0].data[j], parseInt(i)));
+                }
+                list.push(in_list);
+            }
+            for (var i in list[0]) {
+                $("#A_" + (1 + parseInt(i)).toString()).text(toIcon(list[0][i]));
+            }
+            for (var i in list[1]) {
+                $("#B_" + (1 + parseInt(i)).toString()).text(toIcon(list[1][i]));
+            }
+            for (var i in list[2]) {
+                $("#C_" + (1 + parseInt(i)).toString()).text(toIcon(list[2][i]));
+            }
+            for (var i in list[3]) {
+                $("#D_" + (1 + parseInt(i)).toString()).text(toIcon(list[3][i]));
+            }
+            for (var i in list[4]) {
+                $("#E_" + (1 + parseInt(i)).toString()).text(toIcon(list[4][i]));
+            }
+        }
+        function init() {
+            //數字轉中文
+            $("#Ghand").text() == 0 ? $("#Ghand").text("左手") : $("#Ghand").text("右手");
+            $("#Phand").text() == 0 ? $("#Phand").text("左手") : $("#Phand").text("右手");
+            $("#gender").text() == 0 ? $("#gender").text("男性") : $("#gender").text("女性");
+            //呼叫資料
+            $.post("/QQ/PR/getData", { ID: '<%=ID%>', password: "<%=password%>" }, function (result) {
+                if (result.result == "success") {
+                    //console.log(result.data);
+                    mydata = result.data;
+                    outputResult();
+                }
+                else
+                    alert(result.result + "請稍後再試");
+            })
+        }
+        $(document).ready(function () {
+            init();
+        });
+    </script>
 </body>
 </html>
