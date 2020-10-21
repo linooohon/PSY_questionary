@@ -383,6 +383,9 @@ class I {
             document.addEventListener('keydown', key_handler);
             function stopRun() {
                 let end = Date.now();
+                for (let i = 0; i < length - typenum; ++i) {
+                    quetion_Result += "X";
+                }
                 quetion_Result += "_";
                 document.removeEventListener('keydown', key_handler);
                 for (let i = 0; i < length; ++i) {         // hide object
