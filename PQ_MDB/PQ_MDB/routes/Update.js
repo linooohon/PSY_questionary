@@ -11,9 +11,8 @@ const criticalNumber = [
     'mode',
     'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
     'B1', 'B2', 'B3', 'B4', 'B5',
-    'C1_1', 'C1_2', 'C2', 'C3', 'C4', 'C5_1', 'C5_2', 'C5_3', 'C6_1', 'C6_2', 'C6_3', 'C7', 'C8', 'C9', 'C10_1', 'C10_2', 'C10_3',
-    'D1_1', 'D1_2', 'D2_1', 'D2_2', 'D3_1', 'D3_2', 'D3_3', 'D4_1', 'D4_2', 'D5'
-];//43
+    'C1_1', 'C1_2', 'C2', 'C3', 'C4', 'C5_1', 'C5_2', 'C5_3', 'C6_1', 'C6_2', 'C6_3', 'C7', 'C8', 'C9', 'C10_1', 'C10_2', 'C10_3'
+];//33
 /**************************************
 ./Update/table
 1. 測帳密
@@ -40,11 +39,13 @@ function CsvToJsonListTable(CsvString, where) {
     for (var i in jsons) {
         var elements = jsons[i].split(',')
         var json = {}
-        if (where == 'Mtable' && elements.length >= 4) {
-            json['filepath'] = elements[0]
-            json['X'] = elements[1]
-            json['Y'] = elements[2]
-            json['ans'] = elements[3]
+        if (where == 'Ltable' && elements.length >= 6) {
+            json['No'] = elements[0]
+            json['filepath'] = elements[1]
+            json['ans'] = elements[2]
+            json['X'] = elements[3]
+            json['Y'] = elements[4]
+            json['Difficulty'] = elements[5]
             jsonList.push(json)
         }
         else if (elements.length >= 3) {
