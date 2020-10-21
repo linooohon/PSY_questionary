@@ -167,11 +167,12 @@ router.post('/saveData', function (req, res) {
     //console.log(req.body);
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
-        var PromiseList = [];
-        PromiseList.push(insertData(db, ID, type, date, "one",one));
-        PromiseList.push(insertData(db, ID, type, date, "group", group));
+        //var PromiseList = [];
+        //PromiseList.push(insertData(db, ID, type, date, "one",one));
+        //PromiseList.push(insertData(db, ID, type, date, "group", group));
         CheckPasswordAndLicence(db, ID, password, type)
-            .then(pkg => Promise.all(PromiseList))
+            .then(pkg => insertData(db, ID, type, date, "one", one))
+            .then(pkg => insertData(db, ID, type, date, "group", group))
             .then(pkg => res.json({result:"success"}))
             .catch(error => res.json(error));
     });

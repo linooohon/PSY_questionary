@@ -70,11 +70,12 @@ router.post('/saveData', function (req, res) {
     if (Questionary_licence.indexOf(collection) > -1) {
         MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
-            var promisrList = [];
-            promisrList.push(updateAlldate(db, ID, collection, data));
-            promisrList.push(insertOnedate(db, ID, collection, data));
+            //var promisrList = [];
+            //promisrList.push(updateAlldate(db, ID, collection, data));
+            //promisrList.push(insertOnedate(db, ID, collection, data));
             CheckPassword(db, ID, password)
-                .then(pkg => Promise.all(promisrList))
+                .then(pkg => updateAlldate(db, ID, collection, data))
+                .then(pkg => insertOnedate(db, ID, collection, data))
                 .then(pkg => res.json({ result: "success" }))
                 .catch(error => res.json(error));
         });
