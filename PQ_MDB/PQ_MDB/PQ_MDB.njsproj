@@ -54,6 +54,9 @@
     <Content Include="views\GQPage.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\QQPage.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\signPage.html">
       <SubType>Code</SubType>
     </Content>
