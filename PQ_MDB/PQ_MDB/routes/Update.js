@@ -39,13 +39,14 @@ function CsvToJsonListTable(CsvString, where) {
     for (var i in jsons) {
         var elements = jsons[i].split(',')
         var json = {}
-        if (where == 'Ltable' && elements.length >= 6) {
+        if (where == 'Ltable' && elements.length >= 7) {
             json['No'] = elements[0]
             json['filepath'] = elements[1]
             json['ans'] = elements[2]
             json['X'] = elements[3]
             json['Y'] = elements[4]
             json['Difficulty'] = elements[5]
+            json['human'] = elements[6]
             jsonList.push(json)
         }
         else if (elements.length >= 3) {

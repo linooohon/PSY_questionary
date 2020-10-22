@@ -35,8 +35,17 @@
     <Content Include="public\javascripts\chart.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\javascripts\GQ_L.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascripts\jquery.js" />
     <Content Include="public\javascripts\verify.js" />
+    <Content Include="public\javascripts\video.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\video-js.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\EW.js">
       <SubType>Code</SubType>
     </Content>
