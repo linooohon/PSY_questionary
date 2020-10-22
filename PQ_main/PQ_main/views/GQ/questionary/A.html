@@ -93,13 +93,13 @@
   });
 
   $('#finish_btn').on('click', function () {
+    console.log(game.one);
+       console.log(game.group);
     if (game_get == "reality") {
       $('form').children('input[name="one"]').val(game.one);
       $('form').children('input[name="group"]').val(game.group);
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
-       console.log(game.one);
-       console.log(game.group);
       $.post("/GQ/SQ/saveData", {
           ID: "ID",
           password: "password",
