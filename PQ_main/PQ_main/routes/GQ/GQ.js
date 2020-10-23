@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var SQ = require('./SQ');
 var PR = require('./PR');
+var video = require('./video');
 const Questionary_licence = ['A', 'B', 'C', 'D', "E", "F", "G", "H", "I", "J", "K", "L", "M"];
 
 
@@ -11,6 +12,7 @@ use sub route
  ***********************/
 router.use('/SQ', SQ);
 router.use('/PR', PR);
+router.use('/video', video);
 
 /**********************
  ./GQ/EQ

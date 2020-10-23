@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/GQ_L.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/video-js.css" />
+    <script type="text/javascript" src="/javascripts/video.js"></script>
+    <title>L:桌球發球預測作業</title>
+</head>
+
+<body>
+    <!-- main modal -->
+    <div class="modal fade" id="main-model" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">說明</h4>
+                </div>
+                <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
+                    <p>歡迎參加本作業。</p><p>
+
+                        螢幕中，會出現一段桌球選手發球影片，請觀看完影片，直接在球桌圖片上點出
+                    </p><p>
+
+                        過網後落點。並判斷球的旋轉。
+                    </p>
+                    <strong>模式可以選擇要多位還是一位發球選手, 數字表示難度, 越大越難</strong>
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-success" value="one">單一選手發球模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="all">混合選手發球模式</button>
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-danger" value="1">1</button>
+                    <button type="button" class="  btn w-100  btn-outline-danger " value="2">2</button>
+                    <button type="button" class=" btn w-100  btn-outline-danger" value="3">3</button>
+                    <button type="button" class="  btn w-100  btn-outline-danger " value="4">4</button>
+                    <button type="button" class=" btn w-100  btn-outline-danger" value="5">5</button>
+                    <button type="button" class="  btn w-100  btn-outline-danger " value="6">6</button>
+                    <button type="button" class=" btn w-100  btn-outline-danger" value="7">7</button>
+                    <button type="button" class="  btn w-100  btn-outline-danger " value="8">8</button>
+                    <button type="button" class="  btn w-100  btn-outline-danger " value="9">9</button>
+                    <button type="button" class="  btn w-100  btn-outline-danger " value="10">10</button>
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-secondary" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-secondary " value="reality">實際測驗</button>
+                </div>
+                <div class="d-flex m-2">
+                    <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="TestPlace">
+        <div class="row" style="display:none">
+            <label class="col-md-3"></label>
+            <video style="text-align:center" id="MyVideo" class="video-js vjs-big-play-centered col-md-6"></video>
+            <label class="col-md-3"></label>
+        </div>
+        <h1 id="warning" style="text-align:center"></h1>
+        <div style="text-align:center">
+            <img src="../../image/net.png" alt="" id="net" style="display:none;width:325px;height:50px" /><br>
+            <img src="../../image/table.png" alt="" id="table" style="display:none;width:304px;height:274px;z-index:1" />
+            <canvas id="Canvas" width="304" height="274" style="border:1px solid #000;display:none">
+                如果你看到這行字,表示你的瀏覽器不支援HTML5
+            </canvas>
+        </div>
+        <div style="text-align:center;font-size:200%">
+            <select id="Select" style="display:none">
+                <option value="1">上旋</option>
+                <option value="2">下旋</option>
+                <option value="3">不轉</option>
+                <option value="4">右旋側上旋</option>
+                <option value="5">右旋側下旋</option>
+                <option value="6">左旋側上旋</option>
+                <option value="7">左旋側下旋</option>
+            </select>
+            <input id="confirm" type="button" value="confirm" style="display:none" />
+        </div>
+    </div>
+    <!-- post form -->
+    <form method="POST" action="/GQ/EQ" style="display: none;">
+        <input name="ID" value="<%=ID%>">
+        <input name="password" value="<%=password%>">
+    </form>
+    <script>
+        var mode;
+        var Difficulty;
+        var situation;
+        $(document).ready(function () {
+            //選擇模式與難度
+            $('#main-model').modal('show');
+            $(".btn-outline-danger").click(function () {
+                $(".btn-danger").removeClass("btn-danger").addClass('btn-outline-danger');
+                $(this).removeClass("btn-outline-danger").addClass("btn-danger");
+                Difficulty = $(this).val();
+            });
+            $(".btn-outline-success").click(function () {
+                $(".btn-success").removeClass("btn-success").addClass('btn-outline-success');
+                $(this).removeClass("btn-outline-success").addClass("btn-success");
+                mode = $(this).val();
+            });
+            $(".btn-outline-secondary").click(function () {
+                $(".btn-secondary").removeClass("btn-secondary").addClass('btn-outline-secondary');
+                $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
+                situation = $(this).val();
+            });
+            //上傳未上傳資料
+            if (localStorage.getItem("one") != null) {
+                $.post("/GQ/SQ/saveData", {
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: localStorage.getItem("one"),
+                    group: "NA",
+                    type: 'L',
+                },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (data.result == "success") {
+                                localStorage.clear();
+                                alert("上次未上傳資料上傳成功");
+                            }
+                            else {
+                                alert("上次未上傳資料無法上傳, 請之後再進行測驗");
+                            }
+                        }
+                    },
+                    "json"
+                );
+            }
+            //開始測驗
+            $("#start").click(function () {
+                if (Difficulty == null || mode == null || situation == null)
+                    alert("請選擇模式與難度");
+                else {
+                    $.post("/GQ/video/getLtableList", { mode: mode, Difficulty: Difficulty, situation: situation }, function (result) {
+                        if (result.result == "success") {
+                            var videoList = result.data;
+                            //console.log(videoList);
+                            $('#main-model').modal('hide');
+                            $(".row").show();
+                            var Test = new L(videoList,'<%=ID%>','<%=password%>');
+                            if (situation == "reality" && videoList.length >= 40) {
+                                Test.Go(40);
+                            }
+                            else if (situation == "practice" && videoList.length >= 5) {
+                                Test.Go(5);
+                            }
+                            else
+                                alert("伺服器傳輸有誤, 請再試一次");
+                        }
+                        else
+                            alert(result.result + " 請之後再試");
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
