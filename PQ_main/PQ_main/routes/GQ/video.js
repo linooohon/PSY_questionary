@@ -62,9 +62,11 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
             table.find({ $and: [{ human: human }, { Difficulty: Difficulty }] }, { projection: { _id: 0 } }).toArray(function (err, result) {
                 if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
-                    var lesspoint = Math.floor(Math.random() * (result.length - num));
-                    result = result.splice(lesspoint, num);
-                    resolve(ReturnList.concat(result));
+                    var Rlist = getRandomList(result.length, num);
+                    var newList = [];
+                    for (var i in Rlist)
+                        newList.push(result[Rlist[i]]);
+                    resolve(ReturnList.concat(newList));
                 }
                 else if (result.length == num)
                     resolve(ReturnList.concat(result));
@@ -94,9 +96,11 @@ function getList(db, num, Difficulty, ReturnList) {
             table.find({ Difficulty: Difficulty }, { projection: { _id: 0 } }).toArray(function (err, result) {
                 if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
-                    var lesspoint = Math.floor(Math.random() * (result.length - num));
-                    result = result.splice(lesspoint, num);
-                    resolve(ReturnList.concat(result));
+                    var Rlist = getRandomList(result.length, num);
+                    var newList = [];
+                    for (var i in Rlist)
+                        newList.push(result[Rlist[i]]);
+                    resolve(ReturnList.concat(newList));
                 }
                 else if (result.length == num)
                     resolve(ReturnList.concat(result));

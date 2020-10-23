@@ -84,8 +84,6 @@
             <input id="confirm" type="button" value="confirm" style="display:none" />
         </div>
     </div>
-    <!-- finish btn for game -->
-    <button id="finish_btn" style="display: none;"></button>
     <!-- post form -->
     <form method="POST" action="/GQ/EQ" style="display: none;">
         <input name="ID" value="<%=ID%>">
@@ -113,6 +111,29 @@
                 $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
                 situation = $(this).val();
             });
+            //上傳未上傳資料
+            if (localStorage.getItem("one") != null) {
+                $.post("/GQ/SQ/saveData", {
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: localStorage.getItem("one"),
+                    group: "NA",
+                    type: 'L',
+                },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (data.result == "success") {
+                                localStorage.clear();
+                                alert("上次未上傳資料上傳成功");
+                            }
+                            else {
+                                alert("上次未上傳資料無法上傳, 請之後再進行測驗");
+                            }
+                        }
+                    },
+                    "json"
+                );
+            }
             //開始測驗
             $("#start").click(function () {
                 if (Difficulty == null || mode == null || situation == null)
@@ -124,7 +145,7 @@
                             //console.log(videoList);
                             $('#main-model').modal('hide');
                             $(".row").show();
-                            var Test = new L(videoList);
+                            var Test = new L(videoList,'<%=ID%>','<%=password%>');
                             if (situation == "reality" && videoList.length >= 40) {
                                 Test.Go(40);
                             }
