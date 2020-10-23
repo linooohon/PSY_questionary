@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫</h1>
+            </div>
+        </div>
+    </header>
+    <br>
+    <h2 style="text-align:center">流暢體驗量表</h2>
+    <br>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <%var list = title.split(",");%>
+        <%for(var i=0 ; i < list.length ; i++){%>
+        <div>
+            <h3><%=list[i]%></h3>
+            <select id="Q<%=i+1%>">
+                <option value="" disabled selected hidden>請選擇</option>
+                <option value="1">非常不同意</option>
+                <option value="2">不同意</option>
+                <option value="3">無意見</option>
+                <option value="4">同意</option>
+                <option value="5">非常同意</option>
+            </select>
+        </div>
+        <%}%>
+        <br>
+        <br>
+        <div>
+            <div class="row">
+                <label class="col-md-3"></label>
+                <input id="confirm" type="button" value="確認填答" style="font-size:100%" class="btn btn-success col-md-3">
+                <input id="cancel" type="button" value="取消填答" style="font-size:100%" class="btn btn-danger col-md-3">
+                <label class="col-md-3"></label>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div>
+            <form id="form" action=" /QQ/EQ" method="post" style="display:none">
+                <input name="ID" type="text" value="<%=ID%>" /><br />
+                <input name="password" type="password" value="<%=password%>" /><br />
+            </form>
+        </div>
+    </div>
+    <script>
+        function request(data, ifJump) {
+            $.post("/QQ/SQ/saveData", { ID: '<%=ID%>', password: '<%=password%>', data: data, collection: "Q5" }, function (result) {
+                if (result.result == "success") {
+                    localStorage.removeItem("data");
+                    if (ifJump)
+                        $("#form").submit();
+                    else
+                        alert("已成功上傳上次未成功上傳之資料");
+                } else {
+                    alert(result.result + "   本機資料無法上傳, 建議稍後再填答本問卷");
+                }
+            })
+        }
+
+        function noNull() {
+            var str = "";
+            $("select").each(function () {
+                if ($(this).val() == null)
+                    str += $(this).attr("id") + " , ";
+            });
+            return str;
+        }
+
+        function buildData() {
+            var str = "";
+            $("select").each(function () {
+                str += $(this).val() + "_";
+            });
+            return str.substr(0, str.length - 1);
+        }
+
+        $(document).ready(function () {
+            //初始化
+            if (localStorage.getItem("data") != null)
+                request(localStorage.getItem("data"), false);
+            //中斷填答
+            $(".btn-danger").click(function () {
+                if (prompt("您想要中斷填答,不會儲存填答結果,確認請輸入'Y'", "Y") == 'Y')
+                    $("#form").submit();
+            });
+            //確認填答
+            /***********
+             1.確認都有填
+             2.建資料字串 data
+             3.存入localstorage data:XXXXXXXX
+             4.寄request 成功則跳轉回去
+             ***********/
+            $(".btn-success").click(function () {
+                if (noNull().length == 0) {
+                    var data = buildData();
+                    localStorage.setItem("data", data);
+                    request(data, true);
+                }
+                else
+                    alert(noNull() + " 沒有選擇");
+            });
+        });
+    </script>
+</body>
+</html>
