@@ -35,8 +35,17 @@
     <Content Include="public\javascripts\chart.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\javascripts\GQ_L.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascripts\jquery.js" />
     <Content Include="public\javascripts\verify.js" />
+    <Content Include="public\javascripts\video.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\stylesheets\video-js.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\EW.js">
       <SubType>Code</SubType>
     </Content>
@@ -50,6 +59,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\GQ\SQ.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\GQ\video.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="routes\index.js" />
@@ -100,6 +112,9 @@
     <Content Include="views\GQ\questionary\I.html" />
     <Content Include="views\GQ\questionary\K.html" />
     <Content Include="public\stylesheets\style.css" />
+    <Content Include="views\GQ\questionary\L.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\QQ\EQ.html">
       <SubType>Code</SubType>
     </Content>
