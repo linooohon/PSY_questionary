@@ -1,16 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="UTF-8">
+
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <title>A:衝動控制作業</title>
+  <title>D:運動抑制作業</title>
 </head>
 
 <body>
@@ -35,7 +36,16 @@
     </div>
   </div>
   <!-- cross -->
-  <ten id="cross" class="center-screen cross" style="font-size: 28px;color: black;"></ten>
+  <ten id="cross" class="center-screen cross" style=" font-size: 28px;color: black;"></ten>
+
+  <div id="garbordiv" class=" circle " style="display: none;"   div_size="100">
+    <div class="bg " style="filter: blur(2px);">
+    </div>
+  </div>
+
+
+
+
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->
@@ -44,22 +54,34 @@
     <input name="password">
   </form>
 </body>
-<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
-<script>
+<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript">
   var game_get = null;
   var game;
+  // game = new D([2,6]);
+  // game.process();
   $(window).on('load', function () {
     $('#main-model').modal({
       backdrop: 'static',
       keyboard: false
     });
+    document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - 100) + "px;" +
+      "left:" + (window.innerWidth / 2 - 100) + "px");
+    $(window).on("resize", () => {
+      let size = document.getElementById("garbordiv").getAttribute('div_size');
+      document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - size) +
+        "px;" + "left:" + (window.innerWidth / 2 - size) + "px");
+    })
+
+    // var test = document.getElementById("garbordiv").children;
+
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
           ID: "ID",
           password: "password",
           one: localStorage.getItem("one"),
           group: localStorage.getItem("group"),
-          type: 'A',
+          type: 'D',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
@@ -78,11 +100,11 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new A(20);
+      game = new D([1, 40]);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new A(10);
+      game = new D([4,120]);
       game.process();
       $('#main-model').modal('hide');
     }
@@ -101,7 +123,7 @@
           password: "password",
           one: game.one,
           group: game.group,
-          type: 'A',
+          type: 'D',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
@@ -112,7 +134,7 @@
         "json"
       );
     } else { // practice finish reload the page
-      location.reload();
+      //  location.reload();
     }
   });
 </script>

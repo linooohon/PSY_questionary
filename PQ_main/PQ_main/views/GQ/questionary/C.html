@@ -1,16 +1,16 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="UTF-8">
+
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <title>A:衝動控制作業</title>
+  <title>C:點協調作業</title>
 </head>
 
 <body>
@@ -36,6 +36,16 @@
   </div>
   <!-- cross -->
   <ten id="cross" class="center-screen cross" style="font-size: 28px;color: black;"></ten>
+<!-- controller -->
+<div style="display: none;">
+  <button name="ballrun" onclick="runball()">runball</button>
+  <button name="ballrenew" onclick="Renew()">renew</button>
+</div>
+
+  <!-- range -->
+  <div id="spawn"></div>
+  <!-- spawn the ball -->
+
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->
@@ -44,22 +54,112 @@
     <input name="password">
   </form>
 </body>
-<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
-<script>
+<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript">
   var game_get = null;
   var game;
+  var pause = true;
+  var ox = $(window).width() / 2;
+  var oy = $(window).height() / 2;
+  var oo = 700;
+  var r = oo / 2;
+  var movement = 20;
+  var apawn_div = document.querySelector('#spawn');
+  var ball_width = 10,
+    leftNum = 0,
+    topNum = 0,
+    aBall = null,
+    length = 0;
+  window.onresize = reSize;
+  reSize(ball_width);
+
+  function reSize(radius) {
+    leftMax = document.documentElement.clientWidth - ball_width;
+    topMax = document.documentElement.clientHeight - ball_width;
+  }
+
+  function createBall(obj, num, init) { // create the ball function
+    for (var i = 0; i < num; i++) {
+      var cBall;
+      cBall = document.createElement('ball');
+      cBall.className = 'ball-10';
+      cBall.style.backgroundColor = "rgb(0,0,100)";
+      cBall.setAttribute("direction", 'random');
+      obj.appendChild(cBall);
+    };
+  };
+
+  function runball() {
+    var ball = apawn_div.children;
+    for (var i = 0; i < apawn_div.childElementCount; i++) {
+      let dir = ball[i].getAttribute('direction');
+      if (dir == 'random') {
+        ball[i].animate({
+          top: parseInt(ball[i].style.top) + aBall[i].leftNum + 'px',
+          left: parseInt(ball[i].style.left) + aBall[i].topNum + 'px'
+        }, 1000);
+      } else if (dir == 'right') {
+        // ball[i].style.backgroundColor = "yellow";
+        ball[i].animate({
+          left: parseInt(ball[i].style.left) + movement + 'px'
+        }, 1000);
+      } else if (dir == 'left') {
+        // ball[i].style.backgroundColor = "yellow";
+        ball[i].animate({
+          left: parseInt(ball[i].style.left) - movement + 'px'
+        }, 1000);
+      } else if (dir == 'up') {
+        // ball[i].style.backgroundColor = "yellow";
+        ball[i].animate({
+          top: parseInt(ball[i].style.top) - movement + 'px'
+        }, 1000);
+      } else if (dir == 'down') {
+        // ball[i].style.backgroundColor = "yellow";
+        ball[i].animate({
+          top: parseInt(ball[i].style.top) + movement + 'px'
+        }, 1000);
+      }
+    }
+  }
+  function Renew() {
+    var childball = apawn_div.childNodes;
+    childball.forEach(cBall => {
+      for (let i = 0; i < 5; ++i) {
+        let y1 = oy - r + (Math.random() * oo) + ball_width;
+        let x1 = ox - r + (Math.random() * oo) + ball_width;
+        cBall.style.top = y1 + 'px';
+        cBall.style.left = x1 + 'px';
+        if (!((ox - x1) * (ox - x1) + (oy - y1) * (oy - y1) > r * r)) {
+          break;
+        }
+      }
+      var nh = Math.floor(Math.random() * 360);
+      Xd = Math.cos(nh) * movement;
+      Yd = Math.sin(nh) * movement;
+      //get place
+      cBall.leftNum = 1 + Xd;
+      cBall.topNum = 1 + Yd;
+    });
+  }
+
   $(window).on('load', function () {
+    createBall(apawn_div, 500, true); ///pass 500 ball 
+    aBall = apawn_div.children;
+    length = aBall.length;
+
     $('#main-model').modal({
       backdrop: 'static',
       keyboard: false
     });
+
+
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
           ID: "ID",
           password: "password",
           one: localStorage.getItem("one"),
           group: localStorage.getItem("group"),
-          type: 'A',
+          type: 'C',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
@@ -78,19 +178,19 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new A(20);
+      game = new C([1, 40]);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new A(10);
+      game = new C([3, 40]);
       game.process();
       $('#main-model').modal('hide');
     }
   });
 
   $('#finish_btn').on('click', function () {
-    console.log(game.one);
-    console.log(game.group);
+    // console.log(game.one);
+    // console.log(game.group);
     if (game_get == "reality") {
       $('form').children('input[name="one"]').val(game.one);
       $('form').children('input[name="group"]').val(game.group);
@@ -101,7 +201,7 @@
           password: "password",
           one: game.one,
           group: game.group,
-          type: 'A',
+          type: 'C',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {

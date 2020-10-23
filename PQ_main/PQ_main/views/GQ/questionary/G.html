@@ -1,16 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="UTF-8">
+
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <title>A:衝動控制作業</title>
+  <title>G:多物件追蹤</title>
 </head>
 
 <body>
@@ -38,28 +39,132 @@
   <ten id="cross" class="center-screen cross" style="font-size: 28px;color: black;"></ten>
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
+  <style>
+
+  </style>
+  <!-- spawn the ball -->
+  <div id="spawn" style="display: none;"></div>
+  <!-- run/pause place -->
+  <div style="display: none;">
+    <button name="ballrun" onclick="pause=false;">start</button>
+    <button name="ballpause" onclick="pause=true;">stop</button>
+    <button name="ballrenew" onclick="Renew()">renew</button>
+    <button name="balladd" onclick="createBall(apawn_div,1,false)">addball</button>
+  </div>
+
   <!-- post form -->
   <form method="POST" action="/GQ/EQ" style="display: none;">
     <input name="ID">
     <input name="password">
   </form>
 </body>
-<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
-<script>
+<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript">
   var game_get = null;
   var game;
+  var pause = true;
+  var apawn_div = document.querySelector('#spawn');
+  var ball_width = 20,
+    leftNum = 0,
+    topNum = 0,
+    aBall = null,
+    length = 0;
+  reSize(ball_width);
+  //when resize screen  the screen size
+  window.onresize = reSize;
+  function reSize(radius) {
+    leftMax = document.documentElement.clientWidth - ball_width;
+    topMax = document.documentElement.clientHeight - ball_width;
+  }
+
+  function createBall(obj, num, init) { // create the ball function
+    for (var i = 0; i < num; i++) {
+      var cBall;
+      if (i < 3 && init) {
+        cBall = document.createElement('target');
+        cBall.tagName = "target";
+        cBall.className = 'ball-20';
+        cBall.classList.add('blink');
+        // cBall.style.backgroundColor = "rgb(0,0,100)";
+        cBall.style.backgroundColor = "yellow";//change color
+      } else {
+        cBall = document.createElement('ball');
+        cBall.className = 'ball-20';
+        cBall.style.backgroundColor = "rgb(0,0,100)";
+      }
+      // cBall.style.top = (Math.random() * ($(window).height()-ball_width)) + 'px';
+      // cBall.style.left = (Math.random() * ($(window).height()-ball_width)) + 'px';
+      // var nh = Math.floor(Math.random() * 360);
+      // Xd = Math.cos(nh) * 25 / 5;
+      // Yd = Math.sin(nh) * 25 / 5;
+      // cBall.leftNum = 1 + Xd;
+      // cBall.topNum = 1 + Yd;
+      obj.appendChild(cBall);
+    };
+    Renew();
+  };
+
+  function Renew() {
+    var childball = apawn_div.childNodes;
+    childball.forEach(cBall => {
+      cBall.style.top = (Math.random() *($(window).height()-ball_width)) + 'px';
+      cBall.style.left = (Math.random() * ($(window).height()-ball_width)) + 'px';
+      var nh = Math.floor(Math.random() * 360);
+      Xd = Math.cos(nh) * 25 / 5;
+      Yd = Math.sin(nh) * 25 / 5;
+      cBall.leftNum = 1 + Xd;
+      cBall.topNum = 1 + Yd;
+    });
+  }
+
+  var start = setInterval(function () {
+    if (!pause) { //check pause
+      aBall = apawn_div.children;
+      for (var i = 0; i < apawn_div.childElementCount; i++) {
+        var Left = aBall[i].offsetLeft + aBall[i].leftNum,
+          Top = aBall[i].offsetTop + aBall[i].topNum;
+        if (Left >= leftMax) {
+          Left = leftMax;
+          aBall[i].leftNum = -aBall[i].leftNum;
+        } else if (Left <= 0) {
+          Left = 0;
+          aBall[i].leftNum = -aBall[i].leftNum;
+        };
+        if (Top >= topMax) {
+          Top = topMax;
+          aBall[i].topNum = -aBall[i].topNum;
+        } else if (Top <= 0) {
+          Top = 0;
+          aBall[i].topNum = -aBall[i].topNum;
+        };
+        aBall[i].style.left = Left + 'px';
+        aBall[i].style.top = Top + 'px';
+      }
+    }
+  }, 40);
+
+
+  // function ballBg(obj) {
+  //   var r = Math.floor(Math.random() * 256);
+  //   g = Math.floor(Math.random() * 256);
+  //   b = Math.floor(Math.random() * 256);
+  //   obj.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+  // }
+
   $(window).on('load', function () {
+    createBall(apawn_div, 6, true); ///pass ten ball 
     $('#main-model').modal({
       backdrop: 'static',
       keyboard: false
     });
+
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
           ID: "ID",
           password: "password",
           one: localStorage.getItem("one"),
           group: localStorage.getItem("group"),
-          type: 'A',
+          type: 'G',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
@@ -78,11 +183,11 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new A(20);
+      game = new G(4,false);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new A(10);
+      game = new G(4,true);
       game.process();
       $('#main-model').modal('hide');
     }
@@ -101,7 +206,7 @@
           password: "password",
           one: game.one,
           group: game.group,
-          type: 'A',
+          type: 'G',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
