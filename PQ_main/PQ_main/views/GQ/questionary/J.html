@@ -1,18 +1,48 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
   <meta charset="UTF-8">
+
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <title>A:衝動控制作業</title>
+  <title>J:空間記憶</title>
 </head>
-
+<style>
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: repeat(3, 1fr); 
+    grid-gap: 5px;
+    grid-auto-flow: row;
+    width: 600px;
+    height: 600px;
+    background-color: #000000;
+    border-width: 2px;
+   }
+   .grid>div{
+    color: #fff;
+    font-size: 50px;
+    line-height: 2;
+    text-align: center;
+    background: var(--backcolor);
+    /* padding: 5px; */
+   }
+   .grid>div>rect{
+     margin: 0;
+     width: 100px;
+     height: 100px;
+     content: "";
+     display: block;
+     background-color: white;
+     position: absolute;
+     transform: translate(50%, 50%)
+   }
+</style>
 <body>
   <!-- main modal -->
   <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
@@ -34,6 +64,19 @@
       </div>
     </div>
   </div>
+  <div id="nine-grid" class="square" style="display: none;">
+    <div  class="square-inner grid " style="position: relative; margin: auto; margin-top: 5%;" >
+    <div><rect name="1" style="display: none;"></rect></div>
+    <div><rect name="2" style="display: none;"></rect></div>
+    <div><rect name="3" style="display: none;"></rect></div>
+    <div><rect name="4" style="display: none;"></rect></div>
+    <div><rect name="5" style="display: none;"></rect></div>
+    <div><rect name="6" style="display: none;"></rect></div>
+    <div><rect name="7" style="display: none;"></rect></div>
+    <div><rect name="8" style="display: none;"></rect></div>
+    <div><rect name="9" style="display: none;"></rect></div>
+    </div>
+   </div>
   <!-- cross -->
   <ten id="cross" class="center-screen cross" style="font-size: 28px;color: black;"></ten>
   <!-- finish btn for game -->
@@ -44,22 +87,26 @@
     <input name="password">
   </form>
 </body>
-<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
-<script>
+<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript">
   var game_get = null;
   var game;
+  // game = new J(10);
+  // game.process();
   $(window).on('load', function () {
     $('#main-model').modal({
       backdrop: 'static',
       keyboard: false
     });
+
+
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
           ID: "ID",
           password: "password",
           one: localStorage.getItem("one"),
           group: localStorage.getItem("group"),
-          type: 'A',
+          type: 'J',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
@@ -78,19 +125,19 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new A(20);
+      game = new J(10,true);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new A(10);
+      game = new J(30);
       game.process();
       $('#main-model').modal('hide');
     }
   });
 
   $('#finish_btn').on('click', function () {
-    console.log(game.one);
-    console.log(game.group);
+       console.log(game.one);
+      console.log(game.group);
     if (game_get == "reality") {
       $('form').children('input[name="one"]').val(game.one);
       $('form').children('input[name="group"]').val(game.group);
@@ -101,7 +148,7 @@
           password: "password",
           one: game.one,
           group: game.group,
-          type: 'A',
+          type: 'J',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
@@ -112,8 +159,7 @@
         "json"
       );
     } else { // practice finish reload the page
-      //location.reload();
-        history.go(-1);
+    //  location.reload();
     }
   });
 </script>
