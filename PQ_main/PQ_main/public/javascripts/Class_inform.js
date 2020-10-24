@@ -35,7 +35,7 @@ var ARROW_NUM = {
 class A {
     constructor(game_set) {
         this.game_set = game_set;
-        this.ball = add_ball(['ball-me', 'center-screen']);
+        this.ball = add_ball(['ball-80', 'center-screen']);
         this.ratio = {
             G: game_set / 10 * 7,
             R: game_set / 10 * 3,
@@ -124,7 +124,7 @@ class A {
 class B {
     constructor(game_set) {
         this.game_set = game_set;
-        this.ball = add_ball(['ball-me', 'center-screen']);
+        this.ball = add_ball(['ball-80', 'center-screen']);
         this.ratio = game_set / 2;
         this._beenum = Math.round(game_set / 4);//make sure it's integer
         this._question = [];
@@ -620,9 +620,9 @@ class F {
         this._group = [0, 0, 0, 0, 0, 0];
         this._group_num = [0, 0, 0, 0, 0, 0];
         this.IMG_NAME = {
-            0: "eye.jpg",
-            1: "eye_L.jpg",
-            2: "eye_R.jpg",
+            0: "/pic/eye.jpg",
+            1: "/pic/eye_L.jpg",
+            2: "/pic/eye_R.jpg",
         }
         this.rect = document.getElementById("rect_div").children;//0:left ,1:right
         this._createQuestion();
@@ -770,6 +770,7 @@ class G {
                         if (e.key == " ") {
                             for (let i = 0; i < this._click; ++i) {
                                 this.spawn_div.childNodes[i].classList.remove('blink');
+                                this.spawn_div.childNodes[i].style.backgroundColor="rgb(0,0,100)";
                                 this.spawn_div.childNodes[i].classList.add('enable_click');
                             }
                             this.run.click();
@@ -801,6 +802,7 @@ class G {
                 hide(this.spawn_div);
                 for (let i = 0; i < this._click; ++i) {
                     this.spawn_div.childNodes[i].classList.add('blink');
+                    this.spawn_div.childNodes[i].style.backgroundColor="yellow";
                     this.spawn_div.childNodes[i].classList.add('enable_click');
                 }
             }
@@ -827,14 +829,13 @@ class G {
     }
 }
 
-
 /* class H
 3 PART number_set: game_set[part 1,part 2,part 3];
 */
 class H {
     constructor(game_set) {
         this.game_set = game_set;
-        this.ball = add_ball(['ball-me', 'center-screen']);
+        this.ball = add_ball(['ball-80', 'center-screen']);
         this.ratio = [game_set[0], game_set[1] / 2, game_set[2] / 4];
         this._question = [];
         this._one = "";
@@ -1044,20 +1045,20 @@ class J {
         this._question = [];
         this._one = "";
         this._group = [];
-        this._total=0;
+        this._total = 0;
         this._level = 2;
-        this.nine_div = document.getElementById("nine-div");
+        this.nine_grid = document.getElementById("nine-grid");
         this._init_item();
         this._createQuestion(2);
         this.practice = practice;
     }
     _init_item() {
-
+        console.log(this.nine_grid);
     }
     _createQuestion(number) {
         let tmp = [];//number- give press sign -need press
         for (let i = 0; i < this.game_set; ++i) {
-            if (i <= (this.game_set + number) / 3) {
+            if (i < this.game_set / 3) {
                 tmp.push([Math.floor(Math.random() * 9) + 1, true, false]);
             } else {
                 tmp.push([Math.floor(Math.random() * 9) + 1, false, false])
@@ -1115,34 +1116,36 @@ class J {
         while (1) {
             this._question = this._createQuestion(this._level);
             let number = 0;
-            let count=0;
-            await collapse(cross, 1000); 
-            await collapse(this.nine_div, 1000); 
+            let count = 0;
+            await collapse(cross, 1000);
+            show(this.nine_grid);
+            await collapse(null, 1000);
             for (var item of this._question) {
                 console.log(item);
                 let element = document.querySelector('rect[name="' + item[0] + '"]');
                 this._one += item[0] + "_";
                 await this._generateAnswer(element, item[1], 250).then((data) => {
                     this._one += data[0];
-                    if(count>=this._level){
+                    if (count >= this._level) {
                         number += data[1];
                     }
                     count++;
                     console.log(number);
                 });
-                await collapse(this.nine_div, 1250);
+                await collapse(null, 1250);
             }
+            hide(this.nine_grid);
             this._group.push(number);
-            this._total+=number;
+            this._total += number;
             // console.log(this._group);
             // console.log(this._total);
             // console.log(this._question.length);
-            if(number<this.game_set*0.8 ||this.practice){
+            if (number < this.game_set * 0.8 || this.practice) {
                 break;
-            }else{
+            } else {
                 this._level++;
             }
-           
+
         }
         //finish process
         finish_btn.click();
@@ -1152,13 +1155,13 @@ class J {
         return one;
     }
     get group() {
-        let group="";
+        let group = "";
         console.log(this._total);
-        group+=(this._level-1)+"_"+(this._total*100/(this.game_set*(this._level-1))).toFixed(2)+"_";
-        for(let i=0;i<this._group.length;++i){
-            group+=this._group[i]+"_";
+        group += this._level + "_" + (this._total * 100 / (this.game_set * (this._level - 1))).toFixed(2) + "_" + this._total + "_";
+        for (let i = 0; i < this._group.length; ++i) {
+            group += this._group[i] + "_";
         }
-        group=group.slice(0, -1);
+        group = group.slice(0, -1);
         return group.replaceAll("NaN", "NA");
     }
 }
@@ -1168,7 +1171,7 @@ class K {
     constructor(game_set) {
         this.game_set = game_set;
         this.word = document.createElement("label");
-        //this.ball = add_ball( [ 'ball-me', 'center-screen' ]);
+        //this.ball = add_ball( [ 'ball-80', 'center-screen' ]);
         this.ratio = game_set / 4;
         this.question = [];
         this._one = "";
@@ -1202,11 +1205,6 @@ class K {
         }
         this.question = competitor(this.question, 1);
         console.log(this.question);
-        // this.word.style.color = BALL_COLOR[this.question[0][1]] ;
-        // this.word.setAttribute("part",this.question[0][1]);
-        // this.word.textContent=this.question[0][0];
-        // console.log(this.word);
-        // this.wordlist = competitor([1, 2, 3],1);
     }
     _generateAnswer = (item, range_min, range_max) => {
         let interval = range_min;
@@ -1314,7 +1312,7 @@ const collapse = (obj, range_min, range_max) => {
 }
 
 //ratio Number divide equally  else  Array give ratio list
-function competitor(object_list, ratio = null) {
+function competitor(object_list, ratio) {
     var arr = [];
     if (typeof (ratio) === 'number') {
         for (number = 0; number < object_list.length; ++number) {
@@ -1345,15 +1343,7 @@ function shuffle(a) {
 }
 
 
-//center_ball object
-var center_ball = {
-    class: [
-        'ball-me',
-        'center-screen',
-    ],
-}
-
-//create the center_ball object 
+//create the  object 
 var add_ball = function (cs) {
     let obj = document.createElement("ball");
     cs.forEach(element => {

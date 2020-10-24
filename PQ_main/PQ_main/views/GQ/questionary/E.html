@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>E:注意力網路作業</title>
+</head>
+
+<body>
+    <!-- main modal -->
+    <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
+                </div>
+                <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
+                    測試資料介紹
+                </div>
+                <div class="btn-group d-flex p-2">
+                    <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
+                </div>
+                <div class="d-flex m-2">
+                    <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- arrow place   dont change sequence -->
+    <div id="arrow_place">
+        <div name="congruent" tag="right"  style="display: none;">
+            <svg style="width:80px;height:50px;margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+        </div>
+        <div name="incongruent " tag="right"  style="display: none;">
+            <svg class=" mirrorRotateHorizontal" style="width:80px;height:50px;margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+        </div>
+        <div name="neutral" tag="right"  style="display: none;">
+            <svg style="width:80px;height:50px;margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+        </div>
+        <div name="congruent" tag="left"  style="display: none;">
+            <svg class=" mirrorRotateHorizontal" style="width:80px;height:50px;margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+        </div>
+        <div name="incongruent " tag="left"  style="display: none;">
+            <svg style="width:80px;height:50px;margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+            <svg style=" width:80px;height:50px; margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+        </div>
+        <div name="neutral"  tag="left"  style="display: none;">
+            <svg  class=" mirrorRotateHorizontal" style="width:80px;height:50px;margin-right:20px;">
+                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
+            </svg>
+        </div>
+    </div>
+
+
+    <!-- clue place  dont change sequence-->
+    <div id="clue_place">
+        <div name="No-cue" style="display: none;">
+            <ten class="center-screen cross" style="font-size: 25px;color: black;"></ten>
+        </div>
+        <div name="Center-cue" style="display: none;">
+            <label class=" center-screen" style="font-size: 25px;font-weight: bold;">*</label>
+        </div>      
+        <div name="Duel-cue"  style="display: none;">
+            <div side="upper">
+                <label style="font-size: 25px;font-weight: bold;">*</label>
+            </div>
+            <div side="downer" >
+                <label style="font-size: 25px;font-weight: bold;">*</label>
+            </div>
+        </div>
+        <div name="Spatial-Cue"  style="display: none;">
+            <label style="font-size: 25px;font-weight: bold;">*</label>
+        </div>
+    </div>
+
+
+
+
+    <!-- cross -->
+    <ten id="cross" class="center-screen cross" style="font-size: 25px;color: black;"></ten>
+    <!-- finish btn for game -->
+    <button id="finish_btn" style="display: none;"></button>
+    <!-- post form -->
+    <form method="POST" action="/GQ/EQ" style="display: none;">
+        <input name="ID">
+        <input name="password">
+    </form>
+
+</body>
+<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript">
+    var game_get = null;
+    var game;
+    $(window).on('load', function () {
+        $('#main-model').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        if (localStorage.getItem("one") != null) { //check if have local storage
+            $.post("/GQ/SQ/saveData", {
+                    ID: "ID",
+                    password: "password",
+                    one: localStorage.getItem("one"),
+                    group: localStorage.getItem("group"),
+                    type: 'E',
+                },
+                function (data, textStatus, jqXHR) {
+                    if (textStatus == "success") {
+                        localStorage.clear();
+                    }
+                },
+                "json"
+            );
+        }
+    });
+
+    $('.btn-group').on('click', '.btn', function () { //practice reality change
+        game_get = $(this).val();
+        $(this).addClass('active').siblings().removeClass('active');
+    });
+
+    $('#start').on('click', function () { //start the game
+        if (game_get == "practice") {
+            game = new E(20);
+            game.process();
+            $('#main-model').modal('hide');
+        } else if (game_get == "reality") {
+            game = new E(96);
+            game.process();
+            $('#main-model').modal('hide');
+        }
+    });
+
+    $('#finish_btn').on('click', function () {
+        console.log(game.one);
+        console.log(game.group);
+        if (game_get == "reality") {
+            $('form').children('input[name="one"]').val(game.one);
+            $('form').children('input[name="group"]').val(game.group);
+            localStorage.setItem("one", game.one);
+            localStorage.setItem("group", game.group);
+            $.post("/GQ/SQ/saveData", {
+                    ID: "ID",
+                    password: "password",
+                    one: game.one,
+                    group: game.group,
+                    type: 'E',
+                },
+                function (data, textStatus, jqXHR) {
+                    if (textStatus == "success") {
+                        localStorage.clear();
+                        $('form').submit();
+                    }
+                },
+                "json"
+            );
+        } else { // practice finish reload the page
+            location.reload();
+        }
+    });
+</script>
+
+</html>
