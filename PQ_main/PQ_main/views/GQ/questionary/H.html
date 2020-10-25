@@ -13,6 +13,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>H:反應時間作業</title>
 </head>
+<style>
+    a:hover {
+        background-color: rgb(255, 163, 163);
+    }
+</style>
 
 <body>
 
@@ -22,11 +27,19 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
                     <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
                 </div>
-                <div class="modal-body m-2 p-0 text-center"
+                <div id="image_div" class="modal-body m-2 p-0 text-center"
                     style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
-                    <img src="/image/H.png" alt="information" class=" img-fluid  p-0" style="height: 100%;">
+                    <img src="/image/H.png" alt="information" class=" img-fluid  p-0 " style="height: 100%;">
+                    <img src="/image/H_2.png" alt="information" class=" img-fluid  p-0 d-none" style="height: 100%;">
+                    <img src="/image/H_3.png" alt="information" class=" img-fluid  p-0 d-none" style="height: 100%;">
+                    <a class="carousel-control-next" style="width: 20px; " role="button" onclick="Next()">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
                 <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
@@ -55,7 +68,14 @@
 <script type="text/javascript">
     var game_get = null;
     var game;
+    var img_place = 0;
 
+    function Next() {
+        images = $("#image_div").find("img");
+        img_place >= images.length - 1 ? img_place = 0 : img_place++;
+        $(images[img_place]).removeClass('d-none').siblings("img").addClass('d-none');
+        console.log(img_place);
+    }
     $(window).on('load', function () {
         $('#main-model').modal({
             backdrop: 'static',
