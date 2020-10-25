@@ -20,7 +20,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header ">
-          <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;" onclick="$('form').submit();">回首頁</button>
+          <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+            onclick="$('form').submit();">回首頁</button>
           <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
         </div>
         <div class="modal-body m-2 p-0 text-center" style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
@@ -59,7 +60,7 @@
     <input name="password" value="<%=password%>">
   </form>
 </body>
-<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
 <script type="text/javascript">
   var game_get = null;
   var game;
@@ -73,6 +74,7 @@
   reSize(ball_width);
   //when resize screen  the screen size
   window.onresize = reSize;
+
   function reSize(radius) {
     leftMax = document.documentElement.clientWidth - ball_width;
     topMax = document.documentElement.clientHeight - ball_width;
@@ -87,7 +89,7 @@
         cBall.className = 'ball-20';
         cBall.classList.add('blink');
         // cBall.style.backgroundColor = "rgb(0,0,100)";
-        cBall.style.backgroundColor = "yellow";//change color
+        cBall.style.backgroundColor = "yellow"; //change color
       } else {
         cBall = document.createElement('ball');
         cBall.className = 'ball-20';
@@ -108,8 +110,8 @@
   function Renew() {
     var childball = apawn_div.childNodes;
     childball.forEach(cBall => {
-      cBall.style.top = (Math.random() *($(window).height()-ball_width)) + 'px';
-      cBall.style.left = (Math.random() * ($(window).height()-ball_width)) + 'px';
+      cBall.style.top = (Math.random() * ($(window).height() - ball_width)) + 'px';
+      cBall.style.left = (Math.random() * ($(window).height() - ball_width)) + 'px';
       var nh = Math.floor(Math.random() * 360);
       Xd = Math.cos(nh) * 25 / 5;
       Yd = Math.sin(nh) * 25 / 5;
@@ -170,7 +172,29 @@
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
-              localStorage.clear();
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              alert("上次未上傳資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+    }
+    if (localStorage.getItem("pr") != null) {
+      $.post("/GQ/PR/savePR", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          data: localStorage.getItem("pr"),
+          type: 'G',
+        },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("pr");
               alert("上次未上傳資料上傳成功");
             } else {
               alert("資料上傳失敗,失敗原因 : " + data.result);
@@ -190,11 +214,11 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new G(4,false);
+      game = new G(4, false);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new G(4,true);
+      game = new G(4, true);
       game.process();
       $('#main-model').modal('hide');
     }
@@ -218,7 +242,29 @@
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
-              localStorage.clear();
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              $('form').submit();
+              alert("資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+      //save pr
+      $.post("/GQ/PR/savePR", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          data: game.pr,
+          type: 'G',
+        },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("pr");
               $('form').submit();
               alert("資料上傳成功");
             } else {

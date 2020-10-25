@@ -94,7 +94,8 @@
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
-                            localStorage.clear();
+                            localStorage.removeItem("one");
+                            localStorage.removeItem("group");
                             alert("上次未上傳資料上傳成功");
                         } else {
                             alert("資料上傳失敗,失敗原因 : " + data.result);
@@ -105,6 +106,7 @@
                 "json"
             );
         }
+        
     });
 
     $('#start').on('click', function () {
@@ -141,7 +143,8 @@
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
                         if (data.result == "success") {
-                            localStorage.clear();
+                            localStorage.removeItem("one");
+                            localStorage.removeItem("group");
                             $('form').submit();
                             alert("資料上傳成功");
                         } else {

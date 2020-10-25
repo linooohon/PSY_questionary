@@ -20,7 +20,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header ">
-                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;" onclick="$('form').submit();">回首頁</button>
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
                     <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
                 </div>
                 <div class="modal-body m-2 p-0 text-center"
@@ -77,7 +78,29 @@
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
-                                localStorage.clear();
+                                localStorage.removeItem("one");
+                                localStorage.removeItem("group");
+                                alert("上次未上傳資料上傳成功");
+                            } else {
+                                alert("資料上傳失敗,失敗原因 : " + data.result);
+                            }
+                        } else
+                            alert("與伺服器斷訊")
+                    },
+                    "json"
+                );
+            }
+            if (localStorage.getItem("pr") != null) {
+                $.post("/GQ/PR/savePR", {
+                        ID: "<%=ID%>",
+                        password: "<%=password%>",
+                        data: localStorage.getItem("pr"),
+                        type: 'B',
+                    },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (data.result == "success") {
+                                localStorage.removeItem("pr");
                                 alert("上次未上傳資料上傳成功");
                             } else {
                                 alert("資料上傳失敗,失敗原因 : " + data.result);
@@ -150,7 +173,29 @@
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
-                                localStorage.clear();
+                                localStorage.removeItem("one");
+                                localStorage.removeItem("group");
+                                $('form').submit();
+                                alert("資料上傳成功");
+                            } else {
+                                alert("資料上傳失敗,失敗原因 : " + data.result);
+                            }
+                        } else
+                            alert("與伺服器斷訊")
+                    },
+                    "json"
+                );
+                //save pr
+                $.post("/GQ/PR/savePR", {
+                        ID: "<%=ID%>",
+                        password: "<%=password%>",
+                        data: game.pr,
+                        type: 'B',
+                    },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (data.result == "success") {
+                                localStorage.removeItem("pr");
                                 $('form').submit();
                                 alert("資料上傳成功");
                             } else {

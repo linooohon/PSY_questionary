@@ -17,6 +17,7 @@
   a:hover {
     background-color: rgb(255, 163, 163);
   }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -60,7 +61,8 @@
             onclick="$('form').submit();">回首頁</button>
           <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
         </div>
-        <div id="image_div" class="modal-body m-2 p-0 text-center" style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
+        <div id="image_div" class="modal-body m-2 p-0 text-center"
+          style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
           <img src="/image/J.png" alt="information" class=" img-fluid  p-0" style="height: 100%;">
           <img src="/image/J_1.png" alt="information" class=" img-fluid  p-0 d-none" style="height: 100%;">
           <a class="carousel-control-next" style="width: 20px; " role="button" onclick="Next()">
@@ -124,9 +126,10 @@
   var game_get = null;
   var game;
   var img_place = 0;
+
   function Next() {
     images = $("#image_div").find("img");
-    img_place >= images.length-1 ? img_place = 0 : img_place++;
+    img_place >= images.length - 1 ? img_place = 0 : img_place++;
     $(images[img_place]).removeClass('d-none').siblings("img").addClass('d-none');
     console.log(img_place);
   }
@@ -148,7 +151,29 @@
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
-              localStorage.clear();
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              alert("上次未上傳資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+    }
+    if (localStorage.getItem("pr") != null) {
+      $.post("/GQ/PR/savePR", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          data: localStorage.getItem("pr"),
+          type: 'J',
+        },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("pr");
               alert("上次未上傳資料上傳成功");
             } else {
               alert("資料上傳失敗,失敗原因 : " + data.result);
@@ -168,7 +193,7 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new J(10, true);
+      game = new J(30, true);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
@@ -196,7 +221,29 @@
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
-              localStorage.clear();
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              $('form').submit();
+              alert("資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+      //save pr
+      $.post("/GQ/PR/savePR", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          data: game.pr,
+          type: 'J',
+        },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("pr");
               $('form').submit();
               alert("資料上傳成功");
             } else {
