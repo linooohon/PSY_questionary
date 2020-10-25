@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,8 +50,8 @@
   <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->
   <form method="POST" action="/GQ/EQ" style="display: none;">
-    <input name="ID">
-    <input name="password">
+    <input name="ID" value="<%=ID%>">
+    <input name="password" value="<%=password%>">
   </form>
 </body>
 <script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
@@ -155,16 +155,22 @@
 
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
-          ID: "ID",
-          password: "password",
+          ID: "<%=ID%>",
+          password: "<%=password%>",
           one: localStorage.getItem("one"),
           group: localStorage.getItem("group"),
           type: 'C',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
-            localStorage.clear();
-          }
+            if (data.result == "success") {
+              localStorage.clear();
+              alert("上次未上傳資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
         },
         "json"
       );
@@ -197,17 +203,23 @@
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
       $.post("/GQ/SQ/saveData", {
-          ID: "ID",
-          password: "password",
+          ID: "<%=ID%>",
+          password: "<%=password%>",
           one: game.one,
           group: game.group,
           type: 'C',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
-            localStorage.clear();
-            $('form').submit();
-          }
+            if (data.result == "success") {
+              localStorage.clear();
+              $('form').submit();
+              alert("資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
         },
         "json"
       );
