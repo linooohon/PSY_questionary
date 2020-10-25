@@ -279,6 +279,7 @@ class C {
     constructor(game_set) {
         this.game_set = game_set;
         this.spawn_div = document.getElementById("spawn");
+        this.remind_btn = document.querySelector('button[name="remind_btn"]');
         this.run = document.querySelector('button[name="ballrun"]');
         this.renew = document.querySelector('button[name="ballrenew"]');
         this._question = [];
@@ -341,7 +342,7 @@ class C {
         let CRR3 = (this._groupset[5] * 100 / this.ballnum).toFixed(2);
         let Aver = ((CRR1 + CRR2 + CRR3) / 3).toFixed(2);
         this._group = (AccR1 + "_" + AccR2 + "_" + AccR3 + "_" + CRR1 + "_" + CRR2 + "_" + CRR3 + "_" + Aver).replaceAll("NaN", "NA");
-        this._pr = ((CR1 + CR2 + CR3) / 3).toFixed(2) + "_" + Aver;
+        this._pr = ((CRR1 + CRR2 + CRR3) / 3).toFixed(2) + "_" + Aver;
     }
     async process() {
         for (let session = 0; session < this.game_set[0]; ++session) {
@@ -377,26 +378,30 @@ class C {
             console.log(part_right);
             this._groupset[session] = part_right;
             this._groupset[session + 3] = ratio;
-            await new Promise(resolve => {
-                function keyhandle(e) {
-                    if (e.key == " ") {
-                        window.removeEventListener('keydown', keyhandle);
-                        resolve();
+            if (session + 1 < this.game_set[0]) {
+                // console.log(this.remind_btn);
+                await new Promise(resolve => {
+                    this.remind_btn.click();
+                    this.remind_btn.nextElementSibling.textContent="共三回合 接下來是第"+(session+2)+"回合";
+                    function keyhandle(e) {
+                        if (e.key == " ") {
+                            window.removeEventListener('keydown', keyhandle);
+                            resolve();
+                        }
+                       
                     }
-                }
-                window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
-            });
+                    window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
+                });
+                this.remind_btn.click();
+            }
+
             console.log(this._groupset);
             console.log("next");
         }
-        // console.log(this.one);
-        // console.log(this.group);
-
         //analyze data
         this._analyzeData();
         //finish process
         finish_btn.click();
-
     }
     get one() {
         return this._one;
@@ -416,6 +421,7 @@ class D {
             G: game_set / 10 * 7,
             R: game_set / 10 * 3,
         }
+        this.remind_btn = document.querySelector('button[name="remind_btn"]');
         this.garbor = document.getElementById("garbordiv");
         this._question = [];
         this.garborsize = [20, 60, 200];
@@ -481,11 +487,11 @@ class D {
         this._pr = this.acc / 9 + "_" + (mt10 / mt1).toFixed(2);
     }
     async process() {
-        for (let i = 0; i < this._question.length; ++i) {
+        for (let session = 0; session < this._question.length; ++session) {
             console.log("start_now");
             this.timer = 500;
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
-            for (var item of this._question[i]) { //size direction
+            for (var item of this._question[session]) { //size direction
                 this.tmp = item;
                 await collapse(cross, 300); //start
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
@@ -511,16 +517,22 @@ class D {
             this._groupset += part[6] + "_" + part[7] + "_" + part[8] + (part[3] / part[0] * 100).toFixed(2) + "_" +
                 (part[4] / part[1] * 100).toFixed(2) + "_" + (part[5] / part[2] * 100).toFixed(2) + "_";
             this._acc += ((part[3] / part[0] * 100) + (part[4] / part[1] * 100) + (part[5] / part[2] * 100));
-            await new Promise(resolve => {
-                window.addEventListener('keydown', e => {
-                    console.log(e.key);
-                    if (e.key == " ") {
-                        console.log(" oh ya");
-                        resolve();
+            if (session + 1 < this.game_set[0]) {
+                // console.log(this.remind_btn);
+                await new Promise(resolve => {
+                    this.remind_btn.click();
+                    this.remind_btn.nextElementSibling.textContent="共三回合 接下來是第"+(session+2)+"回合";
+                    function keyhandle(e) {
+                        if (e.key == " ") {
+                            window.removeEventListener('keydown', keyhandle);
+                            resolve();
+                        }
+                       
                     }
-                    console.log("press space")
-                }); //once true ,the listener will be remove after invoke
-            });
+                    window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
+                });
+                this.remind_btn.click();
+            }
         }
         //analyzedata
         this._analyzeData();
@@ -934,6 +946,7 @@ class G {
 class H {
     constructor(game_set) {
         this.game_set = game_set;
+        this.remind_btn = document.querySelector('button[name="remind_btn"]');
         this.ball = add_ball(['ball-80', 'center-screen']);
         this.ratio = [game_set[0], game_set[1] / 2, game_set[2] / 4];
         this._question = [];
@@ -1004,9 +1017,9 @@ class H {
         this._group = (Acc1 + "_" + Acc2 + "_" + Acc3 + "_" + RT1 + "_" + RT2 + "_" + RT3).replaceAll('NaN', 'NA');
     }
     async process() {
-        for (let part = 0; part < this._question.length; ++part) {
+        for (let session = 0; session < this._question.length; ++session) {
             let numbertimeset = [0, 0];
-            for (var item of this._question[part]) {
+            for (var item of this._question[session]) {
                 await collapse(cross, 200, 800); //start
                 this.ball.style.backgroundColor = item;
                 await this._generateAnswer(this.ball, 500).then((data) => {
@@ -1017,8 +1030,23 @@ class H {
                 await collapse(null, 100, 300);
             }
             this._one = this._one.slice(0, -1) + "-"; //change part
-            this._groupset[part] = numbertimeset[0] * 100 / this.game_set[part]; //Acc
-            this._groupset[part + 3] = numbertimeset[1] / numbertimeset[0]; //Rt
+            this._groupset[session] = numbertimeset[0] * 100 / this.game_set[session]; //Acc
+            this._groupset[session + 3] = numbertimeset[1] / numbertimeset[0]; //Rt
+            if (session + 1 < this._question.length) {
+                // console.log(this.remind_btn);
+                await new Promise(resolve => {
+                    this.remind_btn.click();
+                    this.remind_btn.nextElementSibling.textContent="共三回合 接下來是第"+(session+2)+"回合";
+                    function keyhandle(e) {
+                        if (e.key == " ") {
+                            window.removeEventListener('keydown', keyhandle);
+                            resolve();
+                        }         
+                    }
+                    window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
+                });
+                this.remind_btn.click();
+            }
             // console.log(this._groupset);
         }
         this._analyzeData();

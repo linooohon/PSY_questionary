@@ -15,6 +15,20 @@
 </head>
 
 <body>
+  <!-- remind modal&&button -->
+  <div id="remind_modal" class="modal fade bd-example-modal-sm " data-backdrop="static" data-keyboard="false"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content text-center">
+        <button name="remind_btn" type="button" class="btn btn-primary" onclick="$('#remind_modal').modal('toggle')"
+          style="display: none;">
+        </button>
+        <h3>[共三回合,接下來是第2回合]</h3>
+        <br>
+        請按空白鍵繼續.....
+      </div>
+    </div>
+  </div>
   <!-- main modal -->
   <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -130,11 +144,11 @@
 
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
-      game = new D([1, 40]);
+      game = new D([3, 40]);
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new D([4, 120]);
+      game = new D([3, 120]);
       game.process();
       $('#main-model').modal('hide');
     }
