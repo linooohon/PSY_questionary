@@ -95,11 +95,26 @@
         player.on("play", () => {
             player.controls(false);
         })
+
+        $("#pass").click(function () {
+            one += data[order[round]].filepath.replace(/_/g, "-") + "_NA_NA_NA_NA_NA_NA_NA";
+            if (round >= 0) {
+                round--;
+                one += "~";
+                path = "http://140.116.183.54:1340?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
+                player.src({
+                    src: path,
+                    type: 'video/mp4'
+                });
+                player.controls(true);
+            }
+        })
+
         //核心事件: 影片播放完畢, 開始序列行為
         player.on("ended", () => {
             player.controls(true);
             //console.log("結束影片" + data[order[round]].filepath);
-            one += data[order[round]].filepath.replace(/_/g,"-") + "_";
+            one += data[order[round]].filepath.replace(/_/g, "-") + "_";
             //播完影片,展示桌子
             $("#net").show();
             $("#MyVideo").hide();

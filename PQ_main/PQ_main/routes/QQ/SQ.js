@@ -45,7 +45,7 @@ function updateAlldate(db, ID, collection, data) {
     });
 }
 
-function insertOnedate(db, ID, collection, data) {
+function insertOnedate(db, ID, collection, data, date) {
     return new Promise((resolve, reject) => {
         var table = db.db("QQ").collection("one_" + collection);
         var list = data.split('_');
@@ -55,7 +55,19 @@ function insertOnedate(db, ID, collection, data) {
                 goal[i] = list[i - 1];
         else
             reject({ result: '傳入數據格式錯誤' });
-        table.insertOne({ ID: ID, Date: new Date(), data: goal }, function (err, result) {
+        table.insertOne({ ID: ID, Date: date, data: goal }, function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            resolve({ result: "success" });
+        });
+    });
+}
+
+function updateDate(db, ID, date, type) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("QQ").collection("personal_Date");
+        var updateThing = {};
+        updateThing[type] = date;
+        table.updateOne({ ID: ID }, { $set: updateThing }, { upsert: true }, function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             resolve({ result: "success" });
         });
@@ -67,6 +79,7 @@ router.post('/saveData', function (req, res) {
     var password = req.body.password;
     var data = req.body.data;
     var collection = req.body.collection;//Q1,Q2.....
+    var date = new Date().toLocaleString();
     if (Questionary_licence.indexOf(collection) > -1) {
         MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
@@ -75,7 +88,8 @@ router.post('/saveData', function (req, res) {
             //promisrList.push(insertOnedate(db, ID, collection, data));
             CheckPassword(db, ID, password)
                 .then(pkg => updateAlldate(db, ID, collection, data))
-                .then(pkg => insertOnedate(db, ID, collection, data))
+                .then(pkg => insertOnedate(db, ID, collection, data, date))
+                .then(pkg => updateDate(db, ID, date, collection))
                 .then(pkg => res.json({ result: "success" }))
                 .catch(error => res.json(error));
         });
