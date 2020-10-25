@@ -12,5 +12,7 @@ router.get('/', function (req, res) {
 router.get('/test', function (req, res) {
     res.render('testBW');
 });
-
+router.get('/GQ/Questionary/:which', function (req, res) {
+    res.render(req.params.which);
+});
 module.exports = router;

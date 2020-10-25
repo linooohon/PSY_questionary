@@ -620,9 +620,9 @@ class F {
         this._group = [0, 0, 0, 0, 0, 0];
         this._group_num = [0, 0, 0, 0, 0, 0];
         this.IMG_NAME = {
-            0: "/pic/eye.jpg",
-            1: "/pic/eye_L.jpg",
-            2: "/pic/eye_R.jpg",
+            0: "/image/eye.jpg",
+            1: "/image/eye_L.jpg",
+            2: "/image/eye_R.jpg",
         }
         this.rect = document.getElementById("rect_div").children;//0:left ,1:right
         this._createQuestion();
