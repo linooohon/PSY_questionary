@@ -70,32 +70,56 @@
         </form>
     </div>
     <script>
+        var eachDate = {
+            A: '未有填寫紀錄',
+            B: '未有填寫紀錄',
+            C: '未有填寫紀錄',
+            D: '未有填寫紀錄',
+            E: '未有填寫紀錄',
+            F: '未有填寫紀錄',
+            G: '未有填寫紀錄',
+            H: '未有填寫紀錄',
+            I: '未有填寫紀錄',
+            J: '未有填寫紀錄',
+            K: '未有填寫紀錄',
+            L: '未有填寫紀錄',
+            M: '未有填寫紀錄'
+        };
         //跳問卷
         function movePage(name) {
             $("#form").attr("action", "Questionary/" + name).submit();
         }
         $(document).ready(function () {
+            $.post("/GQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                if (result.result == "success") {
+                    for (var i in result.data) {
+                        eachDate[i] = "上次填寫時間 : " + result.data[i];
+                    }
+                }
+                else
+                    alert(result.result + ",無法抓取過去填寫紀錄");
+            })
             $(".btn-link").click(function () {
                 $('#modal').modal('show');
                 $(".modal-title").html($(this).text());
                 switch ($(this).attr("name")) {
                     case "stop":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='衝動控制作業' name='A'/><br><input onclick ='movePage(this.name)'  type='button' value='停止訊號作業' name='B'/>");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='衝動控制作業' name='A'/>" + eachDate.A + "<br><input onclick ='movePage(this.name)'  type='button' value='停止訊號作業' name='B'/>" + eachDate.B + "");
                         break;
                     case "predict":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='發球預測作業' name='L' /><br><input onclick ='movePage(this.name)'  type='button' value='桌球比賽記錄員檢定作業' name='M' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='發球預測作業' name='L' />" + eachDate.L + "<br><input onclick ='movePage(this.name)'  type='button' value='桌球比賽記錄員檢定作業' name='M' />" + eachDate.M + "");
                         break;
                     case "emotion":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='情緒詞觸發作業' name='K' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='情緒詞觸發作業' name='K' />" + eachDate.K + "");
                         break;
                     case "see":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='點協調作業' name='C' /><br><input onclick ='movePage(this.name)'  type='button' value='運動抑制作業' name='D' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='點協調作業' name='C' />" + eachDate.C + "<br><input onclick ='movePage(this.name)'  type='button' value='運動抑制作業' name='D' />" + eachDate.D + "");
                         break;
                     case "remember":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='逆敘數字記憶闊度' name='I' /><br><input onclick ='movePage(this.name)'  type='button' value='空間記憶作業' name='J' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='逆敘數字記憶闊度' name='I' />" + eachDate.I + "<br><input onclick ='movePage(this.name)'  type='button' value='空間記憶作業' name='J' />" + eachDate.J + "");
                         break;
                     case "concentration":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='注意力網路作業' name='E' /><br><input onclick ='movePage(this.name)'  type='button' value='眼神線索典範' name='F' /><br><input onclick ='movePage(this.name)'  type='button' value='多物件追蹤作業' name='G' /><br><input onclick ='movePage(this.name)'  type='button' value='反應時間作業' name='H' />");
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)'  type='button' value='注意力網路作業' name='E' />" + eachDate.E + "<br><input onclick ='movePage(this.name)'  type='button' value='眼神線索典範' name='F' />" + eachDate.F + "<br><input onclick ='movePage(this.name)'  type='button' value='多物件追蹤作業' name='G' />" + eachDate.G + "<br><input onclick ='movePage(this.name)'  type='button' value='反應時間作業' name='H' />" + eachDate.H + "");
                         break;
                     default:
                         $(".modal-btn").html("");

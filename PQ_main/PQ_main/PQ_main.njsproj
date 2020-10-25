@@ -38,6 +38,9 @@
     <Content Include="public\javascripts\GQ_L.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\javascripts\GQ_M.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\javascripts\jquery.js" />
     <Content Include="public\javascripts\verify.js" />
     <Content Include="public\javascripts\video.js">
@@ -113,6 +116,9 @@
     <Content Include="views\GQ\questionary\K.html" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="views\GQ\questionary\L.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\GQ\questionary\M.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\QQ\EQ.html">
