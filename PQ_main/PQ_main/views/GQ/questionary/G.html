@@ -44,7 +44,7 @@
   <style>
 
   </style>
-  <!-- spawn the ball -->
+  <!-- spawn the rect -->
   <div id="spawn" style="display: none;"></div>
   <!-- run/pause place -->
   <div style="display: none;">
@@ -66,37 +66,37 @@
   var game;
   var pause = true;
   var apawn_div = document.querySelector('#spawn');
-  var ball_width = 20,
+  var rect_width = 20,
     leftNum = 0,
     topNum = 0,
     aBall = null,
     length = 0;
-  reSize(ball_width);
+  reSize(rect_width);
   //when resize screen  the screen size
   window.onresize = reSize;
 
   function reSize(radius) {
-    leftMax = document.documentElement.clientWidth - ball_width;
-    topMax = document.documentElement.clientHeight - ball_width;
+    leftMax = document.documentElement.clientWidth - rect_width;
+    topMax = document.documentElement.clientHeight - rect_width;
   }
 
-  function createBall(obj, num, init) { // create the ball function
+  function createBall(obj, num, init) { // create the rect function
     for (var i = 0; i < num; i++) {
       var cBall;
       if (i < 3 && init) {
         cBall = document.createElement('target');
         cBall.tagName = "target";
-        cBall.className = 'ball-20';
+        cBall.className = 'rect-20';
         cBall.classList.add('blink');
         // cBall.style.backgroundColor = "rgb(0,0,100)";
         cBall.style.backgroundColor = "yellow"; //change color
       } else {
-        cBall = document.createElement('ball');
-        cBall.className = 'ball-20';
+        cBall = document.createElement('rect');
+        cBall.className = 'rect-20';
         cBall.style.backgroundColor = "rgb(0,0,100)";
       }
-      // cBall.style.top = (Math.random() * ($(window).height()-ball_width)) + 'px';
-      // cBall.style.left = (Math.random() * ($(window).height()-ball_width)) + 'px';
+      // cBall.style.top = (Math.random() * ($(window).height()-rect_width)) + 'px';
+      // cBall.style.left = (Math.random() * ($(window).height()-rect_width)) + 'px';
       // var nh = Math.floor(Math.random() * 360);
       // Xd = Math.cos(nh) * 25 / 5;
       // Yd = Math.sin(nh) * 25 / 5;
@@ -110,8 +110,8 @@
   function Renew() {
     var childball = apawn_div.childNodes;
     childball.forEach(cBall => {
-      cBall.style.top = (Math.random() * ($(window).height() - ball_width)) + 'px';
-      cBall.style.left = (Math.random() * ($(window).height() - ball_width)) + 'px';
+      cBall.style.top = (Math.random() * ($(window).height() - rect_width)) + 'px';
+      cBall.style.left = (Math.random() * ($(window).height() - rect_width)) + 'px';
       var nh = Math.floor(Math.random() * 360);
       Xd = Math.cos(nh) * 25 / 5;
       Yd = Math.sin(nh) * 25 / 5;

@@ -14,6 +14,21 @@
 </head>
 
 <body>
+  <!-- remind modal&&button -->
+
+  <div id="remind_modal" class="modal fade bd-example-modal-sm " data-backdrop="static" data-keyboard="false"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content text-center">
+        <button name="remind_btn" type="button" class="btn btn-primary" onclick="$('#remind_modal').modal('toggle')"
+          style="display: none;">
+        </button>
+        <h3>[共三回合,接下來是第2回合]</h3>
+        <br>
+        請按空白鍵繼續.....
+      </div>
+    </div>
+  </div>
   <!-- main modal -->
   <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -45,7 +60,7 @@
   </div>
 
   <!-- range -->
-  <div id="spawn"></div>
+  <div id="spawn" style="display: none;"></div>
   <!-- spawn the ball -->
 
   <!-- finish btn for game -->
@@ -154,8 +169,6 @@
       backdrop: 'static',
       keyboard: false
     });
-
-
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
           ID: "<%=ID%>",
@@ -213,7 +226,8 @@
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {
-      game = new C([3, 40]);
+      console.log("reality");
+      game = new C([3, 40]); //40
       game.process();
       $('#main-model').modal('hide');
     }
@@ -259,7 +273,7 @@
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
             if (data.result == "success") {
-              localStorage.removeItem("pr");
+              localStorage.removeItem("pr")
               $('form').submit();
               alert("資料上傳成功");
             } else {

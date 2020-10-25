@@ -20,7 +20,26 @@
 </style>
 
 <body>
-
+    <!-- remind modal -->
+    <div id="remind_modal" class="modal fade " tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true" onshow="test()">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content text-center p-2">
+                <button name="remind_btn" type="button" class="btn btn-primary"
+                    onclick="$('#remind_modal').modal('toggle')" style="display: none;">
+                </button>
+                <h3>[共三回合,接下來是第2回合]</h3>
+                <img name="H-1" src="/image/H.png" alt="information" class=" img-fluid  p-0 d-none" 
+                    style="height: 100%;background-color: rgba(255, 196, 196, 0.651); ">
+                <img name="H-2" src="/image/H_2.png" alt="information" class=" img-fluid  p-0 d-none"
+                    style="height: 100%;background-color: rgba(255, 196, 196, 0.651);">
+                <img  name="H-3"src="/image/H_3.png" alt="information" class=" img-fluid  p-0 d-none"
+                    style="height: 100%;background-color: rgba(255, 196, 196, 0.651);">
+                <br>
+                請按空白鍵繼續.....
+            </div>
+        </div>
+    </div>
     <!-- main modal -->
     <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
@@ -69,11 +88,19 @@
     var game_get = null;
     var game;
     var img_place = 0;
+    var remind_img = 1;
+    $('#remind_modal').on('show.bs.modal', function (e) {
+        images = $("#image_div").find("img");
+        remind_img >= images.length  ? remind_img = 0 : remind_img++;
+        $('img[name="H-'+remind_img+'"]').removeClass('d-none').siblings("img").addClass('d-none');
+        // console.log(remind_img);
+      
+    })
 
     function Next() {
         images = $("#image_div").find("img");
         img_place >= images.length - 1 ? img_place = 0 : img_place++;
-        $(images[img_place]).removeClass('d-none').siblings("img").addClass('d-none');
+        $(images[remind_img]).removeClass('d-none').siblings("img").addClass('d-none');
         console.log(img_place);
     }
     $(window).on('load', function () {
@@ -106,7 +133,7 @@
                 "json"
             );
         }
-        
+
     });
 
     $('#start').on('click', function () {

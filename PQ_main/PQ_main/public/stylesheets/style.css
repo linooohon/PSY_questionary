@@ -55,10 +55,10 @@
     transform: translate(-50%, -50%);
   }
   
-  .ball-20 {
+  .rect-20 {
     height:20px;
     width: 20px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     display: inline-block;
     position: absolute;
     top: 0;
