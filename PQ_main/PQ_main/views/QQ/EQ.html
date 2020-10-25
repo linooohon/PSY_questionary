@@ -19,14 +19,14 @@
     <br>
     <div class="container">
         <div style="text-align:center">
-            <input name="Q1" onclick='movePage(this.name)' type="button" value="運動員因應技能量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q2" onclick='movePage(this.name)' type="button" value="運動員心理技能量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q3" onclick='movePage(this.name)' type="button" value="競賽狀態焦慮量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q4" onclick='movePage(this.name)' type="button" value="運動意象能力量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q5" onclick='movePage(this.name)' type="button" value="流暢體驗量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q6" onclick='movePage(this.name)' type="button" value="成人用運動競賽焦慮測驗" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q7" onclick='movePage(this.name)' type="button" value="情緒智力量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
-            <input name="Q8" onclick='movePage(this.name)' type="button" value="戈登人格剖析量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><br>
+            <input name="Q1" onclick='movePage(this.name)' type="button" value="運動員因應技能量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q1">無紀錄</small><br>
+            <input name="Q2" onclick='movePage(this.name)' type="button" value="運動員心理技能量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q2">無紀錄</small><br>
+            <input name="Q3" onclick='movePage(this.name)' type="button" value="競賽狀態焦慮量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q3">無紀錄</small><br>
+            <input name="Q4" onclick='movePage(this.name)' type="button" value="運動意象能力量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q4">無紀錄</small><br>
+            <input name="Q5" onclick='movePage(this.name)' type="button" value="流暢體驗量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q5">無紀錄</small><br>
+            <input name="Q6" onclick='movePage(this.name)' type="button" value="成人用運動競賽焦慮測驗" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q6">無紀錄</small><br>
+            <input name="Q7" onclick='movePage(this.name)' type="button" value="情緒智力量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q7">無紀錄</small><br>
+            <input name="Q8" onclick='movePage(this.name)' type="button" value="戈登人格剖析量表" style="font-size:200%" class="btn btn-primary col-md-6"><br><small id="Q8">無紀錄</small><br>
         </div>
         <div>
             <div class="row">
@@ -52,6 +52,15 @@
             $("#form").attr("action", "Questionary/" + name).submit();
         }
         $(document).ready(function () {
+            $.post("/QQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                if (result.result == "success") {
+                    for (var i in result.data) {
+                        $("#" + i).text("上次填寫時間 : " + result.data[i]);
+                    }
+                }
+                else
+                    alert(result.result + ",無法抓取過去填寫紀錄");
+            })
             //跳功能頁
             $(".btn-success").click(function () {
                 $("#form").attr("action", "/EW/jumpBoard").submit();
