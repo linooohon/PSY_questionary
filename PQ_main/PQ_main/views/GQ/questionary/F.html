@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta charset="UTF-8">
 
@@ -19,10 +20,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header ">
+          <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+            onclick="$('form').submit();">回首頁</button>
           <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
         </div>
-        <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
-          測試資料介紹
+        <div class="modal-body m-2 p-0 text-center" style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
+          <img src="/image/F.png" alt="information" class=" img-fluid  p-0" style="height: 100%;">
         </div>
         <div class="btn-group d-flex p-2">
           <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
@@ -37,21 +40,25 @@
   <!-- cross -->
   <ten id="cross" class="center-screen cross" style="font-size: 28px;color: black;"></ten>
   <!-- pic -->
-  <img id="image" src="/pic/eye.jpg" class=" center-screen" alt="look" style="display: none;"/>
+  <img id="image" src="/image/eye.jpg" class=" center-screen" alt="look" style="display: none;" />
   <!-- rect div  child no change-->
   <div id="rect_div">
-    <rect name="left" class="center-screen" style="margin-left: -250px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;"></rect>
-    <rect name="right" class=" center-screen" style="margin-left: 250px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;"></rect>
+    <rect name="left" class="center-screen"
+      style="margin-left: -250px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
+    </rect>
+    <rect name="right" class=" center-screen"
+      style="margin-left: 250px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
+    </rect>
   </div>
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->
   <form method="POST" action="/GQ/EQ" style="display: none;">
-    <input name="ID">
-    <input name="password">
+    <input name="ID" value="<%=ID%>">
+    <input name="password" value="<%=password%>">
   </form>
 </body>
-<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
 <script type="text/javascript">
   var game_get = null;
   var game;
@@ -64,16 +71,44 @@
 
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
-          ID: "ID",
-          password: "password",
+          ID: "<%=ID%>",
+          password: "<%=password%>",
           one: localStorage.getItem("one"),
           group: localStorage.getItem("group"),
           type: 'F',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
-            localStorage.clear();
-          }
+            if (data.result == "success") {
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              alert("上次未上傳資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+    }
+    if (localStorage.getItem("pr") != null) {
+      $.post("/GQ/PR/savePR", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          data: localStorage.getItem("pr"),
+          type: 'F',
+        },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("pr");
+              alert("上次未上傳資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
         },
         "json"
       );
@@ -98,30 +133,58 @@
   });
 
   $('#finish_btn').on('click', function () {
-       console.log(game.one);
-      console.log(game.group);
+    console.log(game.one);
+    console.log(game.group);
     if (game_get == "reality") {
       $('form').children('input[name="one"]').val(game.one);
       $('form').children('input[name="group"]').val(game.group);
       localStorage.setItem("one", game.one);
       localStorage.setItem("group", game.group);
       $.post("/GQ/SQ/saveData", {
-          ID: "ID",
-          password: "password",
+          ID: "<%=ID%>",
+          password: "<%=password%>",
           one: game.one,
           group: game.group,
           type: 'F',
         },
         function (data, textStatus, jqXHR) {
           if (textStatus == "success") {
-            localStorage.clear();
-            $('form').submit();
-          }
+            if (data.result == "success") {
+              localStorage.removeItem("one");
+              localStorage.removeItem("group");
+              $('form').submit();
+              alert("資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
+        },
+        "json"
+      );
+      //save pr
+      $.post("/GQ/PR/savePR", {
+          ID: "<%=ID%>",
+          password: "<%=password%>",
+          data: game.pr,
+          type: 'F',
+        },
+        function (data, textStatus, jqXHR) {
+          if (textStatus == "success") {
+            if (data.result == "success") {
+              localStorage.removeItem("pr");
+              $('form').submit();
+              alert("資料上傳成功");
+            } else {
+              alert("資料上傳失敗,失敗原因 : " + data.result);
+            }
+          } else
+            alert("與伺服器斷訊")
         },
         "json"
       );
     } else { // practice finish reload the page
-     location.reload();
+      location.reload();
     }
   });
 </script>

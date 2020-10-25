@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
 
@@ -12,19 +13,33 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>H:反應時間作業</title>
 </head>
+<style>
+    a:hover {
+        background-color: rgb(255, 163, 163);
+    }
+</style>
 
 <body>
 
     <!-- main modal -->
     <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
                     <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
                 </div>
-                <div class="modal-body m-2" style="background-color: rgb(255, 217, 217);height: 15em;">
-                    測試資料介紹
+                <div id="image_div" class="modal-body m-2 p-0 text-center"
+                    style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
+                    <img src="/image/H.png" alt="information" class=" img-fluid  p-0 " style="height: 100%;">
+                    <img src="/image/H_2.png" alt="information" class=" img-fluid  p-0 d-none" style="height: 100%;">
+                    <img src="/image/H_3.png" alt="information" class=" img-fluid  p-0 d-none" style="height: 100%;">
+                    <a class="carousel-control-next" style="width: 20px; " role="button" onclick="Next()">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
                 <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
@@ -43,37 +58,55 @@
     <button id="finish_btn" style="display: none;"></button>
     <!-- post form -->
     <form method="POST" action="/GQ/EQ" style="display: none;">
-        <input name="ID">
-        <input name="password">
+        <input name="ID" value="<%=ID%>">
+        <input name="password" value="<%=password%>">
     </form>
 </body>
 
 
-<script type="text/javascript" src="/javascripts/Class_inform.js" ></script>
+<script type="text/javascript" src="/javascripts/Class_inform.js"></script>
 <script type="text/javascript">
     var game_get = null;
     var game;
+    var img_place = 0;
 
+    function Next() {
+        images = $("#image_div").find("img");
+        img_place >= images.length - 1 ? img_place = 0 : img_place++;
+        $(images[img_place]).removeClass('d-none').siblings("img").addClass('d-none');
+        console.log(img_place);
+    }
     $(window).on('load', function () {
-        $('#main-model').modal({ backdrop: 'static', keyboard: false });
+        $('#main-model').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         window.resizeTo(1024, 768); //only work on pop up event
         console.log(window.screen.width);
         if (localStorage.getItem("one") != null) {
             $.post("/GQ/SQ/saveData", {
-                ID: "ID",
-                password: "password",
-                one: localStorage.getItem("one"),
-                group: localStorage.getItem("group"),
-                type: 'H',
-            },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: localStorage.getItem("one"),
+                    group: localStorage.getItem("group"),
+                    type: 'H',
+                },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
-                        localStorage.clear();
-                    }
+                        if (data.result == "success") {
+                            localStorage.removeItem("one");
+                            localStorage.removeItem("group");
+                            alert("上次未上傳資料上傳成功");
+                        } else {
+                            alert("資料上傳失敗,失敗原因 : " + data.result);
+                        }
+                    } else
+                        alert("與伺服器斷訊")
                 },
                 "json"
             );
         }
+        
     });
 
     $('#start').on('click', function () {
@@ -101,17 +134,24 @@
             // console.log(game.one);
             // console.log(game.group);
             $.post("/GQ/SQ/saveData", {
-                ID: "ID",
-                password: "password",
-                one: game.one,
-                group: game.group,
-                type: 'H',
-            },
+                    ID: "<%=ID%>",
+                    password: "<%=password%>",
+                    one: game.one,
+                    group: game.group,
+                    type: 'H',
+                },
                 function (data, textStatus, jqXHR) {
                     if (textStatus == "success") {
-                        localStorage.clear();
-                        $('form').submit();
-                    }
+                        if (data.result == "success") {
+                            localStorage.removeItem("one");
+                            localStorage.removeItem("group");
+                            $('form').submit();
+                            alert("資料上傳成功");
+                        } else {
+                            alert("資料上傳失敗,失敗原因 : " + data.result);
+                        }
+                    } else
+                        alert("與伺服器斷訊")
                 },
                 "json"
             );

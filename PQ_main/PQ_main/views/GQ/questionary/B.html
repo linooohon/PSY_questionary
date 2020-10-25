@@ -16,14 +16,17 @@
 <body>
     <!-- main modal -->
     <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
                     <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
                 </div>
-                <div class="modal-body m-2" style="background-color: rgb(255, 217, 217);height: 15em;">
-                    測試資料介紹
+                <div class="modal-body m-2 p-0 text-center"
+                    style="background-color: rgba(255, 196, 196, 0.651);height: 18em;">
+                    <img src="/image/B.png" alt="information" class=" img-fluid  p-0" style="height: 100%;">
                 </div>
                 <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
@@ -50,8 +53,8 @@
     <button id="finish_btn" style="display: none;"></button>
     <!-- post form -->
     <form method="POST" action="/GQ/EQ" style="display: none;">
-        <input name="ID">
-        <input name="password">
+        <input name="ID" value="<%=ID%>">
+        <input name="password" value="<%=password%>">
     </form>
 
     <script type="text/javascript" src="/javascripts/Class_inform.js"></script>
@@ -66,16 +69,44 @@
             });
             if (localStorage.getItem("one") != null) {
                 $.post("/GQ/SQ/saveData", {
-                    ID: "ID",
-                    password: "password",
-                    one: localStorage.getItem("one"),
-                    group: localStorage.getItem("group"),
-                    type: 'B',
-                },
+                        ID: "<%=ID%>",
+                        password: "<%=password%>",
+                        one: localStorage.getItem("one"),
+                        group: localStorage.getItem("group"),
+                        type: 'B',
+                    },
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
-                            localStorage.clear();
-                        }
+                            if (data.result == "success") {
+                                localStorage.removeItem("one");
+                                localStorage.removeItem("group");
+                                alert("上次未上傳資料上傳成功");
+                            } else {
+                                alert("資料上傳失敗,失敗原因 : " + data.result);
+                            }
+                        } else
+                            alert("與伺服器斷訊")
+                    },
+                    "json"
+                );
+            }
+            if (localStorage.getItem("pr") != null) {
+                $.post("/GQ/PR/savePR", {
+                        ID: "<%=ID%>",
+                        password: "<%=password%>",
+                        data: localStorage.getItem("pr"),
+                        type: 'B',
+                    },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (data.result == "success") {
+                                localStorage.removeItem("pr");
+                                alert("上次未上傳資料上傳成功");
+                            } else {
+                                alert("資料上傳失敗,失敗原因 : " + data.result);
+                            }
+                        } else
+                            alert("與伺服器斷訊")
                     },
                     "json"
                 );
@@ -106,9 +137,9 @@
 
             if (playPromise !== undefined) { //chorme restrict
                 playPromise.then(_ => {
-                    video.pause();
-                    video.play();
-                })
+                        video.pause();
+                        video.play();
+                    })
                     .catch(error => {
 
                     });
@@ -133,24 +164,53 @@
                 // console.log(game.one);
                 // console.log(game.group);
                 $.post("/GQ/SQ/saveData", {
-                    ID: "ID",
-                    password: "password",
-                    one: game.one,
-                    group: game.group,
-                    type: 'B',
-                },
+                        ID: "<%=ID%>",
+                        password: "<%=password%>",
+                        one: game.one,
+                        group: game.group,
+                        type: 'B',
+                    },
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
-                            localStorage.clear();
-                            $('form').submit();
-                        }
+                            if (data.result == "success") {
+                                localStorage.removeItem("one");
+                                localStorage.removeItem("group");
+                                $('form').submit();
+                                alert("資料上傳成功");
+                            } else {
+                                alert("資料上傳失敗,失敗原因 : " + data.result);
+                            }
+                        } else
+                            alert("與伺服器斷訊")
+                    },
+                    "json"
+                );
+                //save pr
+                $.post("/GQ/PR/savePR", {
+                        ID: "<%=ID%>",
+                        password: "<%=password%>",
+                        data: game.pr,
+                        type: 'B',
+                    },
+                    function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (data.result == "success") {
+                                localStorage.removeItem("pr");
+                                $('form').submit();
+                                alert("資料上傳成功");
+                            } else {
+                                alert("資料上傳失敗,失敗原因 : " + data.result);
+                            }
+                        } else
+                            alert("與伺服器斷訊")
                     },
                     "json"
                 );
             } else {
-                history.go(-1);
+                location.reload();
             }
         });
     </script>
 </body>
+
 </html>
