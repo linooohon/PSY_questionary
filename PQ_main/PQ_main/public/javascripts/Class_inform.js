@@ -112,7 +112,7 @@ class A {
         for (var item of this._question) {
             await collapse(cross, 200, 800); //start
             this.ball.style.backgroundColor = item;
-            await this._generateAnswer(this.ball, 2000).then((data) => {
+            await this._generateAnswer(this.ball, 500).then((data) => {
                 this._one += data[0];
                 this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
             });
@@ -1521,7 +1521,6 @@ function shuffle(a) {
     return a;
 }
 
-
 //create the  object 
 var add_ball = function (cs) {
     let obj = document.createElement("ball");
@@ -1556,6 +1555,4 @@ function show(obj) {
             obj.style.display = "block";
         }
     }
-    // if (obj != null)
-    //     obj.style.display = "inline-block";
 }
