@@ -125,7 +125,7 @@
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
-                                localStorage.removeItem("one");localStorage.removeItem("group");
+                                localStorage.removeItem("one"); localStorage.removeItem("group");
                                 alert("上次未上傳資料上傳成功");
                             }
                             else {
@@ -143,24 +143,28 @@
                 if (Difficulty == null || mode == null || situation == null)
                     alert("請選擇模式與難度");
                 else {
-                    $.post("/GQ/video/getLtableList", { mode: mode, Difficulty: Difficulty, situation: situation }, function (result) {
-                        if (result.result == "success") {
-                            var videoList = result.data;
-                            //console.log(videoList);
-                            $('#main-model').modal('hide');
-                            $(".row").show();
-                            var Test = new L(videoList,'<%=ID%>','<%=password%>');
-                            if (situation == "reality" && videoList.length >= 40) {
-                                Test.Go(40);
-                            }
-                            else if (situation == "practice" && videoList.length >= 5) {
-                                Test.Go(5);
+                    $.post("/GQ/video/getLtableList", { mode: mode, Difficulty: Difficulty, situation: situation }, function (result, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            if (result.result == "success") {
+                                var videoList = result.data;
+                                //console.log(videoList);
+                                $('#main-model').modal('hide');
+                                $(".row").show();
+                                var Test = new L(videoList, '<%=ID%>', '<%=password%>');
+                                if (situation == "reality" && videoList.length >= 40) {
+                                    Test.Go(40);
+                                }
+                                else if (situation == "practice" && videoList.length >= 5) {
+                                    Test.Go(5);
+                                }
+                                else
+                                    alert("伺服器傳輸有誤, 請再試一次");
                             }
                             else
-                                alert("伺服器傳輸有誤, 請再試一次");
+                                alert(result.result + " 請之後再試");
                         }
                         else
-                            alert(result.result + " 請之後再試");
+                            alert("伺服器傳輸有誤, 請稍後試一次");
                     });
                 }
             });
