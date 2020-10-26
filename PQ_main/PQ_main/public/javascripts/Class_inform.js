@@ -1085,8 +1085,8 @@ class I {
         this._createQuestion();
     }
     _init_item() {
-        this.number.setAttribute("style", "font-size: 28px; font-weight: bold;");
-        this.number.textContent = "1";
+        this.number.setAttribute("style", "font-size: 45px; font-weight: bold;");
+        this.number.textContent = "";
         this.number.classList.add('center-screen');
         body.appendChild(this.number);
     }
@@ -1110,7 +1110,7 @@ class I {
         quetion_Result += length.toString() + "_"; //NofDig
         for (let i = 0; i < length; ++i) { //show item
             quetion_Result += numberlist[i].toString(); //CorrDig
-            show(inputline[i]);
+            show(inputline[i],"inline-block");
         }
         quetion_Result += "_";
         return new Promise(resolve => {
@@ -1173,7 +1173,7 @@ class I {
                 await collapse(this.number, 1000);
                 await collapse(null, 200);
             }
-            await this._generateAnswer(this._question[part].reverse(), this.inputline, 3000).then((data) => {
+            await this._generateAnswer(this._question[part].reverse(), this.inputline, 15000).then((data) => {
                 this._one += data[0];
                 this._groupset[0] += data[1];
             });
@@ -1548,14 +1548,17 @@ function hide(obj) {
 }
 
 //show object
-function show(obj) {
+
+function show(obj,obj_style="block") {
     if (obj != null) {
         if (Array.isArray(obj)) {
             obj.forEach(element => {
-                element.style.display = "block";
+                element.style.display = obj_style;
             });
         } else {
-            obj.style.display = "block";
+            obj.style.display = obj_style;
         }
     }
+    // if (obj != null)
+    //     obj.style.display = "inline-block";
 }
