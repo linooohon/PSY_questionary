@@ -8,6 +8,12 @@ var BALL_COLOR = {
     B: "blue",
     Y: "yellow",
 };
+var Color_Set = {
+    "red": "red",
+    "green": "rgb(0, 255, 0)",
+    "blue": "rgb(0, 0, 255)",
+    "yellow": "yellow",
+}
 var KEY_COLOR = {
     f: "red",
     j: "green",
@@ -15,22 +21,22 @@ var KEY_COLOR = {
     l: "yellow"
 };
 var KEY_NUM = {
-    f: "2",
     j: "1",
+    f: "2",
     s: "3",
     l: "4"
 }
 var COLOR_NUM = {
-    "red": "2",
     "green": "1",
+    "red": "2",
     "blue": "3",
     "yellow": "4"
 }
 var ARROW_NUM = {
-    "ArrowRight": "1",
-    "ArrowDown": "2",
-    "ArrowLeft": "3",
-    "ArrowUp": "4"
+    d: "1",
+    s: "2",
+    a: "3",
+    w: "4"
 }
 class A {
     constructor(game_set) {
@@ -52,17 +58,20 @@ class A {
         body.appendChild(this.ball);
     }
     _createQuestion() {
-        this._question = competitor([BALL_COLOR.G, BALL_COLOR.R], [this.ratio.G, this.ratio.R]);
+        this._question = competitor([Color_Set.green, Color_Set.red], [this.ratio.G, this.ratio.R]); //修改
+        console.log(this._question);
     }
     _generateAnswer = (item, range_min, range_max) => {
         let start = Date.now();
         let interval = range_min;
         let quetion_Result = "";
-        let color = item.style.backgroundColor;
+        let color = getKeyByValue(Color_Set, item.style.backgroundColor.toString());
+        console.log(color);
         let group_set = [0, 0, 0, 0]; //ACC_tRT_FA_tFART
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
-        quetion_Result += (color[0]).toUpperCase() + "_"; //Color
+        // quetion_Result += (color[0]).toUpperCase() + "_"; //Color
+        quetion_Result += COLOR_NUM[color] + "_"; //Color
         show(item);
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
@@ -112,10 +121,11 @@ class A {
         for (var item of this._question) {
             await collapse(cross, 200, 800); //start
             this.ball.style.backgroundColor = item;
-            await this._generateAnswer(this.ball, 2000).then((data) => {
+            await this._generateAnswer(this.ball, 500).then((data) => {
                 this._one += data[0];
                 this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
             });
+            console.log(this._one);
             // console.log(this._groupset);
             await collapse(null, 100, 300);
         }
@@ -155,7 +165,7 @@ class B {
         body.appendChild(this.ball);
     }
     _createQuestion() {
-        this._question = competitor([BALL_COLOR.G, BALL_COLOR.R], this.ratio);
+        this._question = competitor([Color_Set.green, Color_Set.red], this.ratio);
         this._bee = competitor([1, 0], [this._beenum, this.game_set - this._beenum]); // 1 have bee 0 no bee
         console.log(this._bee);
     }
@@ -166,12 +176,14 @@ class B {
         let interval = range_min;
         let group_set = [0, 0, 0, 0, 0, 0]; //ACC_GoAcc_GoRT_NCRate_NCRT_mSSD
         let quetion_Result = "";
-        let color = item.style.backgroundColor;
+        // let color = item.style.backgroundColor;
+        let color = getKeyByValue(Color_Set, item.style.backgroundColor);
         let plus = 0;
         group_set[5] = delay_num; //mSSD 
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
-        quetion_Result += (color[0]).toUpperCase() + "_"; //Color
+        // quetion_Result += (color[0]).toUpperCase() + "_"; //Color
+        quetion_Result += COLOR_NUM[color] + "_"; //Color
         if (bee) { //CorrAns
             var bee_time = setTimeout(bee_start.click(), delay_num); //bee start
             quetion_Result += "0_"
@@ -366,7 +378,7 @@ class C {
                 await collapse(this.spawn_div, 500);
                 console.log(ratio);
                 console.log(direction);
-                await this._generateAnswer(null, direction, 8000).then((data) => {
+                await this._generateAnswer(null, direction, 3000).then((data) => {
                     this._one += data[0];
                     part_right += data[1];
                     flip == data[1] ? conti++ : conti = 0;
@@ -382,13 +394,14 @@ class C {
                 // console.log(this.remind_btn);
                 await new Promise(resolve => {
                     this.remind_btn.click();
-                    this.remind_btn.nextElementSibling.textContent="共三回合 接下來是第"+(session+2)+"回合";
+                    this.remind_btn.nextElementSibling.textContent = "共三回合 接下來是第" + (session + 2) + "回合";
+
                     function keyhandle(e) {
-                        if (e.key == " ") {
+                        if (e.key == "Enter") { //press enter
                             window.removeEventListener('keydown', keyhandle);
                             resolve();
                         }
-                       
+
                     }
                     window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
                 });
@@ -489,10 +502,12 @@ class D {
     async process() {
         for (let session = 0; session < this._question.length; ++session) {
             console.log("start_now");
-            this.timer = 500;
+            this.timer = 80;
+            this.last_timer = 80;
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
                 this.tmp = item;
+                let tmp_timer = this.timer;
                 await collapse(cross, 300); //start
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
@@ -502,7 +517,8 @@ class D {
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {
                     this._one += data[0];
                     this.correct = data[1];
-                    this.correct == 0 ? this.timer = this.timer + (500) * 0.3 + 100 : this.timer = this.timer + (-500) * 0.3 + 100;
+                    this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 10) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 10);
+                    this.last_timer = tmp_timer;
                     part[this.tmp[0]]++;
                     part[this.tmp[0] + 6] = this.timer;
                     if (this.correct != 0) {
@@ -521,13 +537,14 @@ class D {
                 // console.log(this.remind_btn);
                 await new Promise(resolve => {
                     this.remind_btn.click();
-                    this.remind_btn.nextElementSibling.textContent="共三回合 接下來是第"+(session+2)+"回合";
+                    this.remind_btn.nextElementSibling.textContent = "共三回合 接下來是第" + (session + 2) + "回合";
+
                     function keyhandle(e) {
-                        if (e.key == " ") {
+                        if (e.key == "Enter") {
                             window.removeEventListener('keydown', keyhandle);
                             resolve();
                         }
-                       
+
                     }
                     window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
                 });
@@ -646,18 +663,18 @@ class E {
         let Or = Ce - Sp;
         let Conflict = In - Co;
         this._group = (Acc + "_" + RT + "_" + No + "_" + Ce + "_" + Du + "_" + Sp + "_" + Co + "_" + In + "_" + Ne + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
-        this.pr = (Acc + "_" + RT + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
+        this._pr = (Acc + "_" + RT + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
     }
     async process() {
         for (var item of this._question) { //[cluek,arrowk,side,tag]
             let getgroup = [];
-            let cross_time = Math.floor(Math.random() * 10) + 400;
+            let cross_time = Math.floor(Math.random() * 1200) + 400;
             await collapse(cross, cross_time); //start
             if (item[0] == 3) {
                 this.clueplace[item[0]].setAttribute("side", this.SIDE[item[2]]);
             }
             console.log(this.clueplace[item[0]]);
-            await collapse(this.clueplace[item[0]], 1000); //collapse something
+            await collapse(this.clueplace[item[0]], 100);
             this.clueplace[item[0]].removeAttribute("side");
             await collapse(cross, 400);
 
@@ -962,9 +979,9 @@ class H {
     }
     _createQuestion() {
         this._question = [
-            competitor([BALL_COLOR.G], this.ratio[0]),
-            competitor([BALL_COLOR.G, BALL_COLOR.R], this.ratio[1]),
-            competitor([BALL_COLOR.G, BALL_COLOR.B, BALL_COLOR.R, BALL_COLOR.Y], this.ratio[2]),
+            competitor([Color_Set.green], this.ratio[0]),
+            competitor([Color_Set.green, Color_Set.red], this.ratio[1]),
+            competitor([Color_Set.green, Color_Set.red, Color_Set.blue, Color_Set.yellow], this.ratio[2]),
         ]
     }
     _generateAnswer = (item, range_min, range_max) => {
@@ -974,7 +991,8 @@ class H {
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         let quetion_Result = "";
         let press_and_time = [0, 0]; //  number && times
-        var color = item.style.backgroundColor;
+        // let color = item.style.backgroundColor;
+        let color = getKeyByValue(Color_Set, item.style.backgroundColor);
         quetion_Result += COLOR_NUM[color] + "_" + COLOR_NUM[color] + "_"; //Color_CorrAns_
         show(item);
         return new Promise(resolve => {
@@ -1036,12 +1054,13 @@ class H {
                 // console.log(this.remind_btn);
                 await new Promise(resolve => {
                     this.remind_btn.click();
-                    this.remind_btn.nextElementSibling.textContent="共三回合 接下來是第"+(session+2)+"回合";
+                    this.remind_btn.nextElementSibling.textContent = "共三回合 接下來是第" + (session + 2) + "回合";
+
                     function keyhandle(e) {
-                        if (e.key == " ") {
+                        if (e.key == "Enter") { //press enter
                             window.removeEventListener('keydown', keyhandle);
                             resolve();
-                        }         
+                        }
                     }
                     window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
                 });
@@ -1082,8 +1101,8 @@ class I {
         this._createQuestion();
     }
     _init_item() {
-        this.number.setAttribute("style", "font-size: 28px; font-weight: bold;");
-        this.number.textContent = "1";
+        this.number.setAttribute("style", "font-size: 45px; font-weight: bold;");
+        this.number.textContent = "";
         this.number.classList.add('center-screen');
         body.appendChild(this.number);
     }
@@ -1107,7 +1126,7 @@ class I {
         quetion_Result += length.toString() + "_"; //NofDig
         for (let i = 0; i < length; ++i) { //show item
             quetion_Result += numberlist[i].toString(); //CorrDig
-            show(inputline[i]);
+            show(inputline[i], "inline-block");
         }
         quetion_Result += "_";
         return new Promise(resolve => {
@@ -1170,7 +1189,7 @@ class I {
                 await collapse(this.number, 1000);
                 await collapse(null, 200);
             }
-            await this._generateAnswer(this._question[part].reverse(), this.inputline, 3000).then((data) => {
+            await this._generateAnswer(this._question[part].reverse(), this.inputline, 15000).then((data) => {
                 this._one += data[0];
                 this._groupset[0] += data[1];
             });
@@ -1363,7 +1382,7 @@ class K {
     _createQuestion() {
         let wordlength = this._worddict[0].length;
         let wordkind = this._worddict.length;
-        for (var colortype of Object.values(BALL_COLOR)) {
+        for (var colortype of Object.values(Color_Set)) {
             for (let kind = 0; kind < wordkind; ++kind) {
                 for (let i = 0; i < wordlength; ++i) {
                     this.question.push([this._worddict[kind][i], colortype, kind]); //word color kind
@@ -1379,7 +1398,8 @@ class K {
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         let start = Date.now();
-        let color = item.style.color;
+        let color = getKeyByValue(Color_Set, item.style.color);
+        console.log(color);
         let condition = item.getAttribute("part");
         let quetion_Result = "";
         let group_time = [0, 0, 0, 0];
@@ -1521,7 +1541,6 @@ function shuffle(a) {
     return a;
 }
 
-
 //create the  object 
 var add_ball = function (cs) {
     let obj = document.createElement("ball");
@@ -1546,16 +1565,23 @@ function hide(obj) {
 }
 
 //show object
-function show(obj) {
+
+function show(obj, obj_style = "block") {
     if (obj != null) {
         if (Array.isArray(obj)) {
             obj.forEach(element => {
-                element.style.display = "block";
+                element.style.display = obj_style;
             });
         } else {
-            obj.style.display = "block";
+            obj.style.display = obj_style;
         }
     }
     // if (obj != null)
     //     obj.style.display = "inline-block";
+}
+
+function getKeyByValue(object, value) {
+    console.log(object);
+    console.log(value);
+    return Object.keys(object).find(key => object[key] === value);
 }

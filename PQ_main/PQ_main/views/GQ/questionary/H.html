@@ -36,7 +36,7 @@
                 <img  name="H-3"src="/image/H_3.png" alt="information" class=" img-fluid  p-0 d-none"
                     style="height: 100%;background-color: rgba(255, 196, 196, 0.651);">
                 <br>
-                請按空白鍵繼續.....
+                請按Enter鍵繼續.....
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@
 
     $('#start').on('click', function () {
         if (game_get == "practice") {
-            game = new H([10, 20, 20]);
+            game = new H([10,20,20]);//10,20,20
             game.process();
             $('#main-model').modal('hide');
         } else if (game_get == "reality") {
@@ -183,8 +183,8 @@
                 "json"
             );
         } else {
-            //location.reload();
-            history.go(-1);
+            location.reload();
+            // history.go(-1);
         }
     });
 </script>
