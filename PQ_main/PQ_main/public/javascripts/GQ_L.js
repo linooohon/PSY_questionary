@@ -97,6 +97,7 @@
         })
 
         $("#pass").click(function () {
+            console.log(path);
             one += data[order[round]].filepath.replace(/_/g, "-") + "_NA_NA_NA_NA_NA_NA_NA";
             if (round >= 0) {
                 round--;
@@ -170,16 +171,22 @@
                                                     one: one,
                                                     group: "NA",
                                                     type: 'L',
-                                                }, function (result) {
-                                                    if (result.result == "success") {
-                                                        localStorage.clear();
-                                                        $("form").submit();
-                                                    }
-                                                    else {
-                                                        localStorage.setItem("one", one);
-                                                        alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
-                                                        $("form").submit();
-                                                    }
+                                                }, function (result, textStatus, jqXHR) {
+                                                        if (textStatus == "success") {
+                                                            if (result.result == "success") {
+                                                                localStorage.clear();
+                                                                $("form").submit();
+                                                            }
+                                                            else {
+                                                                localStorage.setItem("one", one);
+                                                                alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
+                                                                $("form").submit();
+                                                            }
+                                                        }
+                                                        else {
+                                                            localStorage.setItem("one", one);
+                                                            alert("伺服器無回應,請稍後再試");
+                                                        }
                                                 });
                                             }
                                             else
