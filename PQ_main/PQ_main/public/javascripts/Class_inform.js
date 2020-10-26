@@ -366,7 +366,7 @@ class C {
                 await collapse(this.spawn_div, 500);
                 console.log(ratio);
                 console.log(direction);
-                await this._generateAnswer(null, direction, 8000).then((data) => {
+                await this._generateAnswer(null, direction, 3000).then((data) => {
                     this._one += data[0];
                     part_right += data[1];
                     flip == data[1] ? conti++ : conti = 0;
@@ -654,13 +654,13 @@ class E {
     async process() {
         for (var item of this._question) { //[cluek,arrowk,side,tag]
             let getgroup = [];
-            let cross_time = Math.floor(Math.random() * 10) + 400;
+            let cross_time = Math.floor(Math.random() *1200) + 400;
             await collapse(cross, cross_time); //start
             if (item[0] == 3) {
                 this.clueplace[item[0]].setAttribute("side", this.SIDE[item[2]]);
             }
             console.log(this.clueplace[item[0]]);
-            await collapse(this.clueplace[item[0]], 1000); //collapse something
+            await collapse(this.clueplace[item[0]], 100); 
             this.clueplace[item[0]].removeAttribute("side");
             await collapse(cross, 400);
 
