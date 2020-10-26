@@ -490,9 +490,11 @@ class D {
         for (let session = 0; session < this._question.length; ++session) {
             console.log("start_now");
             this.timer = 500;
+            this.last_timer=500;
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
                 this.tmp = item;
+                let tmp_timer=this.timer;
                 await collapse(cross, 300); //start
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
@@ -502,7 +504,8 @@ class D {
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {
                     this._one += data[0];
                     this.correct = data[1];
-                    this.correct == 0 ? this.timer = this.timer + (500) * 0.3 + 100 : this.timer = this.timer + (-500) * 0.3 + 100;
+                    this.correct == 0 ? this.timer = this.last_timer + (this.last_timer-this.timer) * 0.3 + 100 : this.timer = this.last_timer - (this.last_timer-this.timer) * 0.3 + 100;
+                    this.last_timer=tmp_timer;
                     part[this.tmp[0]]++;
                     part[this.tmp[0] + 6] = this.timer;
                     if (this.correct != 0) {
