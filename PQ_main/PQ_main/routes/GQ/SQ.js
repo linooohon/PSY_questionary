@@ -175,7 +175,7 @@ router.post('/saveData', function (req, res) {
     var one = req.body.one;//string
     var group = req.body.group;//string
     var type = req.body.type;
-    var date = new Date().toLocaleString();
+    var date = new Date().toLocaleDateString();
     //console.log(req.body);
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }

@@ -79,7 +79,7 @@ router.post('/saveData', function (req, res) {
     var password = req.body.password;
     var data = req.body.data;
     var collection = req.body.collection;//Q1,Q2.....
-    var date = new Date().toLocaleString();
+    var date = new Date().toLocaleDateString();
     if (Questionary_licence.indexOf(collection) > -1) {
         MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
