@@ -23,21 +23,23 @@
                 </div>
                 <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
                     <p>歡迎參加本作業。</p><p>
-
-                        Introduce here
-                    </p><p>
-
-                        Introduce here
+                        請根據影片內容，回答以下問題:
                     </p>
-                    <strong> Introduce here</strong>
+                                   <div class="row">
+                                       <div class="col-md-8">
+                                           1.請問得分者是誰?(選擇得分的那位選手)<br>
+                                           2.請問得分者擊球手段?(選擇正手或是反手)<br>
+                                           3.請問擊球位置?(得分方的1~6號位) <br>
+                                           4.請問擊球落點? (對方的1~6號位) <br>
+                                       </div>
+                                       <div class="col-md-3">
+                                           <img src="/image/numberTable.png" width="120%"/>
+                                       </div>
+                                   </div>
                 </div>
                 <div class="btn-group d-flex p-2">
-                    <button type="button" class=" btn w-100  btn-outline-success" value="easy">簡單</button>
-                    <button type="button" class="  btn w-100  btn-outline-success " value="difficult">困難</button>
-                </div>
-                <div class="btn-group d-flex p-2">
-                    <button type="button" class=" btn w-100  btn-outline-secondary" value="practice">練習模式</button>
-                    <button type="button" class="  btn w-100  btn-outline-secondary " value="reality">實際測驗</button>
+                    <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
                 </div>
                 <div class="d-flex m-2">
                     <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
@@ -73,7 +75,6 @@
     </form>
     <script>
         var mode;
-        var situation;
         $(document).ready(function () {
             //選擇模式與難度
             $('#main-model').modal('show');
@@ -81,11 +82,6 @@
                 $(".btn-success").removeClass("btn-success").addClass('btn-outline-success');
                 $(this).removeClass("btn-outline-success").addClass("btn-success");
                 mode = $(this).val();
-            });
-            $(".btn-outline-secondary").click(function () {
-                $(".btn-secondary").removeClass("btn-secondary").addClass('btn-outline-secondary');
-                $(this).removeClass("btn-outline-secondary").addClass("btn-secondary");
-                situation = $(this).val();
             });
             //上傳未上傳資料
             if (localStorage.getItem("one") != null) {
@@ -99,7 +95,7 @@
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
-                                localStorage.removeItem("one");localStorage.removeItem("group");
+                                localStorage.removeItem("one"); localStorage.removeItem("group");
                                 alert("上次未上傳資料上傳成功");
                             }
                             else {
@@ -115,7 +111,7 @@
             //開始測驗
             $("#start").click(function () {
                 if (mode == null || situation == null)
-                    alert("請選擇模式與難度");
+                    alert("請選擇模式");
                 else {
                     $.post("/GQ/video/getMtableList", { mode: mode, situation: situation }, function (result) {
                         if (result.result == "success") {
