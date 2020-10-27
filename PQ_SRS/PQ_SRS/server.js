@@ -4,8 +4,8 @@ var http = require('http'),
 //const local_path = "127.0.0.1";
 //const local_port = 1337; 
 //const local_uri = 'http://127.0.0.1:1337/';
-const local_port = 1340; 
-const local_uri = 'http://140.116.183.54:1340/';
+const local_port = 1339; 
+const local_uri = 'http://140.116.98.155:1339/';
 
 http.createServer(function (req, res) {
     var parseObj = url.parse(req.url, true);
