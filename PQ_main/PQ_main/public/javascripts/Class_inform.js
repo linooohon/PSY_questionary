@@ -1381,7 +1381,7 @@ class J {
             this._group += this._groupset[i] + "_";
         }
         if(this._groupset.length<2){
-            this._group +=  "0.00_";
+            this._group +=  "0_";
         }
         this._group = this._group.slice(0, -1).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
