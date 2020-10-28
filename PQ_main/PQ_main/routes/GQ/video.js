@@ -24,7 +24,7 @@ const PullList = {
     10: [22, 18, 0, 0]
 }//40 for each ,[9,6,3,0] for Difficulty
 
-const humanList = ['C01', 'C02', 'C03', 'C04', 'C05','C06', 'C07', 'C08', 'C09', 'C10', 'C11', 'C12', 'C13'];
+const humanList = ['C01', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10', 'C11', 'C12', 'C13'];
 
 /**********************
  ./GQ/video/getLtableList
@@ -89,7 +89,7 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
 }
 //不特定人,特定難度,選幾個
 function getList(db, num, Difficulty, ReturnList) {
-    //console.log(ReturnList);
+    // console.log(ReturnList);
     if (num > 0)
         return new Promise((resolve, reject) => {
             var table = db.db("data").collection("Ltable");
@@ -104,11 +104,14 @@ function getList(db, num, Difficulty, ReturnList) {
                 }
                 else if (result.length == num)
                     resolve(ReturnList.concat(result));
-                else {
+                else if (result.length > 0) {
                     var moreList = getRandomList(result.length, num - getRandomList);
                     for (var i = 0; i < moreList.length; i++)
                         result.push(result[moreList[i]]);
                     resolve(ReturnList.concat(result));
+                }
+                else {
+                    reject({ result: '查無資料' });
                 }
             });
         });

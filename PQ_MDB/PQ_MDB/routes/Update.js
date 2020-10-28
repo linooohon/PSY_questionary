@@ -8,7 +8,7 @@ const core_password = Get('password');
 const table_license = ['Mtable', 'Ltable'];
 const criticalNumber_license = ['critical_value'];
 const criticalNumber = [
-    'mode',
+    'mode','PR',
     'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
     'B1', 'B2', 'B3', 'B4', 'B5',
     'C1_1', 'C1_2', 'C2', 'C3', 'C4', 'C5_1', 'C5_2', 'C5_3', 'C6_1', 'C6_2', 'C6_3', 'C7', 'C8', 'C9', 'C10_1', 'C10_2', 'C10_3'
