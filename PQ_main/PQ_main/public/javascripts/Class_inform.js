@@ -1380,7 +1380,7 @@ class J {
         for (let i = 0; i < this._groupset.length; ++i) {
             this._group += this._groupset[i] + "_";
         }
-        if(this._group_set.length<2){
+        if(this._groupset.length<2){
             this._group +=  "0.00_";
         }
         this._group = this._group.slice(0, -1).replaceAll("NaN", "NA");
