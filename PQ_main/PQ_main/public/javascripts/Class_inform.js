@@ -536,6 +536,7 @@ class D {
                         part[this.tmp[0] + 3]++;
                     }
                 });
+                console.log(this._one);
             }
             this._one = this._one.slice(0, -1) + "-";
             this.averagebox[0] += part[6];
@@ -1357,9 +1358,9 @@ class J {
             hide(this.nine_grid);
             this._groupset.push(number);
             this._total += number;
-            // console.log(this._groupset);
-            // console.log(this._total);
-            // console.log(this._question.length);
+            console.log(this._groupset);
+            console.log(this._total);
+            console.log(this._question.length);
             if (number < this.game_set * 0.8 || this.practice) {
                 break;
             } else {
@@ -1379,7 +1380,7 @@ class J {
         for (let i = 0; i < this._groupset.length; ++i) {
             this._group += this._groupset[i] + "_";
         }
-        if(this.group_set.length<2){
+        if(this._group_set.length<2){
             this._group +=  "0.00_";
         }
         this._group = this._group.slice(0, -1).replaceAll("NaN", "NA");
