@@ -462,9 +462,18 @@
             $.post("/GQ/PR/GetPersonalData", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
                 if (result.result == "success") {
                     mydata = result.data;
-                    $.post("/GQ/PR/GetCriticalData", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                    var mode = "";
+                    var age = parseInt('<%=age%>');
+                    if (age < 12)
+                        mode = '1';
+                    else if (age < 19)
+                        mode = '2';
+                    else
+                        mode = '3';
+                    $.post("/GQ/PR/GetCriticalData", { ID: '<%=ID%>', password: '<%=password%>', mode: mode }, function (result) {
                         if (result.result == "success") {
                             PRvalue = result.data;
+                            //console.log(PRvalue);
                             outputResult();
                         }
                         else

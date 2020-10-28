@@ -44,7 +44,7 @@ function CheckPassword(db, ID, password) {
     });
 }
 
-function GetStartData(db,ID,password) {
+function GetStartData(db, ID, password) {
     return new Promise((resolve, reject) => {
         var table = db.db("EW").collection("personal_data");
         table.findOne({ ID: ID }, { projection: { _id: 0 } }, function (err, result) {
@@ -133,6 +133,7 @@ function GetPersonalData(db, ID) {
 router.post('/GetPersonalData', function (req, res) {
     var ID = req.body.ID;
     var password = req.body.password;
+
     //console.log(req.body);
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
@@ -148,10 +149,10 @@ router.post('/GetPersonalData', function (req, res) {
 得到個人報告需要的分位值->data.critical_value
  ***********************/
 
-function GetCriticalData(db) {
+function GetCriticalData(db, mode) {
     return new Promise((resolve, reject) => {
         var table = db.db("data").collection("critical_value");
-        table.find({}, { projection: { _id: 0 } }).toArray(function (err, result) {
+        table.find({ mode: mode }, { projection: { _id: 0, mode: 0 } }).toArray(function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             if (result.length == 0)
                 reject({ result: '不存在分界資料' });
@@ -165,11 +166,12 @@ function GetCriticalData(db) {
 router.post('/GetCriticalData', function (req, res) {
     var ID = req.body.ID;
     var password = req.body.password;
+    var mode = req.body.mode;
     //console.log(req.body);
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
         CheckPassword(db, ID, password)
-            .then(pkg => GetCriticalData(db))
+            .then(pkg => GetCriticalData(db, mode))
             .then(pkg => res.json(pkg))
             .catch(error => res.json(error));
     });
