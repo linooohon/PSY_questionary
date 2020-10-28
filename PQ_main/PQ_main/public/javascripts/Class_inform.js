@@ -526,8 +526,11 @@ class D {
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {
                     this._one += data[0];
                     this.correct = data[1];
-                    this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 10) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 10);
-                    console.log(this.timer, this.last_timer, tmp_timer, ((this.last_timer - this.timer) * 0.3 + 10));
+                    this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 1) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 1);
+                    if(this.timer<1){
+                        this.timer=1;
+                    }
+                    // console.log(this.timer, this.last_timer, tmp_timer, ((this.last_timer - this.timer) * 0.3 + 1));
                     // console.log(this.last_timer);
                     this.last_timer = tmp_timer;
                     part[this.tmp[0]]++;
