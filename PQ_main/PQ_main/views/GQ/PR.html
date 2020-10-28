@@ -228,11 +228,18 @@
             }
         }
         function Interval(aPR, aReal, bPR, bReal, cReal) {
-            return aPR + (bPR - aPR) * (bReal - aReal) * (cReal - aReal);
+            var output = aPR + (bPR - aPR) /(bReal - aReal) * (cReal - aReal);
+            //console.log(output);
+            return output;
         }
         function getPR(type, mode) {
+            //console.log(type + " => " +mydata[type]);
             //mode == true 大為佳
             if (mode) {
+                if (mydata[type] == null || mydata[type] == "NA" || mydata[type] == "NaN") {
+                    //console.log(type + " : " +mydata[type]);
+                    return 0;
+                }
                 for (var i = 0; i < 5; i++)
                     if (mydata[type] - PRvalue[i][type] <= 0) {
                         if (i == 0)
@@ -243,6 +250,10 @@
                 return 100;
             }
             else {
+                if (mydata[type] == null || mydata[type] == "NA" || mydata[type] == "NaN") {
+                    //console.log(type + " : " +mydata[type]);
+                    return 0;
+                }
                 for (var i = 0; i < 5; i++)
                     if (mydata[type] - PRvalue[i][type] >= 0) {
                         if (i == 0)
@@ -474,6 +485,7 @@
                         if (result.result == "success") {
                             PRvalue = result.data;
                             //console.log(PRvalue);
+                            //console.log(mydata);
                             outputResult();
                         }
                         else
