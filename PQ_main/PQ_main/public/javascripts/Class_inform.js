@@ -127,10 +127,10 @@ class A {
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1); //remove last~
-        let Acc = (this._groupset[0] * 100 / this.game_set).toFixed(2);
-        let RT = (this._groupset[1] / this._groupset[0]).toFixed(2);
-        let FA = (this._groupset[2] * 100 / this.game_set).toFixed(2);
-        let FART = (this._groupset[3] / this._groupset[2]).toFixed(2);
+        let Acc = Math.round((this._groupset[0] * 100 / this.game_set) * 100) / 100;
+        let RT = Math.round((this._groupset[1] / this._groupset[0]) * 100) / 100;
+        let FA = Math.round((this._groupset[2] * 100 / this.game_set) * 100) / 100;
+        let FART = Math.round((this._groupset[3] / this._groupset[2]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + FA + "_" + FART).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + RT + "_" + Acc + "_" + RT).replaceAll("NaN", "NA");
     }
@@ -138,7 +138,7 @@ class A {
         return this._one;
     }
     get group() {
-        // let FART = (this._groupset[3] / this._groupset[2]).toFixed(2);
+        // let FART = (this._groupset[3] / this._groupset[2])*100)/100 ;
         return this._group;
     }
     get pr() {
@@ -212,23 +212,28 @@ class B {
 
             function key_handler(e) {
                 let end = Date.now();
-                if (!bee) {
-                    if (KEY_COLOR[e.key] == color) {
-                        group_set[0] = 1; //Acc
-                        group_set[1] = 1; //Go_Acc
-                        group_set[2] = end - start; //Go_Rt
-                        quetion_Result += KEY_NUM[e.key] + "_1_" + (end - start).toString() + "_NA_SSAcc~"; //Press_Acc_RT_SSD_SSAcc
+                if (KEY_COLOR[e.key] != undefined) {
+                    if (!bee) {
+                        if (KEY_COLOR[e.key] == color) {
+                            group_set[0] = 1; //Acc
+                            group_set[1] = 1; //Go_Acc
+                            group_set[2] = end - start; //Go_Rt
+                            quetion_Result += KEY_NUM[e.key] + "_1_" + (end - start).toString() + "_NA_SSAcc~"; //Press_Acc_RT_SSD_SSAcc
+                        } else {
+                            quetion_Result += KEY_NUM[e.key] + "_0_" + (end - start).toString() + "_NA_SSAcc~"; //Press_Acc_RT_SSD_SSAcc
+                        }
                     } else {
-                        quetion_Result += KEY_NUM[e.key] + "_0_" + (end - start).toString() + "_NA_SSAcc~"; //Press_Acc_RT_SSD_SSAcc
+                        plus = -33;
+                        group_set[3] = 1; //NCRate
+                        group_set[4] = end - start; //NC_RT
+                        quetion_Result += KEY_NUM[e.key] + "_0_" + (end - start).toString() + "_" + bee.toString() + "_SSAcc~";
+                        bee_stop.click();
+                        clearTimeout(bee_time);
                     }
                 } else {
-                    plus = -33;
-                    group_set[3] = 1; //NCRate
-                    group_set[4] = end - start; //NC_RT
-                    quetion_Result += KEY_NUM[e.key] + "_0_" + (end - start).toString() + "_" + bee.toString() + "_SSAcc~";
-                    bee_stop.click();
-                    clearTimeout(bee_time);
+                    quetion_Result += "NA_" + "_0_" + (end - start).toString() + "_" + bee.toString() + "_SSAcc~"; //press wrong
                 }
+
                 // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
@@ -259,18 +264,18 @@ class B {
     }
     _analyzeData() {
         //this.one
-        let Cp = ((this._beenum - this._groupset[3]) / this._beenum * 100).toFixed(2);
+        let Cp = Math.round(((this._beenum - this._groupset[3]) / this._beenum * 100) * 100) / 100;
         this._one = this._one.replaceAll("SSAcc", Cp).slice(0, -1); //remove last~
         // this._one =this._one.slice(0, -1) ; 
 
         //this.group
-        let Acc = (this._groupset[0] / this.game_set * 100).toFixed(2);
-        let Go_Acc = (this._groupset[1] / (this.game_set - this._beenum) * 100).toFixed(2);
-        let Go_Rt = (this._groupset[2] / this._groupset[1]).toFixed(2);
-        let NcRate = (this._groupset[3] / this._beenum * 100).toFixed(2);
-        let Nc_Rt = (this._groupset[4] / this._groupset[3]).toFixed(2);
-        let mSSD = (this._groupset[5] / this._beenum).toFixed(2);
-        let SSRT = Go_Rt - mSSD;
+        let Acc = Math.round((this._groupset[0] / this.game_set * 100) * 100) / 100;
+        let Go_Acc = Math.round((this._groupset[1] / (this.game_set - this._beenum) * 100) * 100) / 100;
+        let Go_Rt = Math.round((this._groupset[2] / this._groupset[1]) * 100) / 100;
+        let NcRate = Math.round((this._groupset[3] / this._beenum * 100) * 100) / 100;
+        let Nc_Rt = Math.round((this._groupset[4] / this._groupset[3]) * 100) / 100;
+        let mSSD = Math.round((this._groupset[5] / this._beenum) * 100) / 100;
+        let SSRT = Go_Rt - mSSD; //
         this._group = (Acc + "_" + Go_Acc + "_" + Go_Rt + "_" + NcRate + "_" + Nc_Rt + "_" + mSSD + "_" + SSRT).replaceAll("NaN", "NA");
         // this._pr
         this._pr = (Acc + "_" + Go_Rt + "_" + SSRT).replaceAll("NaN", "NA");
@@ -334,10 +339,15 @@ class C {
 
             function key_handler(e) {
                 let end = Date.now();
-                if (ARROW_NUM[e.key] == direction) {
+                let keydown = ARROW_NUM[e.key];
+                console.log(keydown);
+                if (keydown == undefined) { //avoid press wrong
+                    keydown = "NA";
+                    console.log("wrong");
+                } else if (keydown == direction) {
                     group_set = 1;
                 }
-                quetion_Result += (end - start) + "_" + group_set + "_" + direction + "_" + ARROW_NUM[e.key] + "~";
+                quetion_Result += (end - start) + "_" + group_set + "_" + direction + "_" + keydown + "~";
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set]);
@@ -350,6 +360,7 @@ class C {
             let ratio = this.ballnum * 0.2;
             let flip = 0;
             let conti = 0;
+            console.log(this.game_set[1]);
             for (let i = 0; i < this.game_set[1]; ++i) {
                 let direction = Math.floor(Math.random() * 4) + 1; //1 to 4
                 for (let d = 0; d < this.ballnum; ++d) {
@@ -400,20 +411,23 @@ class C {
         }
         //analyze data
         this._analyzeData();
+        console.log(this.group);
         //finish process
         finish_btn.click();
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1); //remove last~
-        let AccR1 = (this._groupset[0] * 100 / this.game_set[1]).toFixed(2);
-        let AccR2 = (this._groupset[1] * 100 / this.game_set[1]).toFixed(2);
-        let AccR3 = (this._groupset[2] * 100 / this.game_set[1]).toFixed(2);
-        let CRR1 = (this._groupset[3] * 100 / this.ballnum).toFixed(2);
-        let CRR2 = (this._groupset[4] * 100 / this.ballnum).toFixed(2);
-        let CRR3 = (this._groupset[5] * 100 / this.ballnum).toFixed(2);
-        let Aver = ((CRR1 + CRR2 + CRR3) / 3).toFixed(2);
+        let AccR1 = Math.round((this._groupset[0] * 100 / this.game_set[1]) * 100) / 100;
+        let AccR2 = Math.round((this._groupset[1] * 100 / this.game_set[1]) * 100) / 100;
+        let AccR3 = Math.round((this._groupset[2] * 100 / this.game_set[1]) * 100) / 100;
+        let CRR1 = Math.round((this._groupset[3] * 100 / this.ballnum) * 100) / 100;
+        let CRR2 = Math.round((this._groupset[4] * 100 / this.ballnum) * 100) / 100;
+        let CRR3 = Math.round((this._groupset[5] * 100 / this.ballnum) * 100) / 100;
+        console.log(CRR1, CRR2, CRR3);
+        let Aver = Math.round(((CRR1 + CRR2 + CRR3) / 3) * 100) / 100;
+        let AccAver = Math.round(((AccR1 + AccR2 + AccR3) / 3) * 100) / 100;
         this._group = (AccR1 + "_" + AccR2 + "_" + AccR3 + "_" + CRR1 + "_" + CRR2 + "_" + CRR3 + "_" + Aver).replaceAll("NaN", "NA");
-        this._pr = ((CRR1 + CRR2 + CRR3) / 3).toFixed(2) + "_" + Aver;
+        this._pr = AccAver + "_" + Aver;
     }
     get one() {
         return this._one;
@@ -477,15 +491,20 @@ class D {
 
             function key_handler(e) {
                 // let end = Date.now();
-                if (KEY_NUM[e.key] == direction.toString()) {
-                    quetion_Result += KEY_NUM[e.key] + "_1~";
-                    clearTimeout(timeout);
-                    resolve([quetion_Result, 1]);
+                if (KEY_NUM[e.key] != undefined) {
+                    if (KEY_NUM[e.key] == direction.toString()) {
+                        quetion_Result += KEY_NUM[e.key] + "_1~";
+                        clearTimeout(timeout);
+                        resolve([quetion_Result, 1]);
+                    } else {
+                        quetion_Result += KEY_NUM[e.key] + "_0~"
+                        clearTimeout(timeout);
+                        resolve([quetion_Result, 0]);
+                    }
                 } else {
-                    quetion_Result += KEY_NUM[e.key] + "_0~"
-                    clearTimeout(timeout);
-                    resolve([quetion_Result, 0]);
+                    quetion_Result += "NA_0~"
                 }
+
             }
         });
     }
@@ -503,11 +522,13 @@ class D {
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
                 this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
                 await collapse(this.garbor, this.timer);
-                this._one += (item[0] + 1) + "_" + this.timer + "_" + (item[1] + 1) + "_"; //size pre direction
+                this._one += (item[0] + 1) + "_" + Math.round(this.timer * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {
                     this._one += data[0];
                     this.correct = data[1];
                     this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 10) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 10);
+                    console.log(this.timer, this.last_timer, tmp_timer, ((this.last_timer - this.timer) * 0.3 + 10));
+                    // console.log(this.last_timer);
                     this.last_timer = tmp_timer;
                     part[this.tmp[0]]++;
                     part[this.tmp[0] + 6] = this.timer;
@@ -520,8 +541,8 @@ class D {
             this.averagebox[0] += part[6];
             this.averagebox[1] += part[7];
             this.averagebox[2] += part[8];
-            this._groupset += part[6] + "_" + part[7] + "_" + part[8] + (part[3] / part[0] * 100).toFixed(2) + "_" +
-                (part[4] / part[1] * 100).toFixed(2) + "_" + (part[5] / part[2] * 100).toFixed(2) + "_";
+            this._groupset += part[6] + "_" + part[7] + "_" + part[8] + Math.round((part[3] / part[0] * 100) * 100) / 100 + "_" +
+                Math.round((part[4] / part[1] * 100) * 100) / 100 + "_" + Math.round((part[5] / part[2] * 100) * 100) / 100 + "_";
             this._acc += ((part[3] / part[0] * 100) + (part[4] / part[1] * 100) + (part[5] / part[2] * 100));
             if (session + 1 < this.game_set[0]) {
                 // console.log(this.remind_btn);
@@ -547,13 +568,13 @@ class D {
         finish_btn.click();
     }
     _analyzeData() {
-        let mt1 = (this.averagebox[0] / 3).toFixed(2);
-        let mt5 = (this.averagebox[1] / 3).toFixed(2);
-        let mt10 = (this.averagebox[2] / 3).toFixed(2);
+        let mt1 = Math.round((this.averagebox[0] / 3) * 100) / 100;
+        let mt5 = Math.round((this.averagebox[1] / 3) * 100) / 100;
+        let mt10 = Math.round((this.averagebox[2] / 3) * 100) / 100;
         this._groupset += mt1 + "_" + mt5 + "_" + mt10;
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
         this._group = this._groupset.replaceAll("NaN", "NA");
-        this._pr = this.acc / 9 + "_" + (mt10 / mt1).toFixed(2);
+        this._pr = Math.round((this.acc / 9)* 100) / 100 + "_" + Math.round((mt10 / mt1) * 100) / 100;
     }
     get one() {
         return this._one;
@@ -634,13 +655,18 @@ class E {
 
             function key_handler(e) {
                 let end = Date.now();
-                if (KEY_NUM[e.key] == (direction + 1).toString()) {
-                    quetion_Result += KEY_NUM[e.key] + "_1_" + (end - start).toString() + "~"; //press-acc-rt
-                    group_set = [1, end - start];
+                if (KEY_NUM[e.key] != undefined) {
+                    if (KEY_NUM[e.key] == (direction + 1).toString()) {
+                        quetion_Result += KEY_NUM[e.key] + "_1_" + (end - start).toString() + "~"; //press-acc-rt
+                        group_set = [1, end - start];
+                    } else {
+                        quetion_Result += KEY_NUM[e.key] + "_0_" + (end - start).toString() + "~"; //press-acc-rt
+                        group_set = [0, end - start];
+                    }
                 } else {
-                    quetion_Result += KEY_NUM[e.key] + "_0_" + (end - start).toString() + "~"; //press-acc-rt
-                    group_set = [0, end - start];
+                    quetion_Result += "NA_0_" + (end - start).toString() + "~"; //press-acc-rt
                 }
+
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set]);
@@ -691,15 +717,15 @@ class E {
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
-        let Acc = (this._group_num[0] * 100 / this.game_set).toFixed(2);
-        let RT = (this._groupset[0] / this._group_num[0]).toFixed(2);
-        let No = (this._groupset[1] / this._group_num[1]).toFixed(2);
-        let Ce = (this._groupset[2] / this._group_num[2]).toFixed(2);
-        let Du = (this._groupset[3] / this._group_num[3]).toFixed(2);
-        let Sp = (this._groupset[4] / this._group_num[4]).toFixed(2);
-        let Co = (this._groupset[5] / this._group_num[5]).toFixed(2);
-        let In = (this._groupset[6] / this._group_num[6]).toFixed(2);
-        let Ne = (this._groupset[7] / this._group_num[7]).toFixed(2);
+        let Acc = Math.round((this._group_num[0] * 100 / this.game_set) * 100) / 100;
+        let RT = Math.round((this._groupset[0] / this._group_num[0]) * 100) / 100;
+        let No = Math.round((this._groupset[1] / this._group_num[1]) * 100) / 100;
+        let Ce = Math.round((this._groupset[2] / this._group_num[2]) * 100) / 100;
+        let Du = Math.round((this._groupset[3] / this._group_num[3]) * 100) / 100;
+        let Sp = Math.round((this._groupset[4] / this._group_num[4]) * 100) / 100;
+        let Co = Math.round((this._groupset[5] / this._group_num[5]) * 100) / 100;
+        let In = Math.round((this._groupset[6] / this._group_num[6]) * 100) / 100;
+        let Ne = Math.round((this._groupset[7] / this._group_num[7]) * 100) / 100;
         let Al = No - Du;
         let Or = Ce - Sp;
         let Conflict = In - Co;
@@ -786,13 +812,19 @@ class F {
                     f: 0,
                     j: 1,
                 }
-                targetposition == Direction_Num[e.key] ? group_set = [1, end - start] : group_set = [0, end - start];
-                if (group_set[0] == 0) {
-                    quetion_Result += KEY_NUM[e.key] + "_2_" + group_set[1] + "~" //Press_Acc_RT
-                    group_set = [0, 0];
+                if (KEY_NUM[e.key] != undefined) {
+                    targetposition == Direction_Num[e.key] ? group_set = [1, end - start] : group_set = [0, end - start];
+                    if (group_set[0] == 0) {
+                        quetion_Result += KEY_NUM[e.key] + "_2_" + group_set[1] + "~" //Press_Acc_RT
+                        group_set = [0, 0];
+                    } else {
+                        quetion_Result += KEY_NUM[e.key] + "_1_" + group_set[1] + "~" //Press_Acc_RT
+                    }
                 } else {
-                    quetion_Result += KEY_NUM[e.key] + "_1_" + group_set[1] + "~" //Press_Acc_RT
+                    group_set = [0, end - start];
+                    quetion_Result += "NA_2_" + group_set[1] + "~" //Press_Acc_RT
                 }
+
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set]);
@@ -834,13 +866,13 @@ class F {
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
-        let Acc = (this._group_num[0] * 100 / this.game_set).toFixed(2);
-        let RT = (this._groupset[0] / this._group_num[0]).toFixed(2);
-        let Ne = (this._groupset[1] / this._group_num[1]).toFixed(2);
-        let Co = (this._groupset[2] / this._group_num[2]).toFixed(2);
-        let Ico = (this._groupset[3] / this._group_num[3]).toFixed(2);
-        let Soa200 = (this._groupset[4] / this._group_num[4]).toFixed(2);
-        let Soa1200 = (this._groupset[5] / this._group_num[5]).toFixed(2);
+        let Acc = Math.round((this._group_num[0] * 100 / this.game_set) * 100) / 100;
+        let RT = Math.round((this._groupset[0] / this._group_num[0]) * 100) / 100;
+        let Ne = Math.round((this._groupset[1] / this._group_num[1]) * 100) / 100;
+        let Co = Math.round((this._groupset[2] / this._group_num[2]) * 100) / 100;
+        let Ico = Math.round((this._groupset[3] / this._group_num[3]) * 100) / 100;
+        let Soa200 = Math.round((this._groupset[4] / this._group_num[4]) * 100) / 100;
+        let Soa1200 = Math.round((this._groupset[5] / this._group_num[5]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + Ne + "_" + Co + "_" + Ico + "_" + Soa200 + "_" + Soa1200).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + RT + "_" + Ne + "_" + Co + "_" + Ico).replaceAll("NaN", "NA");
     }
@@ -883,9 +915,10 @@ class G {
                 await collapse(cross, 1000); //cross
                 show(this.spawn_div);
                 await new Promise(resolve => {
-                    var div=this.spawn_div;
-                    var runbtn=this.run;
-                    var click=this._click;
+                    var div = this.spawn_div;
+                    var runbtn = this.run;
+                    var click = this._click;
+
                     function keyhandle(e) {
                         if (e.key == "Enter") {
                             console.log(div);
@@ -899,7 +932,7 @@ class G {
                             resolve();
                         }
                     }
-                    window.addEventListener('keydown', keyhandle);      
+                    window.addEventListener('keydown', keyhandle);
                 });
                 await collapse(null, 5000); //move
                 this.pause.click();
@@ -907,6 +940,7 @@ class G {
                     let num = 0;
                     let partscore = 0;
                     document.addEventListener('click', mouseclick);
+
                     function mouseclick(event) {
                         num++;
                         console.log(event.target.tagName);
@@ -929,6 +963,7 @@ class G {
                     this.spawn_div.childNodes[i].classList.add('enable_click');
                 }
             }
+            this._one = this._one.slice(0, -1) + "-";
             this._score += session_score;
             if (session_score < 10 || !this.haslevel) {
                 break;
@@ -945,7 +980,7 @@ class G {
     _analyzeData() {
         // console.log((this._level - 5) * 4 * 3);
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
-        let Acc = (this._score * 100 / ((this._level - 5) * 4 * 3)).toFixed(2);
+        let Acc = Math.round((this._score * 100 / ((this._level - 5) * 4 * 3)) * 100) / 100;
         this._group = (this._level + "_" + this._score + "_" + Acc).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + this._score).replaceAll("NaN", "NA");
     }
@@ -1011,14 +1046,19 @@ class H {
 
             function key_handler(e) {
                 let end = Date.now();
-                quetion_Result += KEY_NUM[e.key] + "_"; //Press_
-                if (KEY_NUM.hasOwnProperty(e.key) && KEY_COLOR[e.key] == color) {
-                    press_and_time[0] = 1;
-                    press_and_time[1] = (end - start);
-                    quetion_Result += "1_" + (end - start).toString() + "~" //Acc_RT
+                if (KEY_NUM[e.key] != undefined) {
+                    quetion_Result += KEY_NUM[e.key] + "_"; //Press_
+                    if (KEY_NUM.hasOwnProperty(e.key) && KEY_COLOR[e.key] == color) {
+                        press_and_time[0] = 1;
+                        press_and_time[1] = (end - start);
+                        quetion_Result += "1_" + (end - start).toString() + "~" //Acc_RT
+                    } else {
+                        quetion_Result += "0_" + (end - start).toString() + "~"; //Acc_RT
+                    }
                 } else {
                     quetion_Result += "0_" + (end - start).toString() + "~"; //Acc_RT
                 }
+
                 // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
@@ -1068,12 +1108,12 @@ class H {
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
-        let Acc1 = this._groupset[0].toFixed(2).toString();
-        let Acc2 = this._groupset[1].toFixed(2).toString();
-        let Acc3 = this._groupset[2].toFixed(2).toString();
-        let RT1 = this._groupset[3].toFixed(2).toString();
-        let RT2 = this._groupset[4].toFixed(2).toString();
-        let RT3 = this._groupset[5].toFixed(2).toString();
+        let Acc1 = Math.round(this._groupset[0] * 100) / 100;
+        let Acc2 = Math.round(this._groupset[1] * 100) / 100;
+        let Acc3 = Math.round(this._groupset[2] * 100) / 100;
+        let RT1 = Math.round(this._groupset[3] * 100) / 100;
+        let RT2 = Math.round(this._groupset[4] * 100) / 100;
+        let RT3 = Math.round(this._groupset[5] * 100) / 100;
         this._group = (Acc1 + "_" + Acc2 + "_" + Acc3 + "_" + RT1 + "_" + RT2 + "_" + RT3).replaceAll('NaN', 'NA');
     }
     get one() {
@@ -1196,9 +1236,9 @@ class I {
         finish_btn.click();
     }
     _analyzeData() {
-        this._one = this._one.replaceAll("NaN", "NA");
+        this._one = this._one.slice(0, -1).replaceAll("NaN", "NA");
         let Score = this._groupset[0];
-        let Acc = this._groupset[0] / this._groupset[1] * 100;
+        let Acc = Math.round(this._groupset[0] / this._groupset[1]) * 100;
         this._group = (Score + "_" + Acc).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
     }
@@ -1333,11 +1373,14 @@ class J {
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1); //remove last~
-        let Acc = (this._total * 100 / (this.game_set * (this._level - 1))).toFixed(2);
+        let Acc = Math.round((this._total * 100 / (this.game_set * (this._level - 1))) * 100) / 100;
         let Score = this._total;
         this._group += this._level + "_" + Acc + "_" + this._total + "_";
         for (let i = 0; i < this._groupset.length; ++i) {
             this._group += this._groupset[i] + "_";
+        }
+        if(this.group_set.length<2){
+            this._group +=  "0.00_";
         }
         this._group = this._group.slice(0, -1).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
@@ -1391,7 +1434,6 @@ class K {
                     this.question.push([this._worddict[kind][i], colortype, kind]); //word color kind
                 }
             }
-
         }
         this.question = competitor(this.question, 1);
         console.log(this.question);
@@ -1403,7 +1445,7 @@ class K {
         let start = Date.now();
         let color = getKeyByValue(Color_Set, item.style.color);
         console.log(color);
-        let condition = item.getAttribute("part");
+        let condition = parseInt(item.getAttribute("part"));
         let quetion_Result = "";
         let group_time = [0, 0, 0, 0];
         let group_set = [0, 0, 0, 0, 0]; //Acc_RT_tPositive_tNegative_tMiddle
@@ -1425,17 +1467,24 @@ class K {
 
             function key_handler(e) {
                 let end = Date.now();
-                quetion_Result += KEY_NUM[e.key] + "_"; //Press
-                // console.log(e.key);
-                if (KEY_COLOR[e.key] == color) {
-                    group_time[condition] = 1;
-                    group_set[0] = 1; //ACC
-                    group_set[1] = (end - start); //RT
-                    group_set[condition + 1] = (end - start); //PNM
-                    quetion_Result += "1_" + (end - start).toString() + "~" //ACC_RT
+                if (KEY_NUM[e.key] != undefined) {
+                    quetion_Result += KEY_NUM[e.key] + "_"; //Press
+                    // console.log(KEY_NUM[e.key]);
+                    console.log(group_set);
+                    if (KEY_COLOR[e.key] == color) {
+                        group_time[condition] = 1;
+                        group_set[0] = 1; //ACC
+                        group_set[1] = end - start; //RT
+                        group_set[condition + 2 ] = (end - start); //PNM
+                        // console.log(condition);
+                        quetion_Result += "1_" + (end - start).toString() + "~" //ACC_RT
+                    } else {
+                        quetion_Result += "0_" + (end - start).toString() + "~";
+                    }
                 } else {
                     quetion_Result += "0_" + (end - start).toString() + "~";
                 }
+                console.log(group_set);
                 // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
@@ -1462,8 +1511,8 @@ class K {
                 });
             });
             console.log(this._one);
-            // console.log(this._groupset);
-            // console.log(this._group_time);
+            console.log(this._groupset);
+            console.log(this._group_time);
             await collapse(null, 100, 300);
         }
         // console.log(this.group);
@@ -1471,15 +1520,15 @@ class K {
         //finish process
         finish_btn.click();
         // console.log(this.one);
-        // console.log(this.group);
+        console.log(this.group);
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA");
-        let Acc = (this._groupset[0] * 100 / this.game_set).toFixed(2);
-        let RT = (this._groupset[1] / this._groupset[0]).toFixed(2);
-        let Positive = (this._groupset[2] / this._group_time[1]).toFixed(2);
-        let Negative = (this._groupset[3] / this._group_time[2]).toFixed(2);
-        let Middle = (this._groupset[4] / this._group_time[3]).toFixed(2);
+        let Acc = Math.round((this._groupset[0] * 100 / this.game_set) * 100) / 100;
+        let RT = Math.round((this._groupset[1] / this._groupset[0]) * 100) / 100;
+        let Positive = Math.round((this._groupset[2] / this._group_time[1]) * 100) / 100;
+        let Negative = Math.round((this._groupset[3] / this._group_time[2]) * 100) / 100;
+        let Middle = Math.round((this._groupset[4] / this._group_time[3]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
     }
