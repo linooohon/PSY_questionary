@@ -15,25 +15,37 @@
 
     //method
     Go(round) {
-        function randomsort(a, b) {
-            return Math.random() > .5 ? -1 : 1;
-            //用Math.random()函式生成0~1之間的隨機數與0.5比較，返回-1或1
-        }
-
         //one:回傳數據, player:播放器,order:隨機順序,round:第幾回合,feedback是否回傳數據(練習模式不回傳)
-        var ID = this.ID;
-        var password = this.password;
-        var origin_round = round;
-        var one = "";
+        var ID;
+        var password;
+        var origin_round;
+        var one;
         var player = this.player;
-        var order = [];
         var data = this.dataList;
-        var feedback = true;
-        if (round <= 5)
-            feedback = false;
-        //建立order隨機順序
-        for (var i = 0; i < round; i++)
-            order.push(i);
-        order.sort(randomsort);
+        var feedback;
+        ID = this.ID;
+        password = this.password;
+        function init() {
+            origin_round = round;
+            if (round <= 5)
+                feedback = false;
+            else
+                feedback = true;
+            round--;
+            var path = "http://140.116.183.54:1340/?path=video/M/" + data[round].filepath + ".mp4";
+            player.src({
+                src: path,
+                type: 'video/mp4'
+            });
+            one = "";
+            $("#Lplayer").text(data[round].names.split('/')[0]);
+            $("#Rplayer").text(data[round].names.split('/')[1]);
+            $(".row").show();
+            $("#MyVideo").show();
+            $("#question").hide();
+        }
+        init();
+        
+
     }
 }
