@@ -25,17 +25,17 @@
                     <p>歡迎參加本作業。</p><p>
                         請根據影片內容，回答以下問題:
                     </p>
-                                   <div class="row">
-                                       <div class="col-md-8">
-                                           1.請問得分者是誰?(選擇得分的那位選手)<br>
-                                           2.請問得分者擊球手段?(選擇正手或是反手)<br>
-                                           3.請問擊球位置?(得分方的1~6號位) <br>
-                                           4.請問擊球落點? (對方的1~6號位) <br>
-                                       </div>
-                                       <div class="col-md-3">
-                                           <img src="/image/numberTable.png" width="120%"/>
-                                       </div>
-                                   </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            1.請問得分者是誰?(選擇得分的那位選手)<br>
+                            2.請問得分者擊球手段?(選擇正手或是反手)<br>
+                            3.請問擊球位置?(得分方的1~6號位) <br>
+                            4.請問擊球落點? (對方的1~6號位) <br>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="/image/numberTable.png" width="120%" />
+                        </div>
+                    </div>
                 </div>
                 <div class="btn-group d-flex p-2">
                     <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
@@ -48,24 +48,49 @@
         </div>
     </div>
     <div id="TestPlace">
-        <div class="row" style="display:none">
-            <label class="col-md-3"></label>
-            <video style="text-align:center" id="MyVideo" class="video-js vjs-big-play-centered col-md-6"></video>
-            <label class="col-md-3"></label>
-        </div>
-        <h1 id="warning" style="text-align:center"></h1>
-        <div style="text-align:center;font-size:200%">
-            <select id="Select1" style="display:none">
-                <option value="1">正手</option>
-                <option value="2">反手</option>
-            </select>
-            <select id="Select2" style="display:none">
-                <option value="1">正手得分</option>
-                <option value="2">反手得分</option>
-                <option value="3">正手失分</option>
-                <option value="4">反手失分</option>
-            </select>
-            <input id="confirm" type="button" value="confirm" style="display:none" />
+        <div class="container">
+            <div class="row" style="display:none">
+                <label class="col-md-3"></label>
+                <video style="text-align:center" id="MyVideo" class="video-js vjs-big-play-centered col-md-6"></video>
+                <label class="col-md-3"></label>
+            </div>
+            <h1 id="warning" style="text-align:center"></h1>
+            <div id="question" style="font-size:200%;display:none" class="row">
+                <div class="col-md-8">
+                    <select id="Select1">
+                        <option value="" disabled selected hidden>1.請問得分者是誰?(選擇得分的那位選手)</option>
+                        <option id="Lplayer" value="0"></option>
+                        <option id="Rplayer" value="1"></option>
+                    </select><br /><br />
+                    <select id="Select2">
+                        <option value="" disabled selected hidden>2.請問得分者擊球手段?(選擇正手或是反手)</option>
+                        <option value="0">正手</option>
+                        <option value="1">反手</option>
+                    </select><br /><br />
+                    <select id="Select3">
+                        <option value="" disabled selected hidden>3.請問擊球位置?(得分方的1~6號位) </option>
+                        <option value="1">1號位</option>
+                        <option value="2">2號位</option>
+                        <option value="3">3號位</option>
+                        <option value="4">4號位</option>
+                        <option value="5">5號位</option>
+                        <option value="6">6號位</option>
+                    </select><br /><br />
+                    <select id="Select4">
+                        <option value="" disabled selected hidden>4.請問擊球落點? (對方的1~6號位)</option>
+                        <option value="1">1號位</option>
+                        <option value="2">2號位</option>
+                        <option value="3">3號位</option>
+                        <option value="4">4號位</option>
+                        <option value="5">5號位</option>
+                        <option value="6">6號位</option>
+                    </select><br /><br />
+                    <input id="confirm" type="button" value="confirm" />
+                </div>
+                <div class="col-md-4">
+                    <img src="/image/numberTable.png" width="100%" />
+                </div>
+            </div>
         </div>
     </div>
     <!-- post form -->
@@ -83,8 +108,9 @@
                 $(this).removeClass("btn-outline-success").addClass("btn-success");
                 mode = $(this).val();
             });
-            //上傳未上傳資料
-            if (localStorage.getItem("one") != null) {
+
+            //若有過去資料,先上傳
+            if (localStorage.getItem("one") != null) { //check if have local storage
                 $.post("/GQ/SQ/saveData", {
                     ID: "<%=ID%>",
                     password: "<%=password%>",
@@ -95,36 +121,35 @@
                     function (data, textStatus, jqXHR) {
                         if (textStatus == "success") {
                             if (data.result == "success") {
-                                localStorage.removeItem("one"); localStorage.removeItem("group");
+                                localStorage.removeItem("one");
                                 alert("上次未上傳資料上傳成功");
-                            }
-                            else {
+                            } else {
                                 alert("資料上傳失敗,失敗原因 : " + data.result);
                             }
-                        }
-                        else
+                        } else
                             alert("與伺服器斷訊")
                     },
                     "json"
                 );
             }
+
             //開始測驗
             $("#start").click(function () {
-                if (mode == null || situation == null)
+                if (mode == null)
                     alert("請選擇模式");
                 else {
-                    $.post("/GQ/video/getMtableList", { mode: mode, situation: situation }, function (result) {
+                    var count = mode == "practice" ? 5 : 20;
+                    $.post("/GQ/video/getMtableList", { count: count }, function (result) {
                         if (result.result == "success") {
                             var videoList = result.data;
-                            //console.log(videoList);
+                            console.log(videoList);
                             $('#main-model').modal('hide');
-                            $(".row").show();
-                            //var Test = new L(videoList, '<%=ID%>', '<%=password%>');
-                            if (situation == "reality" && videoList.length >= 40) {
-                                //Test.Go(40);
+                            var Test = new M(videoList, '<%=ID%>', '<%=password%>','<%=url%>');
+                            if (mode == "reality" && videoList.length >= 20) {
+                                Test.Go(20);
                             }
-                            else if (situation == "practice" && videoList.length >= 5) {
-                                //Test.Go(5);
+                            else if (mode == "practice" && videoList.length >= 5) {
+                                Test.Go(5);
                             }
                             else
                                 alert("伺服器傳輸有誤, 請再試一次");

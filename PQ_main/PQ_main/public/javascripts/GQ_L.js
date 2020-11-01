@@ -1,5 +1,5 @@
 ﻿class L {
-    constructor(dataList, ID, password) {
+    constructor(dataList, ID, password,url) {
         this.dataList = dataList;
         this.player = videojs('MyVideo', {
             width: "600",
@@ -11,6 +11,7 @@
         });
         this.ID = ID;
         this.password = password;
+        this.url = url;
     }
 
     //method
@@ -71,6 +72,7 @@
         //one:回傳數據, player:播放器,order:隨機順序,round:第幾回合,feedback是否回傳數據(練習模式不回傳)
         var ID = this.ID;
         var password = this.password;
+        var url = this.url;
         var origin_round = round;
         var one = "";
         var player = this.player;
@@ -86,7 +88,7 @@
         //初始化第一步影片
         $("#warning").text("僅有一次播放機會, 請等到縮圖出現再點擊播放");
         round--;
-        var path = "http://140.116.98.155:1339/?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
+        var path = url + "?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
         player.src({
             src: path,
             type: 'video/mp4'
@@ -102,7 +104,7 @@
             if (round > 0) {
                 round--;
                 one += "~";
-                path = "http://140.116.98.155:1339/?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
+                path = url + "?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
                 player.src({
                     src: path,
                     type: 'video/mp4'
@@ -120,7 +122,7 @@
             $("#net").show();
             $("#MyVideo").hide();
             if (round > 0) {
-                path = "http://140.116.98.155:1339/?path=video/L/" + data[order[round - 1]].human + "/" + data[order[round - 1]].filepath;
+                path = url + "?path=video/L/" + data[order[round - 1]].human + "/" + data[order[round - 1]].filepath;
                 player.src({
                     src: path,
                     type: 'video/mp4'

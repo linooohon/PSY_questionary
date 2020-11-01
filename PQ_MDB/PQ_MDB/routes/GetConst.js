@@ -1,11 +1,13 @@
-﻿function Get(thing) {
+﻿require('dotenv').config();
+
+function Get(thing) {
     switch (thing) {
         case "mongoPath":
             return 'mongodb://localhost:27017/';
         case 'ID':
-            return 'admin';
+            return process.env.ID;
         case 'password':
-            return '0000';
+            return process.env.password;
         default:
             return '';
     }

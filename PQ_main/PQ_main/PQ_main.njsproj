@@ -42,7 +42,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\javascripts\jquery.js" />
-    <Content Include="public\javascripts\verify.js" />
     <Content Include="public\javascripts\video.js">
       <SubType>Code</SubType>
     </Content>

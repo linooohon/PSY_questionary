@@ -60,7 +60,7 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
         return new Promise((resolve, reject) => {
             var table = db.db("data").collection("Ltable");
             table.find({ $and: [{ human: human }, { Difficulty: Difficulty }] }, { projection: { _id: 0 } }).toArray(function (err, result) {
-                if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
+                if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
                     var Rlist = getRandomList(result.length, num);
                     var newList = [];
@@ -94,7 +94,7 @@ function getList(db, num, Difficulty, ReturnList) {
         return new Promise((resolve, reject) => {
             var table = db.db("data").collection("Ltable");
             table.find({ Difficulty: Difficulty }, { projection: { _id: 0 } }).toArray(function (err, result) {
-                if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
+                if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
                     var Rlist = getRandomList(result.length, num);
                     var newList = [];
@@ -148,6 +148,40 @@ router.post('/getLtableList', function (req, res) {
                 .then(pkg => res.json({ result: "success", data: pkg }))
                 .catch(error => res.json(error));
         }
+    });
+});
+
+/**********************
+ ./GQ/video/getMtableList
+ 獲得對應的影片資源
+ ***********************/
+
+function getMList(db,count) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("data").collection("Mtable");
+        table.find({}, { projection: { _id: 0 } }).toArray(function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            if (result.length >= count) {
+                var ReListOrder = getRandomList(result.length, count);
+                var ReList = [];
+                for (var i in ReListOrder)
+                    ReList.push(result[ReListOrder[i]]);
+                resolve({ result: "success", data: ReList });
+            }
+            else
+                reject({ result: "影片資源不足" });
+        });
+    });
+}
+
+router.post('/getMtableList', function (req, res) {
+    var count = req.body.count;
+
+    MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
+        getMList(db, count)
+            .then(pkg => res.json(pkg))
+            .catch(error => res.json(error));
     });
 });
 
