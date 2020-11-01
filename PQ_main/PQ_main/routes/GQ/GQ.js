@@ -29,7 +29,7 @@ router.post('/EQ', function (req, res) {
 
 router.post('/Questionary/:which', function (req, res) {
     if (Questionary_licence.indexOf(req.params.which) > -1)
-        res.render('GQ/questionary/' + req.params.which, { ID: req.body.ID, password: req.body.password });
+        res.render('GQ/questionary/' + req.params.which, { ID: req.body.ID, password: req.body.password, url: Get("SRSurl") });
     else
         res.render("warming", { message: "該操作不合法" });
 });

@@ -144,7 +144,7 @@
                             var videoList = result.data;
                             console.log(videoList);
                             $('#main-model').modal('hide');
-                            var Test = new M(videoList, '<%=ID%>', '<%=password%>');
+                            var Test = new M(videoList, '<%=ID%>', '<%=password%>','<%=url%>');
                             if (mode == "reality" && videoList.length >= 20) {
                                 Test.Go(20);
                             }

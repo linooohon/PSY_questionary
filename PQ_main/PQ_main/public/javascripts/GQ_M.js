@@ -1,5 +1,5 @@
 ﻿class M {
-    constructor(dataList, ID, password) {
+    constructor(dataList, ID, password, url) {
         this.dataList = dataList;
         this.player = videojs('MyVideo', {
             width: "600",
@@ -11,6 +11,7 @@
         });
         this.ID = ID;
         this.password = password;
+        this.url = url;
     }
 
     //method
@@ -23,6 +24,7 @@
         var player = this.player;
         var data = this.dataList;
         var feedback;
+        var url = this.url;
         ID = this.ID;
         password = this.password;
         function init() {
@@ -32,7 +34,7 @@
             else
                 feedback = true;
             round--;
-            var path = "http://140.116.183.54:1340/?path=video/M/" + data[round].filepath + ".mp4";
+            var path = url + "?path=video/M/" + data[round].filepath + ".mp4";
             player.src({
                 src: path,
                 type: 'video/mp4'
@@ -63,7 +65,7 @@
             player.controls(true);
             if (round > 0) {
                 round--;
-                var path = "http://140.116.183.54:1340/?path=video/M/" + data[round].filepath + ".mp4";
+                var path = url + "?path=video/M/"  + data[round].filepath + ".mp4";
                 player.src({
                     src: path,
                     type: 'video/mp4'

@@ -84,7 +84,7 @@
             </select>
             <input id="confirm" type="button" value="confirm" style="display:none" />
         </div>
-        <input type="button" value="pass" id="pass">
+        <input type="button" value="當影片無法播放,請點擊本按鈕" id="pass" style="display:none">
     </div>
     <!-- post form -->
     <form method="POST" action="/GQ/EQ" style="display: none;">
@@ -150,7 +150,8 @@
                                 //console.log(videoList);
                                 $('#main-model').modal('hide');
                                 $(".row").show();
-                                var Test = new L(videoList, '<%=ID%>', '<%=password%>');
+                                $("#pass").show();
+                                var Test = new L(videoList, '<%=ID%>', '<%=password%>','<%=url%>');
                                 if (situation == "reality" && videoList.length >= 40) {
                                     Test.Go(40);
                                 }
