@@ -19,6 +19,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;" onclick="$('form').submit();">回首頁</button>
                     <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">說明</h4>
                 </div>
                 <div class="modal-body m-2" style="background-color: rgb(255, 214, 187);height: 15em;">
@@ -142,7 +143,7 @@
                     $.post("/GQ/video/getMtableList", { count: count }, function (result) {
                         if (result.result == "success") {
                             var videoList = result.data;
-                            console.log(videoList);
+                            //console.log(videoList);
                             $('#main-model').modal('hide');
                             var Test = new M(videoList, '<%=ID%>', '<%=password%>','<%=url%>');
                             if (mode == "reality" && videoList.length >= 20) {

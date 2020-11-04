@@ -48,10 +48,16 @@ function convertList(situation, level) {
     return list;
 }
 //根據範圍, 數量回傳, 隨機數字陣列
-function getRandomList(length, count) {
+function getUnReapetRandomList(length, count) {
     var returnList = [];
-    for (var i = 0; i < count; i++)
-        returnList.push(Math.floor(Math.random() * length));
+    for (var i = 0; i < count; i++) {
+        var item = Math.floor(Math.random() * length);
+        if (returnList.indexOf(item) == -1)
+            returnList.push(item);
+        else
+            i--;
+    }
+    //console.log(returnList);
     return returnList;
 }
 //特定人,特定難度,選幾個
@@ -62,7 +68,7 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
             table.find({ $and: [{ human: human }, { Difficulty: Difficulty }] }, { projection: { _id: 0 } }).toArray(function (err, result) {
                 if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
-                    var Rlist = getRandomList(result.length, num);
+                    var Rlist = getUnReapetRandomList(result.length, num);
                     var newList = [];
                     for (var i in Rlist)
                         newList.push(result[Rlist[i]]);
@@ -74,9 +80,8 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
                     if (result.length == 0)
                         getList(db, num, Difficulty, ReturnList);
                     else {
-                        var moreList = getRandomList(result.length, num - getRandomList);
-                        for (var i = 0; i < moreList.length; i++)
-                            result.push(result[moreList[i]]);
+                        for (var i = 0; i < num - result.length; i++)
+                            result.push(result[i]);
                         resolve(ReturnList.concat(result));
                     }
                 }
@@ -96,7 +101,7 @@ function getList(db, num, Difficulty, ReturnList) {
             table.find({ Difficulty: Difficulty }, { projection: { _id: 0 } }).toArray(function (err, result) {
                 if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
-                    var Rlist = getRandomList(result.length, num);
+                    var Rlist = getUnReapetRandomList(result.length, num);
                     var newList = [];
                     for (var i in Rlist)
                         newList.push(result[Rlist[i]]);
@@ -105,9 +110,8 @@ function getList(db, num, Difficulty, ReturnList) {
                 else if (result.length == num)
                     resolve(ReturnList.concat(result));
                 else if (result.length > 0) {
-                    var moreList = getRandomList(result.length, num - getRandomList);
-                    for (var i = 0; i < moreList.length; i++)
-                        result.push(result[moreList[i]]);
+                    for (var i = 0; i < num - result.length; i++)
+                        result.push(result[i]);
                     resolve(ReturnList.concat(result));
                 }
                 else {
@@ -156,13 +160,13 @@ router.post('/getLtableList', function (req, res) {
  獲得對應的影片資源
  ***********************/
 
-function getMList(db,count) {
+function getMList(db, count) {
     return new Promise((resolve, reject) => {
         var table = db.db("data").collection("Mtable");
         table.find({}, { projection: { _id: 0 } }).toArray(function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             if (result.length >= count) {
-                var ReListOrder = getRandomList(result.length, count);
+                var ReListOrder = getUnReapetRandomList(result.length, count);
                 var ReList = [];
                 for (var i in ReListOrder)
                     ReList.push(result[ReListOrder[i]]);
