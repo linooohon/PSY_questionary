@@ -1,5 +1,5 @@
 ﻿class L {
-    constructor(dataList, ID, password,url) {
+    constructor(dataList, ID, password, url) {
         this.dataList = dataList;
         this.player = videojs('MyVideo', {
             width: "600",
@@ -32,11 +32,13 @@
             ctx.fillStyle = "#46C7C7";
             ctx.fill();
             ctx.stroke();//點擊位置
-            ctx2.beginPath();
-            ctx2.arc(data[order[round]].X * (15 / 7), data[order[round]].Y * (-5 / 9) + 270, 10, 0, 2 * Math.PI);
-            ctx2.fillStyle = "#F76541";
-            ctx2.fill();
-            ctx2.stroke();//答案
+            if (!feedback) {
+                ctx2.beginPath();
+                ctx2.arc(data[order[round]].X * (15 / 7), data[order[round]].Y * (-5 / 9) + 270, 10, 0, 2 * Math.PI);
+                ctx2.fillStyle = "#F76541";
+                ctx2.fill();
+                ctx2.stroke();//答案
+            }
         }
 
         function translateAns(ans) {
@@ -79,8 +81,11 @@
         var order = [];
         var data = this.dataList;
         var feedback = true;
+        var wait = 1000;
         if (round <= 5)
             feedback = false;
+        if (feedback)
+            wait = 0;
         //建立order隨機順序
         for (var i = 0; i < round; i++)
             order.push(i);
@@ -176,28 +181,28 @@
                                                     group: "NA",
                                                     type: 'L',
                                                 }, function (result, textStatus, jqXHR) {
-                                                        if (textStatus == "success") {
-                                                            if (result.result == "success") {
-                                                                localStorage.clear();
-                                                                $("form").submit();
-                                                            }
-                                                            else {
-                                                                localStorage.setItem("one", one);
-                                                                alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
-                                                                $("form").submit();
-                                                            }
+                                                    if (textStatus == "success") {
+                                                        if (result.result == "success") {
+                                                            localStorage.clear();
+                                                            $("form").submit();
                                                         }
                                                         else {
                                                             localStorage.setItem("one", one);
-                                                            alert("伺服器無回應,請稍後再試");
+                                                            alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
+                                                            $("form").submit();
                                                         }
+                                                    }
+                                                    else {
+                                                        localStorage.setItem("one", one);
+                                                        alert("伺服器無回應,請稍後再試");
+                                                    }
                                                 });
                                             }
                                             else
                                                 location.reload();
                                         }
                                     });
-                                }, 1000)
+                                }, wait)
 
                             })
                         });
