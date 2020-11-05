@@ -20,6 +20,7 @@
     <h2 style="text-align:center">戈登人格剖析量表</h2>
     <br>
     <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <p style="background-color:antiquewhite"><%=introduce%></p>
         <%var list = title.split("~");%>
         <%for(var i=0 ; i < list.length ; i++){%>
         <div>
@@ -33,7 +34,7 @@
                 <option value="3"><%=in_list[2]%></option>
                 <option value="4"><%=in_list[3]%></option>
             </select>
-            <select id="Q<%=i+1%>_2"  class="col-md-6">
+            <select id="Q<%=i+1%>_2" class="col-md-6">
                 <option value="" disabled selected hidden>請選最不像</option>
                 <option value="1"><%=in_list[0]%></option>
                 <option value="2"><%=in_list[1]%></option>

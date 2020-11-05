@@ -92,6 +92,10 @@
                     <img src="/image/numberTable.png" width="100%" />
                 </div>
             </div>
+            <div style="text-align:center;font-size:150%">
+                <pre id="final_result" style="display:none">答題結果<br />1.請問得分者是誰?<strong id="R1"></strong><br />2.請問得分者擊球手段?<strong id="R2"></strong><br />3.請問擊球位置?<strong id="R3"></strong><br />4.請問擊球落點?<strong id="R4"></strong><br /></pre>
+                <input id="final_confirm" type="button" value="OK" style="display:none" />
+            </div>
         </div>
     </div>
     <!-- post form -->
@@ -145,7 +149,7 @@
                             var videoList = result.data;
                             //console.log(videoList);
                             $('#main-model').modal('hide');
-                            var Test = new M(videoList, '<%=ID%>', '<%=password%>','<%=url%>');
+                            var Test = new M(videoList, '<%=ID%>', '<%=password%>', '<%=url%>');
                             if (mode == "reality" && videoList.length >= 20) {
                                 Test.Go(20);
                             }

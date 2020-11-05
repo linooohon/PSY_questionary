@@ -25,6 +25,7 @@
         var data = this.dataList;
         var feedback;
         var url = this.url;
+        var answer = [0, 0, 0, 0];
         ID = this.ID;
         password = this.password;
         function init() {
@@ -65,7 +66,7 @@
             player.controls(true);
             if (round > 0) {
                 round--;
-                var path = url + "?path=video/M/"  + data[round].filepath + ".mp4";
+                var path = url + "?path=video/M/" + data[round].filepath + ".mp4";
                 player.src({
                     src: path,
                     type: 'video/mp4'
@@ -92,6 +93,10 @@
                 one += data[tmp].hand + "_" + $("#Select" + 2).val() + "_" + (data[tmp].hand == $("#Select" + 2).val() ? 1 : 0) + "_";
                 one += data[tmp].ans3 + "_" + $("#Select" + 3).val() + "_" + (data[tmp].ans3 == $("#Select" + 3).val() ? 1 : 0) + "_";
                 one += data[tmp].ans4 + "_" + $("#Select" + 4).val() + "_" + (data[tmp].ans4 == $("#Select" + 4).val() ? 1 : 0);
+                answer[0] += (data[tmp].win == $("#Select" + 1).val() ? 1 : 0);
+                answer[1] += (data[tmp].hand == $("#Select" + 2).val() ? 1 : 0);
+                answer[2] += (data[tmp].ans3 == $("#Select" + 3).val() ? 1 : 0);
+                answer[3] += (data[tmp].ans4 == $("#Select" + 4).val() ? 1 : 0);
                 if (feedback) {
                     var videoAns = (data[tmp].win == $("#Select" + 1).val() ? "Corr1" : "InCorr1") + "_" + (data[tmp].hand == $("#Select" + 2).val() ? "Corr2" : "InCorr2") + "_" + (data[tmp].ans3 == $("#Select" + 3).val() ? "Corr3" : "InCorr3") + "_" + (data[tmp].ans4 == $("#Select" + 4).val() ? "Corr4" : "InCorr4");
                     $.post("/GQ/SQ/videoResult", { ID: ID, password: password, pathname: data[tmp].filepath, ans: videoAns },
@@ -109,34 +114,42 @@
                     $("#question").hide();
                     $("#warning").text("影片只能播放一次, 請等縮圖出現後再進行播放");
                 } else {
-                    if (feedback) {
-                        $.post("/GQ/SQ/saveData", {
-                            ID: ID,
-                            password: password,
-                            one: one,
-                            group: "NA",
-                            type: 'M',
-                        }, function (result, textStatus, jqXHR) {
-                            if (textStatus == "success") {
-                                if (result.result == "success") {
-                                    localStorage.clear();
-                                    $("form").submit();
+                    $("#question").hide();
+                    $("#warning").text("");
+                    for (var i = 1; i <= 4; i++)
+                        $("#R" + i).text("( " + answer[i - 1] + " / " + origin_round + " )");
+                    $("#final_result").show();
+                    $("#final_confirm").show();
+                    $("#final_confirm").one("click", function () {
+                        if (feedback) {
+                            $.post("/GQ/SQ/saveData", {
+                                ID: ID,
+                                password: password,
+                                one: one,
+                                group: "NA",
+                                type: 'M',
+                            }, function (result, textStatus, jqXHR) {
+                                if (textStatus == "success") {
+                                    if (result.result == "success") {
+                                        localStorage.clear();
+                                        $("form").submit();
+                                    }
+                                    else {
+                                        localStorage.setItem("one", one);
+                                        alert(result.result + "已紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
+                                        $("form").submit();
+                                    }
                                 }
                                 else {
                                     localStorage.setItem("one", one);
-                                    alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
-                                    $("form").submit();
+                                    alert("伺服器無回應,請稍後再試");
                                 }
-                            }
-                            else {
-                                localStorage.setItem("one", one);
-                                alert("伺服器無回應,請稍後再試");
-                            }
-                        });
-                    }
-                    else {
-                        location.reload();
-                    }
+                            });
+                        }
+                        else {
+                            location.reload();
+                        }
+                    });
                 }
             }
         });
