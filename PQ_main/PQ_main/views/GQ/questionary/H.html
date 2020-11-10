@@ -100,7 +100,7 @@
     function Next() {
         images = $("#image_div").find("img");
         img_place >= images.length - 1 ? img_place = 0 : img_place++;
-        $(images[remind_img]).removeClass('d-none').siblings("img").addClass('d-none');
+        $(images[img_place]).removeClass('d-none').siblings("img").addClass('d-none');
         console.log(img_place);
     }
     $(window).on('load', function () {
@@ -156,13 +156,13 @@
         $(this).addClass('active').siblings().removeClass('active');
     });
     $('#finish_btn').on('click', function () {
+        console.log(game.one);
+        console.log(game.group);
         if (game_get == "reality") {
             $('form').children('input[name="one"]').val(game.one);
             $('form').children('input[name="group"]').val(game.group);
             localStorage.setItem("one", game.one);
             localStorage.setItem("group", game.group);
-            // console.log(game.one);
-            // console.log(game.group);
             $.post("/GQ/SQ/saveData", {
                     ID: "<%=ID%>",
                     password: "<%=password%>",
