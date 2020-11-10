@@ -1,5 +1,5 @@
 ﻿class L {
-    constructor(dataList, ID, password) {
+    constructor(dataList, ID, password, url) {
         this.dataList = dataList;
         this.player = videojs('MyVideo', {
             width: "600",
@@ -11,6 +11,7 @@
         });
         this.ID = ID;
         this.password = password;
+        this.url = url;
     }
 
     //method
@@ -31,11 +32,13 @@
             ctx.fillStyle = "#46C7C7";
             ctx.fill();
             ctx.stroke();//點擊位置
-            ctx2.beginPath();
-            ctx2.arc(data[order[round]].X * (15 / 7), data[order[round]].Y * (-5 / 9) + 270, 10, 0, 2 * Math.PI);
-            ctx2.fillStyle = "#F76541";
-            ctx2.fill();
-            ctx2.stroke();//答案
+            if (!feedback) {
+                ctx2.beginPath();
+                ctx2.arc(data[order[round]].X * (15 / 7), data[order[round]].Y * (-5 / 9) + 270, 10, 0, 2 * Math.PI);
+                ctx2.fillStyle = "#F76541";
+                ctx2.fill();
+                ctx2.stroke();//答案
+            }
         }
 
         function translateAns(ans) {
@@ -71,14 +74,18 @@
         //one:回傳數據, player:播放器,order:隨機順序,round:第幾回合,feedback是否回傳數據(練習模式不回傳)
         var ID = this.ID;
         var password = this.password;
+        var url = this.url;
         var origin_round = round;
         var one = "";
         var player = this.player;
         var order = [];
         var data = this.dataList;
         var feedback = true;
+        var wait = 1000;
         if (round <= 5)
             feedback = false;
+        if (feedback)
+            wait = 0;
         //建立order隨機順序
         for (var i = 0; i < round; i++)
             order.push(i);
@@ -86,7 +93,7 @@
         //初始化第一步影片
         $("#warning").text("僅有一次播放機會, 請等到縮圖出現再點擊播放");
         round--;
-        var path = "http://140.116.183.54:1340?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
+        var path = url + "?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
         player.src({
             src: path,
             type: 'video/mp4'
@@ -99,10 +106,10 @@
         $("#pass").click(function () {
             console.log(path);
             one += data[order[round]].filepath.replace(/_/g, "-") + "_NA_NA_NA_NA_NA_NA_NA";
-            if (round >= 0) {
+            if (round > 0) {
                 round--;
                 one += "~";
-                path = "http://140.116.183.54:1340?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
+                path = url + "?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
                 player.src({
                     src: path,
                     type: 'video/mp4'
@@ -119,6 +126,14 @@
             //播完影片,展示桌子
             $("#net").show();
             $("#MyVideo").hide();
+            if (round > 0) {
+                path = url + "?path=video/L/" + data[order[round - 1]].human + "/" + data[order[round - 1]].filepath;
+                player.src({
+                    src: path,
+                    type: 'video/mp4'
+                });
+                //console.log("開始影片" + order[round]);
+            }
             $("#warning").text((origin_round - round) + ". 請選擇你覺得球落在哪, 再用滑鼠點擊該位置");
             $("#table").show(function () {
                 //點擊桌子,觸發紀錄與公布答案
@@ -156,12 +171,6 @@
                                         round--;
                                         if (round >= 0) {
                                             one += "~";
-                                            path = "http://140.116.183.54:1340?path=video/L/" + data[order[round]].human + "/" + data[order[round]].filepath;
-                                            player.src({
-                                                src: path,
-                                                type: 'video/mp4'
-                                            });
-                                            //console.log("開始影片" + order[round]);
                                         }
                                         else {//回合終結,依模式操作
                                             if (feedback) {
@@ -172,28 +181,28 @@
                                                     group: "NA",
                                                     type: 'L',
                                                 }, function (result, textStatus, jqXHR) {
-                                                        if (textStatus == "success") {
-                                                            if (result.result == "success") {
-                                                                localStorage.clear();
-                                                                $("form").submit();
-                                                            }
-                                                            else {
-                                                                localStorage.setItem("one", one);
-                                                                alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
-                                                                $("form").submit();
-                                                            }
+                                                    if (textStatus == "success") {
+                                                        if (result.result == "success") {
+                                                            localStorage.clear();
+                                                            $("form").submit();
                                                         }
                                                         else {
                                                             localStorage.setItem("one", one);
-                                                            alert("伺服器無回應,請稍後再試");
+                                                            alert(result.result + "以紀錄資料在本電腦, 可先關閉程式, 下次開啟本問卷會要求上傳")
+                                                            $("form").submit();
                                                         }
+                                                    }
+                                                    else {
+                                                        localStorage.setItem("one", one);
+                                                        alert("伺服器無回應,請稍後再試");
+                                                    }
                                                 });
                                             }
                                             else
                                                 location.reload();
                                         }
                                     });
-                                }, 1000)
+                                }, wait)
 
                             })
                         });

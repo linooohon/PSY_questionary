@@ -22,7 +22,7 @@ const namesList_one = {
     J: ['Position', 'CorrAns', 'Press', 'Accuracy'],
     K: ['Condition', 'Pic', 'Color', 'Press', 'Acc', 'RT'],
     L: ['filename', 'X', 'Y', 'Sub_X', 'Sub_Y', 'Spin', 'Ans', 'Acc'],
-    M: ['file', 'CorrAns', 'Ans', 'Acc']
+    M: ['file', 'names', 'sol1', 'ans1', 'result1', 'sol2', 'ans2', 'resul2', 'sol3', 'ans3', 'result3', 'sol4', 'ans4', 'result4']
 }
 
 const namesList_group = {
@@ -176,7 +176,7 @@ router.post('/saveData', function (req, res) {
     var group = req.body.group;//string
     var type = req.body.type;
     var date = new Date().toLocaleDateString();
-    console.log(req.body);
+    //console.log(req.body);
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
         //var PromiseList = [];
@@ -218,9 +218,9 @@ function CheckIfHave(db, pathname) {
         table.findOne({ pathname: pathname }, { projection: { _id: 0 } }, function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             if (result == null)
-                resolve(false);
+                resolve(true);
             else
-                resolve(true);//存在
+                resolve(false);//存在
         });
     });
 }
@@ -228,7 +228,7 @@ function CheckIfHave(db, pathname) {
 function InsertVideo(db, pathname) {
     return new Promise((resolve, reject) => {
         var table = db.db("GQ_data").collection("M_video");
-        table.insertOne({ pathname: pathname, Corr: 0, InCorr: 0 }, function (err, result) {
+        table.insertOne({ pathname: pathname, Corr1: 0, InCorr1: 0, Corr2: 0, InCorr2: 0, Corr3: 0, InCorr3: 0, Corr4: 0, InCorr4: 0 }, function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             resolve(1);
         });
@@ -239,12 +239,30 @@ function updateVideo(db, pathname, ans) {
     return new Promise((resolve, reject) => {
         var table = db.db("GQ_data").collection("M_video");
         var Addthing = {};
-        Addthing[ans] = 1;
+        var list = ans.split("_");
+        Addthing[list[0]] = 1;
+        Addthing[list[1]] = 1;
+        Addthing[list[2]] = 1;
+        Addthing[list[3]] = 1;
         table.updateOne({ pathname: pathname }, { $inc: Addthing }, function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            //console.log(result);
             resolve({ result: 'success' });
         });
     });
+}
+
+function APilegal(ans) {
+    var list = ans.split("_");
+    if (list.length >= 4) {
+        for (var i in list) {
+            if (!(list[i] == "Corr" + (parseInt(i) + 1).toString() || list[i] == "InCorr" + (parseInt(i) + 1).toString()))
+                return false;
+        }
+        return true;
+    }
+    else
+        return false;
 }
 
 router.post('/videoResult', function (req, res) {
@@ -252,8 +270,8 @@ router.post('/videoResult', function (req, res) {
     var password = req.body.password;
     var pathname = req.body.pathname;
     var ans = req.body.ans;
-    if (ans == 'Corr' || ans == 'InCorr') {
-        //console.log(req.body);
+    //console.log(req.body);
+    if (APilegal(ans)) {
         MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
             CheckPassword(db, ID, password)

@@ -24,7 +24,7 @@ const PullList = {
     10: [22, 18, 0, 0]
 }//40 for each ,[9,6,3,0] for Difficulty
 
-const humanList = ['C01', 'C02', 'C03', 'C04', 'C05','C06', 'C07', 'C08', 'C09', 'C10', 'C11', 'C12', 'C13'];
+const humanList = ['C01', 'C04', 'C05', 'C06', 'C07', 'C08', 'C09', 'C10', 'C11', 'C12', 'C13'];
 
 /**********************
  ./GQ/video/getLtableList
@@ -48,10 +48,16 @@ function convertList(situation, level) {
     return list;
 }
 //根據範圍, 數量回傳, 隨機數字陣列
-function getRandomList(length, count) {
+function getUnReapetRandomList(length, count) {
     var returnList = [];
-    for (var i = 0; i < count; i++)
-        returnList.push(Math.floor(Math.random() * length));
+    for (var i = 0; i < count; i++) {
+        var item = Math.floor(Math.random() * length);
+        if (returnList.indexOf(item) == -1)
+            returnList.push(item);
+        else
+            i--;
+    }
+    //console.log(returnList);
     return returnList;
 }
 //特定人,特定難度,選幾個
@@ -60,9 +66,9 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
         return new Promise((resolve, reject) => {
             var table = db.db("data").collection("Ltable");
             table.find({ $and: [{ human: human }, { Difficulty: Difficulty }] }, { projection: { _id: 0 } }).toArray(function (err, result) {
-                if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
+                if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
-                    var Rlist = getRandomList(result.length, num);
+                    var Rlist = getUnReapetRandomList(result.length, num);
                     var newList = [];
                     for (var i in Rlist)
                         newList.push(result[Rlist[i]]);
@@ -74,9 +80,8 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
                     if (result.length == 0)
                         getList(db, num, Difficulty, ReturnList);
                     else {
-                        var moreList = getRandomList(result.length, num - getRandomList);
-                        for (var i = 0; i < moreList.length; i++)
-                            result.push(result[moreList[i]]);
+                        for (var i = 0; i < num - result.length; i++)
+                            result.push(result[i]);
                         resolve(ReturnList.concat(result));
                     }
                 }
@@ -89,14 +94,14 @@ function getListByHuman(db, num, Difficulty, human, ReturnList) {
 }
 //不特定人,特定難度,選幾個
 function getList(db, num, Difficulty, ReturnList) {
-    //console.log(ReturnList);
+    // console.log(ReturnList);
     if (num > 0)
         return new Promise((resolve, reject) => {
             var table = db.db("data").collection("Ltable");
             table.find({ Difficulty: Difficulty }, { projection: { _id: 0 } }).toArray(function (err, result) {
-                if (err) { reject({ message: '伺服器連線錯誤' }); throw err; }
+                if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
                 if (result.length > num) {
-                    var Rlist = getRandomList(result.length, num);
+                    var Rlist = getUnReapetRandomList(result.length, num);
                     var newList = [];
                     for (var i in Rlist)
                         newList.push(result[Rlist[i]]);
@@ -104,11 +109,13 @@ function getList(db, num, Difficulty, ReturnList) {
                 }
                 else if (result.length == num)
                     resolve(ReturnList.concat(result));
-                else {
-                    var moreList = getRandomList(result.length, num - getRandomList);
-                    for (var i = 0; i < moreList.length; i++)
-                        result.push(result[moreList[i]]);
+                else if (result.length > 0) {
+                    for (var i = 0; i < num - result.length; i++)
+                        result.push(result[i]);
                     resolve(ReturnList.concat(result));
+                }
+                else {
+                    reject({ result: '查無資料' });
                 }
             });
         });
@@ -145,6 +152,40 @@ router.post('/getLtableList', function (req, res) {
                 .then(pkg => res.json({ result: "success", data: pkg }))
                 .catch(error => res.json(error));
         }
+    });
+});
+
+/**********************
+ ./GQ/video/getMtableList
+ 獲得對應的影片資源
+ ***********************/
+
+function getMList(db, count) {
+    return new Promise((resolve, reject) => {
+        var table = db.db("data").collection("Mtable");
+        table.find({}, { projection: { _id: 0 } }).toArray(function (err, result) {
+            if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
+            if (result.length >= count) {
+                var ReListOrder = getUnReapetRandomList(result.length, count);
+                var ReList = [];
+                for (var i in ReListOrder)
+                    ReList.push(result[ReListOrder[i]]);
+                resolve({ result: "success", data: ReList });
+            }
+            else
+                reject({ result: "影片資源不足" });
+        });
+    });
+}
+
+router.post('/getMtableList', function (req, res) {
+    var count = req.body.count;
+
+    MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+        if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
+        getMList(db, count)
+            .then(pkg => res.json(pkg))
+            .catch(error => res.json(error));
     });
 });
 

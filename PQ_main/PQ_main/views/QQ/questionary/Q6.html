@@ -20,6 +20,7 @@
     <h2 style="text-align:center">成人用運動競賽焦慮測驗</h2>
     <br>
     <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <p style="background-color:antiquewhite"><%=introduce%></p>
         <%var list = title.split(",");%>
         <%for(var i=0 ; i < list.length ; i++){%>
         <div>
@@ -87,6 +88,10 @@
             //初始化
             if (localStorage.getItem("data") != null)
                 request(localStorage.getItem("data"), false);
+            $("select").css("background-color", "gray");
+            $("select").change(function () {
+                $(this).css("background-color", "white");
+            });
             //中斷填答
             $(".btn-danger").click(function () {
                 if (prompt("您想要中斷填答,不會儲存填答結果,確認請輸入'Y'", "Y") == 'Y')
