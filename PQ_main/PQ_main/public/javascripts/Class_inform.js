@@ -2,6 +2,7 @@ var cross = document.getElementById("cross"); //initial cross
 var finish_btn = document.getElementById("finish_btn") //the btn to say finish
 var body = document.body; //apend item
 
+
 var BALL_COLOR = {
     R: "red",
     G: "green",
@@ -38,10 +39,13 @@ var ARROW_NUM = {
     a: "3",
     w: "4"
 }
+
+
 class A {
     constructor(game_set) {
         this.game_set = game_set;
         this.ball = add_ball(['ball-80', 'center-screen']);
+        //game_set ratio:green 7, red 3
         this.ratio = {
             G: game_set / 10 * 7,
             R: game_set / 10 * 3,
@@ -58,19 +62,16 @@ class A {
         body.appendChild(this.ball);
     }
     _createQuestion() {
-        this._question = competitor([Color_Set.green, Color_Set.red], [this.ratio.G, this.ratio.R]); //修改
-        // console.log(this._question);
+        this._question = competitor([Color_Set.green, Color_Set.red], [this.ratio.G, this.ratio.R]); //change the question
     }
     _generateAnswer = (item, range_min, range_max) => {
         let start = Date.now();
         let interval = range_min;
         let quetion_Result = "";
         let color = getKeyByValue(Color_Set, item.style.backgroundColor.toString());
-        // console.log(color);
         let group_set = [0, 0, 0, 0]; //ACC_tRT_FA_tFART
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
-        // quetion_Result += (color[0]).toUpperCase() + "_"; //Color
         quetion_Result += COLOR_NUM[color] + "_"; //Color
         show(item);
         return new Promise(resolve => {
@@ -510,9 +511,9 @@ class D {
     }
     async process() {
         this.timer = 80;
+        this.last_timer = 80;
         for (let session = 0; session < this._question.length; ++session) {
-            console.log("start_now");
-            this.last_timer = 80;
+            console.log("start_now");          
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
                 this.tmp = item;
