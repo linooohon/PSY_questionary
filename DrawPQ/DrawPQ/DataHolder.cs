@@ -31,11 +31,22 @@ namespace DrawPQ
         {
             who--;
             List<float> list = new List<float>();
+            int choose;
+            int limit;
             switch (type)
             {
                 case "D":
-                    int choose = 4;
-                    int limit = data[who].Length;
+                    choose = 4;
+                    limit = data[who].Length;
+                    while (choose < limit)
+                    {
+                        list.Add(float.Parse(data[who][choose]));
+                        choose += 6;
+                    }
+                    break;
+                case "C":
+                    choose = 3;
+                    limit = data[who].Length;
                     while (choose < limit)
                     {
                         list.Add(float.Parse(data[who][choose]));
