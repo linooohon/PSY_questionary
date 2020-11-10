@@ -29,11 +29,11 @@
                     onclick="$('#remind_modal').modal('toggle')" style="display: none;">
                 </button>
                 <h3>[共三回合,接下來是第2回合]</h3>
-                <img name="H-1" src="/image/H.png" alt="information" class=" img-fluid  p-0 d-none" 
+                <img name="H-1" src="/image/H.png" alt="information" class=" img-fluid  p-0 d-none"
                     style="height: 100%;background-color: rgba(255, 196, 196, 0.651); ">
                 <img name="H-2" src="/image/H_2.png" alt="information" class=" img-fluid  p-0 d-none"
                     style="height: 100%;background-color: rgba(255, 196, 196, 0.651);">
-                <img  name="H-3"src="/image/H_3.png" alt="information" class=" img-fluid  p-0 d-none"
+                <img name="H-3" src="/image/H_3.png" alt="information" class=" img-fluid  p-0 d-none"
                     style="height: 100%;background-color: rgba(255, 196, 196, 0.651);">
                 <br>
                 請按Enter鍵繼續.....
@@ -91,10 +91,10 @@
     var remind_img = 1;
     $('#remind_modal').on('show.bs.modal', function (e) {
         images = $("#image_div").find("img");
-        remind_img >= images.length  ? remind_img = 0 : remind_img++;
-        $('img[name="H-'+remind_img+'"]').removeClass('d-none').siblings("img").addClass('d-none');
+        remind_img >= images.length ? remind_img = 0 : remind_img++;
+        $('img[name="H-' + remind_img + '"]').removeClass('d-none').siblings("img").addClass('d-none');
         // console.log(remind_img);
-      
+
     })
 
     function Next() {
@@ -137,8 +137,11 @@
     });
 
     $('#start').on('click', function () {
+        // $('#remind_btn').siblings("h3").text("已做完此問卷，請去做K問卷");
+        // $('#remind_btn').click();
+        console.log("mide");
         if (game_get == "practice") {
-            game = new H([10,20,20]);//10,20,20
+            game = new H([10, 20, 20]); //10,20,20
             game.process();
             $('#main-model').modal('hide');
         } else if (game_get == "reality") {
