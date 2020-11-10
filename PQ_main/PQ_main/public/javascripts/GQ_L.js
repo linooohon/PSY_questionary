@@ -98,6 +98,7 @@
             src: path,
             type: 'video/mp4'
         });
+        player.controls(false);
         //播放時關閉控制列
         player.on("play", () => {
             player.controls(false);
@@ -114,13 +115,15 @@
                     src: path,
                     type: 'video/mp4'
                 });
-                player.controls(true);
+                player.controls(false);
             }
         })
-
+        player.on("canplaythrough", function () {
+            player.controls(true);
+        })
         //核心事件: 影片播放完畢, 開始序列行為
         player.on("ended", () => {
-            player.controls(true);
+            
             //console.log("結束影片" + data[order[round]].filepath);
             one += data[order[round]].filepath.replace(/_/g, "-") + "_";
             //播完影片,展示桌子
