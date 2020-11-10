@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.comboBox = new System.Windows.Forms.ComboBox();
             this.type = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,6 +46,7 @@
             // 
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Items.AddRange(new object[] {
+            "C",
             "D"});
             this.comboBox.Location = new System.Drawing.Point(114, 28);
             this.comboBox.Name = "comboBox";
@@ -115,10 +116,10 @@
             // 
             // chart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(15, 203);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(1049, 338);
