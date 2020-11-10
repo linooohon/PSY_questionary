@@ -509,9 +509,9 @@ class D {
         });
     }
     async process() {
+        this.timer = 80;
         for (let session = 0; session < this._question.length; ++session) {
             console.log("start_now");
-            this.timer = 80;
             this.last_timer = 80;
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
@@ -527,8 +527,8 @@ class D {
                     this._one += data[0];
                     this.correct = data[1];
                     this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 1) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 1);
-                    if(this.timer<1){
-                        this.timer=1;
+                    if (this.timer < 1) {
+                        this.timer = 1;
                     }
                     // console.log(this.timer, this.last_timer, tmp_timer, ((this.last_timer - this.timer) * 0.3 + 1));
                     // console.log(this.last_timer);
@@ -578,7 +578,7 @@ class D {
         this._groupset += mt1 + "_" + mt5 + "_" + mt10;
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
         this._group = this._groupset.replaceAll("NaN", "NA");
-        this._pr = Math.round((this.acc / 9)* 100) / 100 + "_" + Math.round((mt10 / mt1) * 100) / 100;
+        this._pr = Math.round((this.acc / 9) * 100) / 100 + "_" + Math.round((mt10 / mt1) * 100) / 100;
     }
     get one() {
         return this._one;
@@ -1106,6 +1106,7 @@ class H {
             // console.log(this._groupset);
         }
         this._analyzeData();
+        alert("若已做完此問卷的實際測驗，請去做K問卷");
         //finish process
         finish_btn.click();
         // console.log(this.group);
@@ -1158,12 +1159,14 @@ class I {
             for (var len = 0; len < this.each_game; ++len) {
                 var tmp = [];
                 for (var number_len = 0; number_len < this.ratio[question]; ++number_len) {
-                    tmp.push(Math.floor(Math.random() * 9) + 1);
+                    tmp.push(Math.floor(Math.random() * 10));
                     this._groupset[1]++;
                 }
                 this._question.push(tmp);
             }
         }
+        shuffle(this._question);
+        console.log(this._question);
         // console.log(this._groupset[1]);
     }
     _generateAnswer(numberlist, inputline, interval) {
@@ -1209,10 +1212,13 @@ class I {
             }, interval)
 
             function key_handler(e) {
+                // console.log(e.which);
+                // console.log((e.which>=96 && e.which<=105));
+                // console.log((e.which>=48 && e.which<=57));
                 if (typenum >= length && e.key == "Enter") {
                     clearTimeout(timeout);
                     stopRun();
-                } else if (typenum < length && parseInt(e.key)) {
+                } else if (typenum < length && (e.which >= 96 && e.which <= 105) || (e.which >= 48 && e.which <= 57)) {
                     keylist.push(e.key);
                     inputline[typenum++].textContent = e.key;
                     quetion_Result += e.key.toString(); //Press_Dig
@@ -1268,6 +1274,7 @@ class J {
         this._pr = "";
         this._total = 0;
         this._level = 2;
+        this.remind_btn = document.querySelector('button[name="remind_btn"]');
         this.nine_grid = document.getElementById("nine-grid");
         this._init_item();
         this._createQuestion(2);
@@ -1280,7 +1287,8 @@ class J {
         let tmp = []; //number- give press sign -need press
         for (let i = 0; i < this.game_set; ++i) {
             if (i < this.game_set / 3) {
-                tmp.push([Math.floor(Math.random() * 9) + 1, true, false]);
+                tmp.push([Math.floor(Math.random() * 9) + 1, false, true]);
+                console.log("true");
             } else {
                 tmp.push([Math.floor(Math.random() * 9) + 1, false, false])
             }
@@ -1288,18 +1296,22 @@ class J {
         shuffle(tmp);
         //last numbers
         for (let i = 0; i < number; ++i) {
-            tmp.push([Math.floor(Math.random() * 9) + 1, false]);
+            tmp.push([Math.floor(Math.random() * 9) + 1, false, false]);
         }
+        // console.log(tmp);
+
         //create question
         for (let i = 0; i < tmp.length; ++i) {
-            if (tmp[i].length > 2) {
-                if (tmp[i][1] == true) {
-                    tmp[i + number] = [tmp[i][0], true];
-                }
-                tmp[i] = [tmp[i][0], false];
+            if (tmp[i][2] == true) {
+                tmp[i + number][1] =true;
+                tmp[i + number][0] =tmp[i][0];
             }
+            // if(tmp[i][1]==false){
+            //     tmp[i] = [tmp[i][0], false,false];
+            // }       
         }
         return tmp;
+
     }
     _generateAnswer = (item, press, range_min, range_max) => {
         let interval = range_min;
@@ -1339,22 +1351,29 @@ class J {
     async process() {
         while (1) {
             this._question = this._createQuestion(this._level);
-            let number = 0;
+            console.log(this._question);
             let count = 0;
+            let number=0;
             await collapse(cross, 1000);
             show(this.nine_grid);
             await collapse(null, 1000);
             for (var item of this._question) {
-                console.log(item);
+                // console.log(item);
                 let element = document.querySelector('rect[name="' + item[0] + '"]');
                 this._one += item[0] + "_";
                 await this._generateAnswer(element, item[1], 250).then((data) => {
-                    this._one += data[0];
+                    if(count<this._level){
+                        this._one +="NA_NA_NA~"
+                        console.log(count,this._level);
+                    }else{
+                        this._one += data[0];
+                    }
+                   
                     if (count >= this._level) {
                         number += data[1];
                     }
                     count++;
-                    console.log(number);
+                    console.log( this._one);
                 });
                 await collapse(null, 1250);
             }
@@ -1364,6 +1383,19 @@ class J {
             console.log(this._groupset);
             console.log(this._total);
             console.log(this._question.length);
+            await new Promise(resolve => {
+                this.remind_btn.click();
+                this.remind_btn.nextElementSibling.textContent = "正確題數[" + number+ "/30]";
+                function keyhandle(e) {
+                    if (e.key == "Enter") {
+                        window.removeEventListener('keydown', keyhandle);
+                        resolve();
+                    }
+
+                }
+                window.addEventListener('keydown', keyhandle); 
+            });
+            this.remind_btn.click();
             if (number < this.game_set * 0.8 || this.practice) {
                 break;
             } else {
@@ -1373,18 +1405,20 @@ class J {
         }
         this._analyzeData();
         //finish process
+        console.log("finish");
         finish_btn.click();
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1); //remove last~
-        let Acc = Math.round((this._total * 100 / (this.game_set * (this._level - 1))) * 100) / 100;
+        // let Acc = Math.round((this._total * 100 / (this.game_set * (this._level - 1))) * 100) / 100;
+        let Acc = Math.round((this._total * 100 / (this.game_set)) * 100) / 100;
         let Score = this._total;
         this._group += this._level + "_" + Acc + "_" + this._total + "_";
         for (let i = 0; i < this._groupset.length; ++i) {
             this._group += this._groupset[i] + "_";
         }
-        if(this._groupset.length<2){
-            this._group +=  "0_";
+        if (this._groupset.length < 2) {
+            this._group += "0_";
         }
         this._group = this._group.slice(0, -1).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
@@ -1479,7 +1513,7 @@ class K {
                         group_time[condition] = 1;
                         group_set[0] = 1; //ACC
                         group_set[1] = end - start; //RT
-                        group_set[condition + 2 ] = (end - start); //PNM
+                        group_set[condition + 2] = (end - start); //PNM
                         // console.log(condition);
                         quetion_Result += "1_" + (end - start).toString() + "~" //ACC_RT
                     } else {

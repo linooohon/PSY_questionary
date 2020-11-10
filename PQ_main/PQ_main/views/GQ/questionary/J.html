@@ -52,6 +52,20 @@
 </style>
 
 <body>
+    <!-- remind modal&&button -->
+    <div id="remind_modal" class="modal fade bd-example-modal-sm " data-backdrop="static" data-keyboard="false"
+    tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content text-center">
+        <button name="remind_btn" type="button" class="btn btn-primary" onclick="$('#remind_modal').modal('toggle')"
+          style="display: none;">
+        </button>
+        <h3></h3>
+        <br>
+        請按Enter鍵繼續.....
+      </div>
+    </div>
+  </div>
   <!-- main modal -->
   <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

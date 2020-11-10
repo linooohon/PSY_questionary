@@ -30,7 +30,7 @@
                     <img src="/image/K.png" alt="information" class=" img-fluid  p-0" style="height: 100%;">
                 </div>
                 <div class="btn-group d-flex p-2">
-                    <button type="button" class=" btn w-100  btn-outline-success" value="practice">練習模式</button>
+                    <button type="button" class=" btn w-100  btn-outline-danger" value="practice" disabled>建議先做完H作業再來做K哦</button>
                     <button type="button" class="  btn w-100  btn-outline-success " value="reality">實際測驗</button>
                 </div>
                 <div class="d-flex m-2">
@@ -113,11 +113,12 @@
         $(this).addClass('active').siblings().removeClass('active');
     });
     $('#start').on('click', function () {
-        if (game_get == "practice") {
-            game = new K(10);
-            game.process();
-            $('#main-model').modal('hide');
-        } else if (game_get == "reality") {
+        // if (game_get == "practice") {
+        //     game = new K(10);
+        //     game.process();
+        //     $('#main-model').modal('hide');
+        // } else 
+        if (game_get == "reality") {
             game = new K(120);
             game.process();
             $('#main-model').modal('hide');
