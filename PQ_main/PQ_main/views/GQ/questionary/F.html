@@ -19,16 +19,31 @@
       width: 300px;
       height: 300px;
     }
-
     rect {
       width: 10px;
       height: 10px;
     }
+    rect[name="left"]{
+      margin-left: -150px;
+    }
+    rect[name="right"]{
+      margin-left: 150px;
+    }
   }
   @media(min-device-width: 1900px) {
     #image {
-      width: 600px;
-      height: 600px;
+      width: 400px;
+      height: 400px;
+    }
+    rect {
+      width: 30px;
+      height: 30px;
+    }
+    rect[name="left"]{
+      margin-left: -300px;
+    }
+    rect[name="right"]{
+      margin-left: 300px;
     }
   }
 </style>
@@ -63,10 +78,10 @@
   <!-- rect div  child no change-->
   <div id="rect_div">
     <rect name="left" class="center-screen"
-      style="margin-left: -300px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
+      style="margin-top: -40px;background-color: black;display: none;">
     </rect>
     <rect name="right" class=" center-screen"
-      style="margin-left: 300px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
+      style=" margin-top: -40px;  background-color: black;display: none;">
     </rect>
   </div>
   <!-- finish btn for game -->
