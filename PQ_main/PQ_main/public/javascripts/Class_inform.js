@@ -676,7 +676,7 @@ class E {
                 this.clueplace[item[0]].setAttribute("side", this.SIDE[item[2]]);
             }
             console.log(this.clueplace[item[0]]);
-            await collapse(this.clueplace[item[0]], 500);//100
+            await collapse(this.clueplace[item[0]], 100);//100
             this.clueplace[item[0]].removeAttribute("side");
             await collapse(cross, 50);//400
 
