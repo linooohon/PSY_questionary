@@ -487,8 +487,7 @@ class D {
     async process() {
         this.timer = 80;
         this.last_timer = 80;
-        for (let session = 0; session < this._question.length; ++session) {
-                  
+        for (let session = 0; session < this._question.length; ++session) {            
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
                 this.tmp = item;
@@ -530,7 +529,7 @@ class D {
             this.averagebox[2] += part[8];
             console.log(this.averagebox);
             this._acc += ((part[3] / part[0] * 100) + (part[4] / part[1] * 100) + (part[5] / part[2] * 100));
-            this._groupset +=  Math.round(part[6] * 100) / 100 + "_" +  Math.round(part[7] * 100) / 100 + "_" +  Math.round(part[8] * 100) / 100 + 
+            this._groupset +=  Math.round(part[6] * 100) / 100 + "_" +  Math.round(part[7] * 100) / 100 + "_" +  Math.round(part[8] * 100) / 100 + "_"+
             Math.round((part[3] / part[0] * 100) * 100) / 100 + "_" +Math.round((part[4] / part[1] * 100) * 100) / 100 + "_" + Math.round((part[5] / part[2] * 100) * 100) / 100 + "_";
             console.log(this._groupset);
             if (session + 1 < this.game_set[0]) {
@@ -559,7 +558,7 @@ class D {
         let mt1 = Math.round((this.averagebox[0] / 3) * 100) / 100;
         let mt5 = Math.round((this.averagebox[1] / 3) * 100) / 100;
         let mt10 = Math.round((this.averagebox[2] / 3) * 100) / 100;
-        let SI =mt10-mt1;
+        let SI =Math.round((mt10-mt1)*100)/100;
         this._groupset += mt1 + "_" + mt5 + "_" + mt10 +"_"+SI;
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
         this._group = this._groupset.replaceAll("NaN", "NA");
@@ -1307,6 +1306,7 @@ class J {
             function key_handler(e) {
                 if (press) {
                     group_set = 1;
+                    console.log(group_set)
                     quetion_Result += "1_1_1~"; //Color
                 } else {
                     quetion_Result += "0_1_0~";
@@ -1332,16 +1332,18 @@ class J {
                 if(item[1]==true){
                     console.log("true");
                 }
-                await this._generateAnswer(element, item[1], 250).then((data) => {//250
+                await this._generateAnswer(element, item[1], 500).then((data) => {//250
                     if(count<this._level){
                         this._one +="NA_NA_NA~"
                     }else{
                         this._one += data[0];
+                        number += data[1];
+                        console.log(number,count,data[1]);
                     }
                    
-                    if (count >= this._level) {
-                        number += data[1];
-                    }
+                    // if (count >= this._level) {
+                       
+                    // }
                     count++;
                 });
                 await collapse(null, 1250);//1250
