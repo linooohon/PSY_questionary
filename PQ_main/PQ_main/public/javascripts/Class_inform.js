@@ -108,14 +108,14 @@ class A {
     }
     async process() {
         for (var item of this._question) {
-            await collapse(cross, 200, 800); //start range 200-800
+            await collapse(cross, 50, 50); //start range 200-800
             this.ball.style.backgroundColor = item;
             await this._generateAnswer(this.ball, 500).then((data) => {
                 this._one += data[0];
                 this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
             });
             console.log(this._one);
-            await collapse(null, 100, 300);
+            await collapse(null, 50,50);//100-300
         }
         //analyzedata
         this._analyzeData();
@@ -234,7 +234,7 @@ class B {
     async process() {
         var delay_num = 200;
         for (var number in this._question) {
-            await collapse(cross, 500);
+            await collapse(cross, 50);//500
             this.ball.style.backgroundColor = this._question[number];
             var has_bee = this._bee[number];
             await this._generateAnswer(this.ball, has_bee, delay_num, 500).then(
@@ -244,7 +244,7 @@ class B {
                     if (data[2] >= 0 || data[2] <= 450)
                         delay_num = data[2];
                 });
-            await collapse(null, 100, 300);
+            await collapse(null, 10, 50);//100-300
         }
         this._analyzeData();
         finish_btn.click();
@@ -355,9 +355,9 @@ class C {
                 }
                 this.renew.click();
                 this._one += Math.round(ratio*100/this.ballnum) + "_";//Coherence Rate
-                await collapse(cross, 1000); //start 1000
+                await collapse(cross, 10); //start 1000
                 this.run.click();
-                await collapse(this.spawn_div, 500); //500
+                await collapse(this.spawn_div, 50); //500
                 await this._generateAnswer(null, direction, 3000).then((data) => { //3000
                     this._one += data[0];
                     part_right += data[1];
@@ -434,10 +434,10 @@ class D {
         this.correct = 0;
         this.tmp = [];
         this.timer = 500;
+        this._acc=0;
         this._groupset = "";
         this._one = "";
         this._group = "";
-        this._acc = 0;
         this._pr = "";
         this._init_item();
         this._createQuestion();
@@ -453,7 +453,6 @@ class D {
         }
     }
     _generateAnswer = (direction, range_min, range_max) => {
-        // let start = Date.now();
         let interval = range_min;
         let quetion_Result = "";
         if (range_max != undefined)
@@ -468,7 +467,6 @@ class D {
             }, interval)
 
             function key_handler(e) {
-                // let end = Date.now();
                 if (KEY_NUM[e.key] != undefined) {
                     if (KEY_NUM[e.key] == direction.toString()) {
                         quetion_Result += KEY_NUM[e.key] + "_1~";
@@ -490,21 +488,30 @@ class D {
         this.timer = 80;
         this.last_timer = 80;
         for (let session = 0; session < this._question.length; ++session) {
-            console.log("start_now");          
+                  
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
                 this.tmp = item;
                 let tmp_timer = this.timer;
-                await collapse(cross, 300); //start 300
+                console.log(this.timer,this.last_timer,tmp_timer);  
+                await collapse(cross, 10); //start 300
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
                 this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
-                await collapse(this.garbor, this.timer);
+                await collapse(this.garbor,50);//this.timer
                 this._one += (item[0] + 1) + "_" + Math.round(this.timer * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
                 await this._generateAnswer(item[1] + 1, 500).then((data) => {//500
                     this._one += data[0];
                     this.correct = data[1];
-                    this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 1) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 1);
+                    // if (this.correct==0){
+                    //     console.log(this.timer + (Math.abs(this.last_timer - this.timer) * 0.3 + 1)+" not correct");
+                    //     this.timer = this.timer + (Math.abs(this.last_timer - this.timer) * 0.3 + 1);
+                    // }else{
+                    //     console.log(this.timer - (Math.abs(this.last_timer - this.timer) * 0.3 + 1)+" correct");
+                    //     this.timer = this.timer - (Math.abs(this.last_timer - this.timer) * 0.3 + 1);
+                    // }
+                    this.correct == 0 ? this.timer = this.timer + (Math.abs(this.last_timer - this.timer) * 0.3 + 1) : this.timer = this.timer - (Math.abs(this.last_timer - this.timer) * 0.3 + 1);
+                   
                     if (this.timer < 1) {
                         this.timer = 1;
                     }
@@ -515,7 +522,6 @@ class D {
                         part[this.tmp[0] + 3]++;
                     }
                 });
-                // console.log(this._one);
                 console.log(part);
             }
             this._one = this._one.slice(0, -1) + "-";
@@ -523,9 +529,10 @@ class D {
             this.averagebox[1] += part[7];
             this.averagebox[2] += part[8];
             console.log(this.averagebox);
-            this._groupset +=  Math.round(part[6] * 100) / 100 + "_" +  Math.round(part[7] * 100) / 100 + "_" +  Math.round(part[8] * 100) / 100 + Math.round((part[3] / part[0] * 100) * 100) / 100 + "_" +
-                Math.round((part[4] / part[1] * 100) * 100) / 100 + "_" + Math.round((part[5] / part[2] * 100) * 100) / 100 + "_";
             this._acc += ((part[3] / part[0] * 100) + (part[4] / part[1] * 100) + (part[5] / part[2] * 100));
+            this._groupset +=  Math.round(part[6] * 100) / 100 + "_" +  Math.round(part[7] * 100) / 100 + "_" +  Math.round(part[8] * 100) / 100 + 
+            Math.round((part[3] / part[0] * 100) * 100) / 100 + "_" +Math.round((part[4] / part[1] * 100) * 100) / 100 + "_" + Math.round((part[5] / part[2] * 100) * 100) / 100 + "_";
+            console.log(this._groupset);
             if (session + 1 < this.game_set[0]) {
                 await new Promise(resolve => {
                     this.remind_btn.click();
@@ -552,10 +559,11 @@ class D {
         let mt1 = Math.round((this.averagebox[0] / 3) * 100) / 100;
         let mt5 = Math.round((this.averagebox[1] / 3) * 100) / 100;
         let mt10 = Math.round((this.averagebox[2] / 3) * 100) / 100;
-        this._groupset += mt1 + "_" + mt5 + "_" + mt10;
+        let SI =mt10-mt1;
+        this._groupset += mt1 + "_" + mt5 + "_" + mt10 +"_"+SI;
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
         this._group = this._groupset.replaceAll("NaN", "NA");
-        this._pr = Math.round((this.acc / 9) * 100) / 100 + "_" + Math.round((mt10 / mt1) * 100) / 100;
+        this._pr = Math.round((this._acc / 9) * 100) / 100 + "_" + Math.round((mt10 / mt1) * 100) / 100;
     }
     get one() {
         return this._one;
@@ -657,14 +665,14 @@ class E {
         for (var item of this._question) { //[cluek,arrowk,side,tag]
             let getgroup = [];
             let cross_time = Math.floor(Math.random() * 1200) + 400;
-            await collapse(cross, cross_time); //start
+            await collapse(cross, 50); //start -cross_time
             if (item[0] == 3) {
                 this.clueplace[item[0]].setAttribute("side", this.SIDE[item[2]]);
             }
             console.log(this.clueplace[item[0]]);
-            await collapse(this.clueplace[item[0]], 100);
+            await collapse(this.clueplace[item[0]], 10);//100
             this.clueplace[item[0]].removeAttribute("side");
-            await collapse(cross, 400);
+            await collapse(cross, 50);//400
 
             this._one += (item[0] + 1) + "_" + (item[1] + 1) + "_" + (item[2] + 1) + "_" + (item[3] + 1) + "_"; //cue-con-pos-ori-
             //nci + right or left
@@ -813,13 +821,13 @@ class F {
     async process() {
         for (var item of this._question) {
             let get_group = "";
-            await collapse(cross, 1000); //start 1000
+            await collapse(cross, 10); //start 1000
             this.pic.src = this.IMG_NAME[0];
-            await collapse(this.pic, 1000); //eye 1000
+            await collapse(this.pic, 50); //eye 1000
             this.pic.src = this.IMG_NAME[item[0]];
-            await collapse(this.pic, 150); //look 150
+            await collapse(this.pic, 50); //look 150
             this.pic.src = this.IMG_NAME[0]; //eye
-            await collapse(this.pic, item[2]); //item[2]
+            await collapse(this.pic, 50); //item[2]
             this._one += item[3] + "_" + (item[2] + 150) + "_" + (item[1] + 1).toString() + "_"; //Cue-Soa-pos
             await this._generateAnswer([this.pic, this.rect[item[1]]], item[1], 800).then((data) => {
                 this._one += data[0];
@@ -889,7 +897,7 @@ class G {
             let session_score = 0;
             for (let length = 0; length < this.game_set; ++length) {
                 this.renew.click();
-                await collapse(cross, 1000); //cross
+                await collapse(cross, 10); //cross 1000
                 show(this.spawn_div);
                 await new Promise(resolve => {
                     var div = this.spawn_div;
@@ -901,7 +909,7 @@ class G {
                             console.log(div);
                             for (let i = 0; i < click; ++i) {
                                 div.childNodes[i].classList.remove('blink');
-                                div.childNodes[i].style.backgroundColor = "rgb(0,0,100)";
+                                //div.childNodes[i].style.backgroundColor = "rgb(0,0,100)";
                                 div.childNodes[i].classList.add('enable_click');
                             }
                             runbtn.click();
@@ -911,7 +919,7 @@ class G {
                     }
                     window.addEventListener('keydown', keyhandle);
                 });
-                await collapse(null, 5000); //move
+                await collapse(null, 50); //move 5000
                 this.pause.click();
                 await new Promise(resolve => { //wait for player click
                     let num = 0;
@@ -948,8 +956,6 @@ class G {
                 this.addball.click();
             }
         }
-        // console.log(this.one);
-        // console.log(this.group);
         this._analyzeData();
         //finish process
         finish_btn.click();
@@ -1192,11 +1198,11 @@ class I {
     async process() {
         // console.log(this._question);
         for (var part in this._question) {
-            await collapse(cross, 1000); //start 1000
+            await collapse(cross, 10); //start 1000
             for (var item of this._question[part]) {
                 this.number.textContent = item;
-                await collapse(this.number, 1000); //1000
-                await collapse(null, 200); //200
+                await collapse(this.number, 10); //1000
+                await collapse(null, 10); //200
             }
             await this._generateAnswer(this._question[part].reverse(), this.inputline, 15000).then((data) => {
                 this._one += data[0];
@@ -1317,9 +1323,9 @@ class J {
             console.log(this._question);
             let count = 0;
             let number=0;
-            await collapse(cross, 1000);//1000
+            await collapse(cross, 10);//1000
             show(this.nine_grid);
-            await collapse(null, 1000);//1000
+            await collapse(null, 10);//1000
             for (var item of this._question) {
                 let element = document.querySelector('rect[name="' + item[0] + '"]');
                 this._one += item[0] + "_";
@@ -1490,7 +1496,7 @@ class K {
     }
     async process() {
         for (var number in this.question) {
-            await collapse(cross, 1000); //start 1000
+            await collapse(cross, 10); //start 1000
             this.word.textContent = this.question[number][0];
             this.word.style.color = this.question[number][1];
             this.word.setAttribute("part", this.question[number][2]);
@@ -1503,7 +1509,7 @@ class K {
                     return num + data[2][idx];
                 });
             });
-            await collapse(null, 100, 300);//300
+            await collapse(null, 10,10);//100-300
         }
         // console.log(this.group);
         this._analyzeData();
