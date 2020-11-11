@@ -506,7 +506,7 @@ class D {
                 this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
                 await collapse(this.garbor,this.timer);//this.timer
                 this._one += (item[0] + 1) + "_" + Math.round(this.timer * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
-                await this._generateAnswer(item[1] + 1, 500).then((data) => {//500
+                await this._generateAnswer(item[1] + 1, 5000).then((data) => {//5000
                     this._one += data[0];
                     this.correct = data[1];
                     // if (this.correct==0){
