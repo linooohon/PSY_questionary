@@ -671,12 +671,12 @@ class E {
         for (var item of this._question) { //[cluek,arrowk,side,tag]
             let getgroup = [];
             let cross_time = Math.floor(Math.random() * 1200) + 400;
-            await collapse(cross, 50); //start -cross_time
+            await collapse(cross, 100); //start -cross_time
             if (item[0] == 3) {
                 this.clueplace[item[0]].setAttribute("side", this.SIDE[item[2]]);
             }
             console.log(this.clueplace[item[0]]);
-            await collapse(this.clueplace[item[0]], 10);//100
+            await collapse(this.clueplace[item[0]], 500);//100
             this.clueplace[item[0]].removeAttribute("side");
             await collapse(cross, 50);//400
 
@@ -1415,7 +1415,7 @@ class J {
 class K {
     constructor(game_set) {
         this.game_set = game_set;
-        this.word = document.createElement("label");
+        this.word = document.getElementById("text_label");
         //this.ball = add_ball( [ 'ball-80', 'center-screen' ]);
         this.ratio = game_set / 4;
         this.question = [];
@@ -1433,7 +1433,7 @@ class K {
         this._createQuestion();
     }
     _init_item() {
-        this.word.setAttribute("style", "font-size: 60px; font-weight: bold; display: none;");
+        // this.word.setAttribute("style", "font-size: 60px; font-weight: bold; display: none;");
         this.word.textContent = "快樂"; //test code
         this.word.setAttribute("part", ""); //set type of color
         // this.word.style.backgroundColor="rgb(125,125,125)";
