@@ -62,6 +62,7 @@ namespace DrawPQ
 
         public List<float> caculate(int start,int delta,int who)
         {
+            who--;
             List<float> list = new List<float>();
             int choose = start;
             int limit = data[who].Length;
