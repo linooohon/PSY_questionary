@@ -78,7 +78,8 @@
   var pause = true;
   var ox = $(window).width() / 2;
   var oy = $(window).height() / 2;
-  var oo = 700;
+  console.log($(window).height());
+  var oo = $(window).height()-200;
   var r = oo / 2;
   var movement = 80;
   var apawn_div = document.querySelector('#spawn');
@@ -89,7 +90,13 @@
     length = 0;
   window.onresize = reSize;
   reSize(ball_width);
+  if($(window).height()<769){
+    ball_width =7;
+    movement = 70;
+  }
+   
 
+  console.log(ball_width);
   function reSize(radius) {
     leftMax = document.documentElement.clientWidth - ball_width;
     topMax = document.documentElement.clientHeight - ball_width;

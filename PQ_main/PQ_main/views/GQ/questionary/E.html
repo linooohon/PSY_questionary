@@ -15,6 +15,48 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>E:注意力網路作業</title>
 </head>
+<style>
+    @media(min-device-width: 1250px) {
+        label {
+            font-size: 30px;
+        }
+
+        div[side="downer"] {
+            position: fixed;
+            top: 400px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        div[side="upper"] {
+            position: fixed;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+    }
+
+    @media(min-device-width: 1900px) {
+        label {
+            font-size: 50px;
+        }
+
+        div[side="downer"] {
+            position: fixed;
+            top: 550px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        div[side="upper"] {
+            position: fixed;
+            top: 300px;
+            /* margin-top: 550px; */
+            left: 50%;
+            transform: translateX(-50%)
+        }
+    }
+</style>
 
 <body>
     <!-- main modal -->
@@ -40,85 +82,57 @@
             </div>
         </div>
     </div>
+    <!-- <div name="neutral" tag="left" side="downer">
+        <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+    </div>
+    <div name="neutral" tag="left" side="upper">
+        <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+    </div>
+    <div name="Duel-cue">
+        <div side="upper">
+            <label style="font-weight: bold;">*</label>
+        </div>
+        <div side="downer"> 
+            <label style="font-weight: bold;">*</label>
+        </div>
+    </div> -->
+    <!-- cross -->
+    <ten id="cross" class="center-screen cross" style="font-size: 25px;color: black;"></ten>
     <!-- arrow place   dont change sequence -->
     <div id="arrow_place">
         <div name="congruent" tag="right" style="display: none;">
-            <svg style="width:80px;height:50px;margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
         </div>
         <div name="incongruent " tag="right" style="display: none;">
-            <svg class=" mirrorRotateHorizontal" style="width:80px;height:50px;margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
         </div>
         <div name="neutral" tag="right" style="display: none;">
-            <svg style="width:80px;height:50px;margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
         </div>
         <div name="congruent" tag="left" style="display: none;">
-            <svg class=" mirrorRotateHorizontal" style="width:80px;height:50px;margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
         </div>
         <div name="incongruent " tag="left" style="display: none;">
-            <svg style="width:80px;height:50px;margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg class=" mirrorRotateHorizontal" style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
-            <svg style=" width:80px;height:50px; margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
+            <label style="font-weight: bold;margin-right:5px;">-&gt;</label>
         </div>
         <div name="neutral" tag="left" style="display: none;">
-            <svg class=" mirrorRotateHorizontal" style="width:80px;height:50px;margin-right:20px;">
-                <polygon points="0,20 0,40 50,40 50,50 80,30 50,10 50,20" />
-            </svg>
+            <label style="font-weight: bold;margin-right:5px;">&lt;-</label>
         </div>
     </div>
 
@@ -126,29 +140,28 @@
     <!-- clue place  dont change sequence-->
     <div id="clue_place">
         <div name="No-cue" style="display: none;">
-            <ten class="center-screen cross" style="font-size: 25px;color: black;"></ten>
+            <ten class="center-screen cross" style="color: black;"></ten>
         </div>
         <div name="Center-cue" style="display: none;">
-            <label class=" center-screen" style="font-size: 25px;font-weight: bold;">*</label>
+            <label class=" center-screen" style="font-weight: bold;">*</label>
         </div>
-        <div name="Duel-cue" style="display: none;">
-            <div side="upper">
-                <label style="font-size: 25px;font-weight: bold;">*</label>
+        <div name="Duel-cue">
+            <div side="upper"style="display: none;">
+                <label style="font-weight: bold;">*</label>
             </div>
-            <div side="downer">
-                <label style="font-size: 25px;font-weight: bold;">*</label>
+            <div side="downer"style="display: none;">        
+                <label style="font-weight: bold;">*</label>
             </div>
         </div>
         <div name="Spatial-Cue" style="display: none;">
-            <label style="font-size: 25px;font-weight: bold;">*</label>
+            <label style="font-weight: bold;">*</label>
         </div>
     </div>
 
 
 
 
-    <!-- cross -->
-    <ten id="cross" class="center-screen cross" style="font-size: 25px;color: black;"></ten>
+
     <!-- finish btn for game -->
     <button id="finish_btn" style="display: none;"></button>
     <!-- post form -->
@@ -206,7 +219,7 @@
                             console.log("資料上傳失敗,失敗原因 : " + data.result);
                         }
                     } else
-                    console.log("與伺服器斷訊")
+                        console.log("與伺服器斷訊")
                 },
                 "json"
             );
@@ -278,7 +291,7 @@
                             console.log("資料上傳失敗,失敗原因 : " + data.result);
                         }
                     } else
-                    console.log("與伺服器斷訊")
+                        console.log("與伺服器斷訊")
                 },
                 "json"
             );
