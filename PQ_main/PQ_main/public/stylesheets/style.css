@@ -38,6 +38,10 @@ body {
     left: 0;
     background-color: rgb(0, 0, 100);
   }
+  #cross{
+    font-size: 40px;
+    color: black;
+  }
 }
 
 @media(min-device-width: 1920px) {
@@ -58,6 +62,10 @@ body {
     top: 0;
     left: 0;
     background-color: rgb(0, 0, 100);
+  }
+  #cross{
+    font-size: 60px;
+    color: black;
   }
 }
 
