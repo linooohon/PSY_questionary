@@ -13,6 +13,26 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <title>F:眼神線索典範</title>
 </head>
+<style>
+  @media(min-device-width: 1900px) {
+    #image {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  @media(min-device-width: 1250px) {
+    #image {
+      width: 200px;
+      height: 200px;
+    }
+
+    rect {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
 
 <body>
   <!-- main modal -->
@@ -44,10 +64,10 @@
   <!-- rect div  child no change-->
   <div id="rect_div">
     <rect name="left" class="center-screen"
-      style="margin-left: -250px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
+      style="margin-left: -500px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
     </rect>
     <rect name="right" class=" center-screen"
-      style="margin-left: 250px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
+      style="margin-left: 500px; margin-top: -40px; width: 30px; height: 30px; background-color: black;display: none;">
     </rect>
   </div>
   <!-- finish btn for game -->
