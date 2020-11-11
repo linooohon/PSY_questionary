@@ -52,7 +52,7 @@
     </div>
   </div>
   <!-- cross -->
-  <ten id="cross" class="center-screen " >+</ten>
+  <ten id="cross" class="center-screen ">+</ten>
 
   <div id="garbordiv" class=" circle " style="display: none; box-shadow: 5cm;" div_size="100">
     <div class="bg " style="filter: blur(5px);">
@@ -74,8 +74,6 @@
 <script type="text/javascript">
   var game_get = null;
   var game;
-  // game = new D([2,6]);
-  // game.process();
   $(window).on('load', function () {
     $('#main-model').modal({
       backdrop: 'static',
@@ -83,6 +81,7 @@
     });
     document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - 100) + "px;" +
       "left:" + (window.innerWidth / 2 - 100) + "px");
+    // document.documentElement.style.setProperty('--size', 150 + 'px');
     $(window).on("resize", () => {
       let size = document.getElementById("garbordiv").getAttribute('div_size');
       document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - size) +
@@ -144,6 +143,7 @@
   $('#start').on('click', function () { //start the game
     if (game_get == "practice") {
       game = new D([3, 40]);
+
       game.process();
       $('#main-model').modal('hide');
     } else if (game_get == "reality") {

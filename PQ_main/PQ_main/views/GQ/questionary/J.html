@@ -18,36 +18,74 @@
     background-color: rgb(255, 163, 163);
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 5px;
-    grid-auto-flow: row;
-    width: 600px;
-    height: 600px;
-    background-color: #000000;
-    border-width: 2px;
+  @media(min-device-width: 1250px) {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-gap: 4px;
+      grid-auto-flow: row;
+      width: 420px;
+      height: 420px;
+      background-color: #000000;
+      border: none;
+    }
+
+    .grid>div {
+      /* color: rgb(182, 182, 182); */
+      /* font-size: 50px; */
+      line-height: 2;
+      text-align: center;
+      background: var(--backcolor);
+      width: 138px;
+      height: 138px;
+    }
+
+    .grid>div>rect {
+      margin: 0;
+      width: 70px;
+      height: 70px;
+      content: "";
+      display: block;
+      background-color: white;
+      position: absolute;
+      transform: translate(50%, 50%)
+    }
   }
 
-  .grid>div {
-    color: #fff;
-    font-size: 50px;
-    line-height: 2;
-    text-align: center;
-    background: var(--backcolor);
-    /* padding: 5px; */
-  }
+  @media(min-device-width: 1900px) {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-gap: 5px;
+      grid-auto-flow: row;
+      width: 600px;
+      height: 600px;
+      background-color: #000000;
+      border: none;
+    }
 
-  .grid>div>rect {
-    margin: 0;
-    width: 100px;
-    height: 100px;
-    content: "";
-    display: block;
-    background-color: white;
-    position: absolute;
-    transform: translate(50%, 50%)
+    .grid>div {
+      /* color: rgb(182, 182, 182); */
+      font-size: 50px;
+      line-height: 2;
+      text-align: center;
+      background: var(--backcolor);
+      width: 198px;
+      height: 198px;
+    }
+
+    .grid>div>rect {
+      margin: 0;
+      width: 100px;
+      height: 100px;
+      content: "";
+      display: block;
+      background-color: white;
+      position: absolute;
+      transform: translate(50%, 50%)
+    }
   }
 </style>
 
@@ -94,9 +132,12 @@
       </div>
     </div>
   </div>
-  <div id="nine-grid" class="square" style="display: none;">
-    <div class="square-inner grid " style="position: relative; margin: auto; margin-top: 5%;">
+  <!--  style="display: none;"> -->
+  <div id="nine-grid" class="square">
+    <div class="square-inner grid "
+      style="position: fixed; margin: auto; top: 50%; left: 50%; transform: translate(-50%,-50%);">
       <div>
+        <!-- style="display: none;" -->
         <rect name="1" style="display: none;"></rect>
       </div>
       <div>
@@ -126,7 +167,7 @@
     </div>
   </div>
   <!-- cross -->
-  <ten id="cross" class="center-screen " >+</ten>
+  <ten id="cross" class="center-screen ">+</ten>
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->

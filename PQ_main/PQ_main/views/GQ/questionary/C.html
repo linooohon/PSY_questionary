@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -15,7 +14,6 @@
 
 <body>
   <!-- remind modal&&button -->
-
   <div id="remind_modal" class="modal fade bd-example-modal-sm " data-backdrop="static" data-keyboard="false"
     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
@@ -79,7 +77,7 @@
   var ox = $(window).width() / 2;
   var oy = $(window).height() / 2;
   console.log($(window).height());
-  var oo = $(window).height()-200;
+  var oo = $(window).height()-100;
   var r = oo / 2;
   var movement = 80;
   var apawn_div = document.querySelector('#spawn');
@@ -90,13 +88,6 @@
     length = 0;
   window.onresize = reSize;
   reSize(ball_width);
-  if($(window).height()<769){
-    ball_width =7;
-    movement = 70;
-  }
-   
-
-  console.log(ball_width);
   function reSize(radius) {
     leftMax = document.documentElement.clientWidth - ball_width;
     topMax = document.documentElement.clientHeight - ball_width;
@@ -107,10 +98,15 @@
       var cBall;
       cBall = document.createElement('ball');
       cBall.className = 'ball-10';
+      
       cBall.style.backgroundColor = "rgb(0,0,100)";
       cBall.setAttribute("direction", 'random');
       obj.appendChild(cBall);
     };
+    ball_width=parseInt($('ball').width()); 
+    movement = ball_width*8;  //movement follow the ball speed
+    // console.log(ball_width);
+    // console.log(movement);
   };
 
   function runball() {
