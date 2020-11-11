@@ -66,4 +66,44 @@ router.post('/newUser', function (req, res) {
         res.json({ result: '帳號或密碼錯誤' });
 });
 
+/**************************************
+./Create/ManynewUser
+1. 測帳密
+2. 得目前編號+更新
+3.插入使用者
+  **************************************/
+
+function catchError(error, res) {
+    if (error)
+        res.json({ result: "伺服器連線錯誤" })
+    else
+        res.json({ result: 'success' })
+}
+
+async function createMany(tag, count, db, res) {
+    var iferror = false;
+    for (var i = 0; i < count; i++) {
+        FindAndUpdateUsersNumber(db)
+            .then(pkg => InsertNewUser(db, pkg, tag))
+            .then(pkg => console.log("success:" + pkg))
+            .catch(error => iferror = true);
+    }
+    await catchError(iferror, res);
+}
+
+router.post('/ManynewUser', function (req, res) {
+    var ID = req.body.ID;
+    var password = req.body.password;
+    var tag = req.body.tag;
+    var count = req.body.count;
+    if (core_ID == ID && core_password == password) {
+        MongoClient.connect(Get("mongoPath") + 'lock', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
+            if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
+            createMany(tag, count, db, res);
+        });
+    }
+    else
+        res.json({ result: '帳號或密碼錯誤' });
+});
+
 module.exports = router;
