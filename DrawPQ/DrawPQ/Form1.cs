@@ -55,5 +55,28 @@ namespace DrawPQ
                 MessageBox.Show(err.Message);
             }
         }
+
+        private void getValue_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataHolder dataHolder = new DataHolder(path.Text);
+                for (int i = 1; i <= dataHolder.length; i++)
+                {
+                    var data = dataHolder.caculate(Int32.Parse(StartIndex.Text), Int32.Parse(IndexDelta.Text),i);
+                    float sum = 0;
+                    foreach(float item in data)
+                    {
+                        sum += item;
+                    }
+                    sum /= Int32.Parse(Denominator.Text);
+                    MessageBox.Show(sum.ToString());
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
     }
 }

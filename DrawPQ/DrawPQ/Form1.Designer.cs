@@ -38,8 +38,17 @@
             this.Draw = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.getValue = new System.Windows.Forms.Button();
+            this.StartIndex = new System.Windows.Forms.TextBox();
+            this.IndexDelta = new System.Windows.Forms.TextBox();
+            this.Denominator = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox
@@ -126,11 +135,86 @@
             this.chart.TabIndex = 8;
             this.chart.Text = "chart";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.Denominator);
+            this.groupBox2.Controls.Add(this.IndexDelta);
+            this.groupBox2.Controls.Add(this.StartIndex);
+            this.groupBox2.Location = new System.Drawing.Point(531, 33);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(343, 147);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // getValue
+            // 
+            this.getValue.Location = new System.Drawing.Point(880, 33);
+            this.getValue.Name = "getValue";
+            this.getValue.Size = new System.Drawing.Size(184, 147);
+            this.getValue.TabIndex = 10;
+            this.getValue.Text = "取值";
+            this.getValue.UseVisualStyleBackColor = true;
+            this.getValue.Click += new System.EventHandler(this.getValue_Click);
+            // 
+            // StartIndex
+            // 
+            this.StartIndex.Location = new System.Drawing.Point(121, 35);
+            this.StartIndex.Name = "StartIndex";
+            this.StartIndex.Size = new System.Drawing.Size(191, 29);
+            this.StartIndex.TabIndex = 0;
+            // 
+            // IndexDelta
+            // 
+            this.IndexDelta.Location = new System.Drawing.Point(121, 64);
+            this.IndexDelta.Name = "IndexDelta";
+            this.IndexDelta.Size = new System.Drawing.Size(191, 29);
+            this.IndexDelta.TabIndex = 1;
+            // 
+            // Denominator
+            // 
+            this.Denominator.Location = new System.Drawing.Point(121, 93);
+            this.Denominator.Name = "Denominator";
+            this.Denominator.Size = new System.Drawing.Size(191, 29);
+            this.Denominator.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 18);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "起始index";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "index差";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(37, 96);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 18);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "分母";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1228, 568);
+            this.Controls.Add(this.getValue);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.chart);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Draw);
@@ -139,6 +223,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -153,6 +239,14 @@
         private System.Windows.Forms.Button Draw;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox Denominator;
+        private System.Windows.Forms.TextBox IndexDelta;
+        private System.Windows.Forms.TextBox StartIndex;
+        private System.Windows.Forms.Button getValue;
     }
 }
 
