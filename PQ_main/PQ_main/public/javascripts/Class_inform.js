@@ -1375,7 +1375,7 @@ class J {
             } else {
                 this._level++;
             }
-
+            this._one = this._one.slice(0, -1)+"-"; //remove last~
         }
         this._analyzeData();
         //finish process
