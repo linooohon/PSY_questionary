@@ -60,5 +60,18 @@ namespace DrawPQ
             return list;
         }
 
+        public List<float> caculate(int start,int delta,int who)
+        {
+            List<float> list = new List<float>();
+            int choose = start;
+            int limit = data[who].Length;
+            while (choose < limit)
+            {
+                list.Add(float.Parse(data[who][choose]));
+                choose += delta;
+            }
+            return list;
+        }
+
     }
 }
