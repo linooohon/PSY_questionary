@@ -13,7 +13,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>K:情緒詞觸發作業</title>
 </head>
+<style>
+     @media(min-device-width: 1250px) {
+        label {
+            font-size: 45px;
+        }
 
+      
+    }
+
+    @media(min-device-width: 1900px) {
+        label {
+            font-size: 60px;
+        }
+    }
+</style>
 <body>
     <!-- main modal -->
     <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -43,7 +57,8 @@
 
 
     <!-- cross -->
-    <ten id="cross" class="center-screen cross" style="font-size: 28px;color: black;"></ten>
+    <ten id="cross" class="center-screen " >+</ten>
+    <label id="text_label" style="font-weight: bold; display: none;"></label>
     <!-- finish btn for game -->
     <button id="finish_btn" style="display: none;"></button>
     <!-- post form -->
