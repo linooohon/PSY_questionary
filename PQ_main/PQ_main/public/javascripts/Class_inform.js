@@ -129,8 +129,8 @@ class A {
         let FA = Math.round((this._groupset[2] * 100 / this.game_set) * 100) / 100;
         let FART = Math.round((this._groupset[3] / this._groupset[2]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + FA + "_" + FART).replaceAll("NaN", "NA");
-        Acc=Acc.replaceAll("NaN",0);
-        RT=RT.replaceAll("NaN",500);
+        Acc=Acc.toString().replaceAll("NaN",0);
+        RT=RT.toString().replaceAll("NaN",500);
         this._pr = (Acc + "_" + RT + "_" + Acc + "_" + RT).replaceAll("NaN", "NA");
     }
     get one() {
@@ -265,8 +265,8 @@ class B {
         let mSSD = Math.round((this._groupset[5] / this._beenum) * 100) / 100;
         let SSRT = Go_Rt - mSSD; 
         this._group = (Acc + "_" + Go_Acc + "_" + Go_Rt + "_" + NcRate + "_" + Nc_Rt + "_" + mSSD + "_" + SSRT).replaceAll("NaN", "NA");
-        Go_Rt=Go_Rt.replaceAll("NaN",500);
-        SSRT=SSRT.replaceAll("NaN",500);
+        Go_Rt=Go_Rt.toString().replaceAll("NaN",500);
+        SSRT=SSRT.toString().replaceAll("NaN",500);
         // this._pr
         this._pr = (Acc + "_" + Go_Rt + "_" + SSRT).replaceAll("NaN", "NA");
     }
@@ -447,6 +447,9 @@ class D {
         this._createQuestion();
     }
     _init_item() {}
+    set garbosize(list=[20, 60, 200]){
+        this.garborsize =list;
+    }
     _createQuestion() {
         for (let i = 0; i < this.game_set[0]; ++i) {
             var tmp = [];
@@ -721,7 +724,7 @@ class E {
         let Or = Math.round((Ce - Sp)*100)/100;
         let Conflict = Math.round((In - Co)*100)/100;
         this._group = (Acc + "_" + RT + "_" + No + "_" + Ce + "_" + Du + "_" + Sp + "_" + Co + "_" + In + "_" + Ne + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
-        RT= RT.replaceAll("NaN", 1700)
+        RT= RT.toString().replaceAll("NaN", 1700)
         this._pr = (Acc + "_" + RT + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
     }
     get one() {
@@ -863,7 +866,7 @@ class F {
         let Soa200 = Math.round((this._groupset[4] / this._group_num[4]) * 100) / 100;
         let Soa1200 = Math.round((this._groupset[5] / this._group_num[5]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + Ne + "_" + Co + "_" + Ico + "_" + Soa200 + "_" + Soa1200).replaceAll("NaN", "NA");
-        RT =RT.replaceAll("NaN", 800);
+        RT =RT.toString().replaceAll("NaN", 800);
         this._pr = (Acc + "_" + RT + "_" + Ne + "_" + Co + "_" + Ico).replaceAll("NaN", "NA");
     }
     get one() {
@@ -1534,7 +1537,7 @@ class K {
         let Negative = Math.round((this._groupset[3] / this._group_time[1]) * 100) / 100;
         let Middle = Math.round((this._groupset[4] / this._group_time[2]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
-        RT=RT.replaceAll("NaN",3000);
+        RT=RT.toString().replaceAll("NaN",3000);
         this._pr = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
     }
     get one() {
