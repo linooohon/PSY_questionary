@@ -359,9 +359,9 @@ class C {
                 }
                 this.renew.click();
                 this._one += Math.round(ratio*100/this.ballnum) + "_";//Coherence Rate
-                await collapse(cross, 10); //start 1000
+                await collapse(cross, 1000); //start 1000
                 this.run.click();
-                await collapse(this.spawn_div, 50); //500
+                await collapse(this.spawn_div, 500); //500
                 await this._generateAnswer(null, direction, 3000).then((data) => { //3000
                     this._one += data[0];
                     part_right += data[1];
@@ -500,11 +500,11 @@ class D {
                 this.tmp = item;
                 let tmp_timer = this.timer;
                 console.log(this.timer,this.last_timer,tmp_timer);  
-                await collapse(cross, 10); //start 300
+                await collapse(cross, 300); //start 300
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
                 this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
-                await collapse(this.garbor,50);//this.timer
+                await collapse(this.garbor,this.timer);//this.timer
                 this._one += (item[0] + 1) + "_" + Math.round(this.timer * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
                 await this._generateAnswer(item[1] + 1, 500).then((data) => {//500
                     this._one += data[0];
