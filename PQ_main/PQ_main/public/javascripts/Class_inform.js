@@ -73,13 +73,12 @@ class A {
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         quetion_Result += COLOR_NUM[color] + "_"; //Color
-        show(item);
+        show(item); //show the item
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
-                once: true
+                once: true  // fire only once
             });
             let timeout = setTimeout(() => {
-                //document.removeEventListener('keydown', key_handler);
                 if (color === BALL_COLOR.R) {
                     group_set[0]++; //GACC
                     quetion_Result += "1_NA~"; //OAcc_RT
@@ -89,7 +88,6 @@ class A {
                 hide(item);
                 resolve([quetion_Result, group_set]);
             }, interval)
-
             function key_handler(e) {
                 let end = Date.now();
                 console.log(e.key);
@@ -102,7 +100,6 @@ class A {
                     group_set[3] += (end - start); //GFART
                     quetion_Result += "0_" + (end - start).toString() + "~"; //OAcc_RT
                 }
-                // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set]);
@@ -111,14 +108,13 @@ class A {
     }
     async process() {
         for (var item of this._question) {
-            await collapse(cross, 200, 800); //start
+            await collapse(cross, 200, 800); //start range 200-800
             this.ball.style.backgroundColor = item;
             await this._generateAnswer(this.ball, 500).then((data) => {
                 this._one += data[0];
                 this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
             });
             console.log(this._one);
-            // console.log(this._groupset);
             await collapse(null, 100, 300);
         }
         //analyzedata
@@ -139,7 +135,6 @@ class A {
         return this._one;
     }
     get group() {
-        // let FART = (this._groupset[3] / this._groupset[2])*100)/100 ;
         return this._group;
     }
     get pr() {
@@ -151,7 +146,7 @@ class B {
     constructor(game_set) {
         this.game_set = game_set;
         this.ball = add_ball(['ball-80', 'center-screen']);
-        this.ratio = game_set / 2;
+        this.ratio = game_set / 2;  //red and green half ratio
         this._beenum = Math.round(game_set / 4); //make sure it's integer
         this._question = [];
         this._bee = [];
@@ -168,7 +163,6 @@ class B {
     _createQuestion() {
         this._question = competitor([Color_Set.green, Color_Set.red], this.ratio);
         this._bee = competitor([1, 0], [this._beenum, this.game_set - this._beenum]); // 1 have bee 0 no bee
-        console.log(this._bee);
     }
     _generateAnswer = (item, bee, delay_num, range_min, range_max) => {
         var bee_start = document.getElementById("beestart-btn");
@@ -177,13 +171,11 @@ class B {
         let interval = range_min;
         let group_set = [0, 0, 0, 0, 0, 0]; //ACC_GoAcc_GoRT_NCRate_NCRT_mSSD
         let quetion_Result = "";
-        // let color = item.style.backgroundColor;
         let color = getKeyByValue(Color_Set, item.style.backgroundColor);
         let plus = 0;
         group_set[5] = delay_num; //mSSD 
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
-        // quetion_Result += (color[0]).toUpperCase() + "_"; //Color
         quetion_Result += COLOR_NUM[color] + "_"; //Color
         if (bee) { //CorrAns
             var bee_time = setTimeout(bee_start.click(), delay_num); //bee start
@@ -197,7 +189,6 @@ class B {
                 once: true
             });
             let timeout = setTimeout(() => {
-                // document.removeEventListener('keydown', key_handler);
                 if (bee) {
                     group_set[0] = 1; //Acc
                     quetion_Result += "0_1_NA_" + delay_num + "_SSAcc~"; //Press_Acc_RT_SSD_SSAcc
@@ -234,8 +225,6 @@ class B {
                 } else {
                     quetion_Result += "NA_" + "_0_" + (end - start).toString() + "_" + bee.toString() + "_SSAcc~"; //press wrong
                 }
-
-                // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set, delay_num + plus]);
@@ -256,18 +245,14 @@ class B {
                         delay_num = data[2];
                 });
             await collapse(null, 100, 300);
-            console.log(this._one);
-            console.log(this._groupset);
         }
         this._analyzeData();
-        // console.log(this.one);
         finish_btn.click();
     }
     _analyzeData() {
         //this.one
         let Cp = Math.round(((this._beenum - this._groupset[3]) / this._beenum * 100) * 100) / 100;
         this._one = this._one.replaceAll("SSAcc", Cp).slice(0, -1); //remove last~
-        // this._one =this._one.slice(0, -1) ; 
 
         //this.group
         let Acc = Math.round((this._groupset[0] / this.game_set * 100) * 100) / 100;
@@ -276,7 +261,7 @@ class B {
         let NcRate = Math.round((this._groupset[3] / this._beenum * 100) * 100) / 100;
         let Nc_Rt = Math.round((this._groupset[4] / this._groupset[3]) * 100) / 100;
         let mSSD = Math.round((this._groupset[5] / this._beenum) * 100) / 100;
-        let SSRT = Go_Rt - mSSD; //
+        let SSRT = Go_Rt - mSSD; 
         this._group = (Acc + "_" + Go_Acc + "_" + Go_Rt + "_" + NcRate + "_" + Nc_Rt + "_" + mSSD + "_" + SSRT).replaceAll("NaN", "NA");
         // this._pr
         this._pr = (Acc + "_" + Go_Rt + "_" + SSRT).replaceAll("NaN", "NA");
@@ -341,10 +326,8 @@ class C {
             function key_handler(e) {
                 let end = Date.now();
                 let keydown = ARROW_NUM[e.key];
-                console.log(keydown);
                 if (keydown == undefined) { //avoid press wrong
                     keydown = "NA";
-                    console.log("wrong");
                 } else if (keydown == direction) {
                     group_set = 1;
                 }
@@ -358,10 +341,9 @@ class C {
     async process() {
         for (let session = 0; session < this.game_set[0]; ++session) {
             let part_right = 0;
-            let ratio = this.ballnum * 0.2;
+            let ratio = Math.round(this.ballnum * 0.2*100)/100;
             let flip = 0;
             let conti = 0;
-            console.log(this.game_set[1]);
             for (let i = 0; i < this.game_set[1]; ++i) {
                 let direction = Math.floor(Math.random() * 4) + 1; //1 to 4
                 for (let d = 0; d < this.ballnum; ++d) {
@@ -372,12 +354,10 @@ class C {
                     }
                 }
                 this.renew.click();
-                this._one += ratio + "_";
+                this._one += Math.round(ratio*100/this.ballnum) + "_";//Coherence Rate
                 await collapse(cross, 1000); //start 1000
                 this.run.click();
                 await collapse(this.spawn_div, 500); //500
-                console.log(ratio);
-                console.log(direction);
                 await this._generateAnswer(null, direction, 3000).then((data) => { //3000
                     this._one += data[0];
                     part_right += data[1];
@@ -385,13 +365,13 @@ class C {
                     flip = data[1];
                 });
                 flip == 0 ? ratio = this._createQuestion(1, i, conti) : ratio = this._createQuestion(-1, i, conti);
+                ratio = Math.round(ratio*100)/100;  //ratio set to 2 decimal
             }
             this._one = this._one.slice(0, -1) + "-"; //change session
-            // console.log(part_right);
+           
             this._groupset[session] = part_right;
             this._groupset[session + 3] = ratio;
             if (session + 1 < this.game_set[0]) {
-                // console.log(this.remind_btn);
                 await new Promise(resolve => {
                     this.remind_btn.click();
                     this.remind_btn.nextElementSibling.textContent = "共三回合 接下來是第" + (session + 2) + "回合";
@@ -406,13 +386,10 @@ class C {
                 });
                 this.remind_btn.click();
             }
-            console.log(this._one);
-            console.log(this._groupset);
             console.log("next");
         }
         //analyze data
         this._analyzeData();
-        console.log(this.group);
         //finish process
         finish_btn.click();
     }
@@ -518,21 +495,19 @@ class D {
             for (var item of this._question[session]) { //size direction
                 this.tmp = item;
                 let tmp_timer = this.timer;
-                await collapse(cross, 300); //start
+                await collapse(cross, 300); //start 300
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
                 this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
                 await collapse(this.garbor, this.timer);
                 this._one += (item[0] + 1) + "_" + Math.round(this.timer * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
-                await this._generateAnswer(item[1] + 1, 5000).then((data) => {
+                await this._generateAnswer(item[1] + 1, 500).then((data) => {//500
                     this._one += data[0];
                     this.correct = data[1];
                     this.correct == 0 ? this.timer = this.last_timer + ((this.last_timer - this.timer) * 0.3 + 1) : this.timer = this.last_timer - ((this.last_timer - this.timer) * 0.3 + 1);
                     if (this.timer < 1) {
                         this.timer = 1;
                     }
-                    // console.log(this.timer, this.last_timer, tmp_timer, ((this.last_timer - this.timer) * 0.3 + 1));
-                    // console.log(this.last_timer);
                     this.last_timer = tmp_timer;
                     part[this.tmp[0]]++;
                     part[this.tmp[0] + 6] = this.timer;
@@ -540,17 +515,18 @@ class D {
                         part[this.tmp[0] + 3]++;
                     }
                 });
-                console.log(this._one);
+                // console.log(this._one);
+                console.log(part);
             }
             this._one = this._one.slice(0, -1) + "-";
             this.averagebox[0] += part[6];
             this.averagebox[1] += part[7];
             this.averagebox[2] += part[8];
-            this._groupset += part[6] + "_" + part[7] + "_" + part[8] + Math.round((part[3] / part[0] * 100) * 100) / 100 + "_" +
+            console.log(this.averagebox);
+            this._groupset +=  Math.round(part[6] * 100) / 100 + "_" +  Math.round(part[7] * 100) / 100 + "_" +  Math.round(part[8] * 100) / 100 + Math.round((part[3] / part[0] * 100) * 100) / 100 + "_" +
                 Math.round((part[4] / part[1] * 100) * 100) / 100 + "_" + Math.round((part[5] / part[2] * 100) * 100) / 100 + "_";
             this._acc += ((part[3] / part[0] * 100) + (part[4] / part[1] * 100) + (part[5] / part[2] * 100));
             if (session + 1 < this.game_set[0]) {
-                // console.log(this.remind_btn);
                 await new Promise(resolve => {
                     this.remind_btn.click();
                     this.remind_btn.nextElementSibling.textContent = "共三回合 接下來是第" + (session + 2) + "回合";
@@ -607,7 +583,6 @@ class E {
         this._group = "";
         this._pr = "";
         this._createQuestion();
-        console.log(this._question);
     }
     _init_item() {}
     _createQuestion() {
@@ -769,7 +744,6 @@ class F {
     }
     _init_item() {}
     _createQuestion() { //gameset length
-        // console.log(this.game_set);
         while (1) {
             for (let eye = 0; eye < 3; ++eye) {
                 for (let place = 0; place < 2; ++place) {
@@ -839,13 +813,13 @@ class F {
     async process() {
         for (var item of this._question) {
             let get_group = "";
-            await collapse(cross, 1000); //start
+            await collapse(cross, 1000); //start 1000
             this.pic.src = this.IMG_NAME[0];
-            await collapse(this.pic, 1000); //eye
+            await collapse(this.pic, 1000); //eye 1000
             this.pic.src = this.IMG_NAME[item[0]];
-            await collapse(this.pic, 150); //look
+            await collapse(this.pic, 150); //look 150
             this.pic.src = this.IMG_NAME[0]; //eye
-            await collapse(this.pic, item[2]);
+            await collapse(this.pic, item[2]); //item[2]
             this._one += item[3] + "_" + (item[2] + 150) + "_" + (item[1] + 1).toString() + "_"; //Cue-Soa-pos
             await this._generateAnswer([this.pic, this.rect[item[1]]], item[1], 800).then((data) => {
                 this._one += data[0];
@@ -857,13 +831,11 @@ class F {
             this._groupset[item[3]] += get_group[1];
             if (item[2] == 50) {
                 this._group_num[4] += get_group[0];
-                this._groupset[5] += get_group[1];
+                this._groupset[4] += get_group[1];
             } else {
                 this._group_num[5] += get_group[0];
                 this._groupset[5] += get_group[1];
             }
-            // console.log(this._groupset);
-            // console.log(this._group_num);
         }
         this._analyzeData();
         //finish process
@@ -1034,16 +1006,14 @@ class H {
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         let quetion_Result = "";
         let press_and_time = [0, 0]; //  number && times
-        // let color = item.style.backgroundColor;
         let color = getKeyByValue(Color_Set, item.style.backgroundColor);
-        quetion_Result += COLOR_NUM[color] + "_" + COLOR_NUM[color] + "_"; //Color_CorrAns_
+        quetion_Result += COLOR_NUM[color] + "_" + COLOR_NUM[color] + "_"; 
         show(item);
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
             });
             let timeout = setTimeout(() => {
-                // document.removeEventListener('keydown', key_handler);
                 quetion_Result += "0_NA~";
                 hide(item);
                 resolve([quetion_Result, press_and_time]);
@@ -1063,11 +1033,8 @@ class H {
                 } else {
                     quetion_Result += "0_" + (end - start).toString() + "~"; //Acc_RT
                 }
-
-                // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
-                // console.log(quetion_Result);
                 resolve([quetion_Result, press_and_time]);
             }
         });
@@ -1076,14 +1043,14 @@ class H {
         for (let session = 0; session < this._question.length; ++session) {
             let numbertimeset = [0, 0];
             for (var item of this._question[session]) {
-                await collapse(cross, 200, 800); //start
+                await collapse(cross, 10, 10); //start 200 800
                 this.ball.style.backgroundColor = item;
-                await this._generateAnswer(this.ball, 500).then((data) => {
+                await this._generateAnswer(this.ball, 10).then((data) => {//500
                     this._one += data[0];
                     numbertimeset[0] += data[1][0];
                     numbertimeset[1] += data[1][1];
                 });
-                await collapse(null, 100, 300);
+                await collapse(null, 10, 10); //100,300
             }
             this._one = this._one.slice(0, -1) + "-"; //change part
             this._groupset[session] = numbertimeset[0] * 100 / this.game_set[session]; //Acc
@@ -1104,13 +1071,11 @@ class H {
                 });
                 this.remind_btn.click();
             }
-            // console.log(this._groupset);
         }
         this._analyzeData();
         alert("若已做完此問卷的實際測驗，請去做K問卷");
         //finish process
         finish_btn.click();
-        // console.log(this.group);
     }
     _analyzeData() {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
@@ -1168,9 +1133,9 @@ class I {
         }
         shuffle(this._question);
         console.log(this._question);
-        // console.log(this._groupset[1]);
     }
     _generateAnswer(numberlist, inputline, interval) {
+        console.log(numberlist);
         var quetion_Result = "";
         let length = numberlist.length;
         let start = Date.now();
@@ -1205,7 +1170,7 @@ class I {
                     }
                 }
                 quetion_Result += "_" + sum + "_" + (end - start).toString() + "~";
-                // console.log(quetion_Result);
+                console.log(sum);
                 resolve([quetion_Result, sum]); // return resolve
             }
             let timeout = setTimeout(() => {
@@ -1213,9 +1178,6 @@ class I {
             }, interval)
 
             function key_handler(e) {
-                // console.log(e.which);
-                // console.log((e.which>=96 && e.which<=105));
-                // console.log((e.which>=48 && e.which<=57));
                 if (typenum >= length && e.key == "Enter") {
                     clearTimeout(timeout);
                     stopRun();
@@ -1230,17 +1192,16 @@ class I {
     async process() {
         // console.log(this._question);
         for (var part in this._question) {
-            await collapse(cross, 1000); //start
+            await collapse(cross, 1000); //start 1000
             for (var item of this._question[part]) {
                 this.number.textContent = item;
-                await collapse(this.number, 1000);
-                await collapse(null, 200);
+                await collapse(this.number, 1000); //1000
+                await collapse(null, 200); //200
             }
             await this._generateAnswer(this._question[part].reverse(), this.inputline, 15000).then((data) => {
                 this._one += data[0];
                 this._groupset[0] += data[1];
             });
-            console.log(this._one);
         }
         this._analyzeData();
         //finish process
@@ -1249,7 +1210,8 @@ class I {
     _analyzeData() {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA");
         let Score = this._groupset[0];
-        let Acc = Math.round(this._groupset[0] / this._groupset[1]) * 100;
+        console.log(this._groupset);
+        let Acc = Math.round(this._groupset[0]* 10000 / this._groupset[1])/100 ;
         this._group = (Score + "_" + Acc).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
     }
@@ -1299,17 +1261,17 @@ class J {
         for (let i = 0; i < number; ++i) {
             tmp.push([Math.floor(Math.random() * 9) + 1, false, false]);
         }
-        // console.log(tmp);
-
         //create question
-        for (let i = 0; i < tmp.length; ++i) {
+        for (let i = 0; i < tmp.length-number; ++i) {
             if (tmp[i][2] == true) {
                 tmp[i + number][1] =true;
                 tmp[i + number][0] =tmp[i][0];
+            }else {
+                while(tmp[i + number][0]==tmp[i][0]){
+                    tmp[i + number][0]=Math.floor(Math.random() * 9) + 1;
+                }   
             }
-            // if(tmp[i][1]==false){
-            //     tmp[i] = [tmp[i][0], false,false];
-            // }       
+               
         }
         return tmp;
 
@@ -1355,17 +1317,18 @@ class J {
             console.log(this._question);
             let count = 0;
             let number=0;
-            await collapse(cross, 1000);
+            await collapse(cross, 1000);//1000
             show(this.nine_grid);
-            await collapse(null, 1000);
+            await collapse(null, 1000);//1000
             for (var item of this._question) {
-                // console.log(item);
                 let element = document.querySelector('rect[name="' + item[0] + '"]');
                 this._one += item[0] + "_";
-                await this._generateAnswer(element, item[1], 250).then((data) => {
+                if(item[1]==true){
+                    console.log("true");
+                }
+                await this._generateAnswer(element, item[1], 250).then((data) => {//250
                     if(count<this._level){
                         this._one +="NA_NA_NA~"
-                        console.log(count,this._level);
                     }else{
                         this._one += data[0];
                     }
@@ -1374,16 +1337,12 @@ class J {
                         number += data[1];
                     }
                     count++;
-                    console.log( this._one);
                 });
-                await collapse(null, 1250);
+                await collapse(null, 1250);//1250
             }
             hide(this.nine_grid);
             this._groupset.push(number);
             this._total += number;
-            console.log(this._groupset);
-            console.log(this._total);
-            console.log(this._question.length);
             await new Promise(resolve => {
                 this.remind_btn.click();
                 this.remind_btn.nextElementSibling.textContent = "正確題數[" + number+ "/30]";
@@ -1443,7 +1402,7 @@ class K {
         //this.ball = add_ball( [ 'ball-80', 'center-screen' ]);
         this.ratio = game_set / 4;
         this.question = [];
-        this._group_time = [0, 0, 0, 0];
+        this._group_time = [0, 0, 0];
         this._groupset = [0, 0, 0, 0, 0]; //Acc_RT_Positive_Negative_Middle
         this._one = "";
         this._group = "";
@@ -1483,10 +1442,9 @@ class K {
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         let start = Date.now();
         let color = getKeyByValue(Color_Set, item.style.color);
-        console.log(color);
         let condition = parseInt(item.getAttribute("part"));
         let quetion_Result = "";
-        let group_time = [0, 0, 0, 0];
+        let group_time = [0, 0, 0];//postive_num-negatve_num/middle_num
         let group_set = [0, 0, 0, 0, 0]; //Acc_RT_tPositive_tNegative_tMiddle
         quetion_Result += condition + '_'; //Condition
         quetion_Result += item.textContent + "_"; //Pic_text
@@ -1515,7 +1473,7 @@ class K {
                         group_set[0] = 1; //ACC
                         group_set[1] = end - start; //RT
                         group_set[condition + 2] = (end - start); //PNM
-                        // console.log(condition);
+                        // console.log(condition+"------");
                         quetion_Result += "1_" + (end - start).toString() + "~" //ACC_RT
                     } else {
                         quetion_Result += "0_" + (end - start).toString() + "~";
@@ -1524,7 +1482,6 @@ class K {
                     quetion_Result += "0_" + (end - start).toString() + "~";
                 }
                 console.log(group_set);
-                // document.removeEventListener('keydown', key_handler);
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set, group_time]);
@@ -1533,14 +1490,11 @@ class K {
     }
     async process() {
         for (var number in this.question) {
-            // if(number>this.game_set){
-            //     break
-            // }
-            await collapse(cross, 1000); //start
+            await collapse(cross, 1000); //start 1000
             this.word.textContent = this.question[number][0];
             this.word.style.color = this.question[number][1];
             this.word.setAttribute("part", this.question[number][2]);
-            await this._generateAnswer(this.word, 3000).then((data) => {
+            await this._generateAnswer(this.word, 3000).then((data) => {//3000
                 this._one += data[0]; //add the one
                 this._groupset = this._groupset.map(function (num, idx) { //add the group
                     return num + data[1][idx];
@@ -1549,10 +1503,7 @@ class K {
                     return num + data[2][idx];
                 });
             });
-            console.log(this._one);
-            console.log(this._groupset);
-            console.log(this._group_time);
-            await collapse(null, 100, 300);
+            await collapse(null, 100, 300);//300
         }
         // console.log(this.group);
         this._analyzeData();
@@ -1565,9 +1516,9 @@ class K {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA");
         let Acc = Math.round((this._groupset[0] * 100 / this.game_set) * 100) / 100;
         let RT = Math.round((this._groupset[1] / this._groupset[0]) * 100) / 100;
-        let Positive = Math.round((this._groupset[2] / this._group_time[1]) * 100) / 100;
-        let Negative = Math.round((this._groupset[3] / this._group_time[2]) * 100) / 100;
-        let Middle = Math.round((this._groupset[4] / this._group_time[3]) * 100) / 100;
+        let Positive = Math.round((this._groupset[2] / this._group_time[0]) * 100) / 100;
+        let Negative = Math.round((this._groupset[3] / this._group_time[1]) * 100) / 100;
+        let Middle = Math.round((this._groupset[4] / this._group_time[2]) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
     }
@@ -1672,7 +1623,7 @@ function show(obj, obj_style = "block") {
 }
 
 function getKeyByValue(object, value) {
-    console.log(object);
-    console.log(value);
+    // console.log(object);
+    // console.log(value);
     return Object.keys(object).find(key => object[key] === value);
 }

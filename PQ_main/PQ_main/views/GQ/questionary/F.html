@@ -103,12 +103,12 @@
           if (textStatus == "success") {
             if (data.result == "success") {
               localStorage.removeItem("pr");
-              alert("上次未上傳資料上傳成功");
+              console.log("上次未上傳資料上傳成功");
             } else {
-              alert("資料上傳失敗,失敗原因 : " + data.result);
+              console.log("資料上傳失敗,失敗原因 : " + data.result);
             }
           } else
-            alert("與伺服器斷訊")
+            console.log("與伺服器斷訊")
         },
         "json"
       );
@@ -135,6 +135,7 @@
   $('#finish_btn').on('click', function () {
     console.log(game.one);
     console.log(game.group);
+    console.log(game.pr);
     if (game_get == "reality") {
       $('form').children('input[name="one"]').val(game.one);
       $('form').children('input[name="group"]').val(game.group);
@@ -174,12 +175,12 @@
             if (data.result == "success") {
               localStorage.removeItem("pr");
               $('form').submit();
-              alert("資料上傳成功");
+              console.log("資料上傳成功");
             } else {
-              alert("資料上傳失敗,失敗原因 : " + data.result);
+              console.log("資料上傳失敗,失敗原因 : " + data.result);
             }
           } else
-            alert("與伺服器斷訊")
+            console.log("與伺服器斷訊")
         },
         "json"
       );
