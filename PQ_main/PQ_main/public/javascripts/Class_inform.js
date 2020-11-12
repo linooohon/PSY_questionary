@@ -281,7 +281,7 @@ class B {
     }
 }
 
-//20 + (±1)(41-n)(0.4 + 0.1k)   20%[起始] +(-)[對就減少,錯增加] 1 * (41 - n[第幾題]) * (0.4 + 0.1 * k[目前連對或連錯幾題])
+//20 + (±1)(41-n)(0.4 + 0.1k)   40%[起始] +(-)[對就減少,錯增加] 1 * (41 - n[第幾題]) * (0.4 + 0.1 * k[目前連對或連錯幾題])
 class C {
     constructor(game_set) {
         this.game_set = game_set;
@@ -291,7 +291,7 @@ class C {
         this.renew = document.querySelector('button[name="ballrenew"]');
         this._question = [];
         this.ballnum = 500;
-        this._whole = this.ballnum * 0.4
+        // this._whole = this.ballnum * 0.4;
         this._groupset = [0, 0, 0, 0, 0, 0];
         this._one = "";
         this._group = "";
@@ -306,8 +306,8 @@ class C {
         }
     }
     _init_item() {}
-    _createQuestion(correct, num, conti) {
-        return this._whole + correct * (41 - num) * (0.4 + 0.1 * conti);
+    _createQuestion(nowball,correct, num, conti) {
+        return nowball + correct * (41 - num) * (0.4 + 0.1 * conti);
     }
     _generateAnswer = (item, direction, range_min, range_max) => {
         let start = Date.now();
@@ -322,7 +322,7 @@ class C {
                 once: true
             });
             let timeout = setTimeout(() => {
-                quetion_Result += "NA_0_" + direction + "_NA~";
+                quetion_Result += "NA_0_" + direction + "_NA~";//RT-Acc-Direction-key
                 hide(item);
                 resolve([quetion_Result, group_set]);
             }, interval)
@@ -331,11 +331,11 @@ class C {
                 let end = Date.now();
                 let keydown = ARROW_NUM[e.key];
                 if (keydown == undefined) { //avoid press wrong
-                    keydown = "NA";
+                    keydown = "NA";//RT
                 } else if (keydown == direction) {
                     group_set = 1;
                 }
-                quetion_Result += (end - start) + "_" + group_set + "_" + direction + "_" + keydown + "~";
+                quetion_Result += (end - start) + "_" + group_set + "_" + direction + "_" + keydown + "~";//RT-Acc-Direction-key
                 hide(item);
                 clearTimeout(timeout);
                 resolve([quetion_Result, group_set]);
@@ -343,9 +343,9 @@ class C {
         });
     }
     async process() {
+        let ratio = Math.round(this.ballnum * 0.4*100)/100;
         for (let session = 0; session < this.game_set[0]; ++session) {
-            let part_right = 0;
-            let ratio = Math.round(this.ballnum * 0.2*100)/100;
+            let part_right = 0;   
             let flip = 0;
             let conti = 0;
             for (let i = 0; i < this.game_set[1]; ++i) {
@@ -368,11 +368,10 @@ class C {
                     flip == data[1] ? conti++ : conti = 0;
                     flip = data[1];
                 });
-                flip == 0 ? ratio = this._createQuestion(1, i, conti) : ratio = this._createQuestion(-1, i, conti);
+                flip == 0 ? ratio = this._createQuestion(ratio,1, i, conti) : ratio = this._createQuestion(ratio,-1, i, conti);
                 ratio = Math.round(ratio*100)/100;  //ratio set to 2 decimal
             }
             this._one = this._one.slice(0, -1) + "-"; //change session
-           
             this._groupset[session] = part_right;
             this._groupset[session + 3] = ratio;
             if (session + 1 < this.game_set[0]) {
@@ -471,23 +470,23 @@ class D {
                 once: true
             });
             let timeout = setTimeout(() => {
-                quetion_Result += "NA_0~";
+                quetion_Result += "NA_0~";//Press-Acc
                 resolve([quetion_Result, 0]);
             }, interval)
 
             function key_handler(e) {
                 if (KEY_NUM[e.key] != undefined) {
                     if (KEY_NUM[e.key] == direction.toString()) {
-                        quetion_Result += KEY_NUM[e.key] + "_1~";
+                        quetion_Result += KEY_NUM[e.key] + "_1~";//Press-Acc
                         clearTimeout(timeout);
                         resolve([quetion_Result, 1]);
                     } else {
-                        quetion_Result += KEY_NUM[e.key] + "_0~"
+                        quetion_Result += KEY_NUM[e.key] + "_0~";//Press-Acc
                         clearTimeout(timeout);
                         resolve([quetion_Result, 0]);
                     }
                 } else {
-                    quetion_Result += "NA_0~"
+                    quetion_Result += "NA_0~";//Press-Acc
                 }
 
             }
@@ -832,7 +831,7 @@ class F {
             await collapse(this.pic, 50); //look 150
             this.pic.src = this.IMG_NAME[0]; //eye
             await collapse(this.pic, 50); //item[2]
-            this._one += item[3] + "_" + (item[2] + 150) + "_" + (item[1] + 1).toString() + "_"; //Cue-Soa-pos
+            this._one += item[3] + "_" + (item[2] + 150) + "_" + (item[1] + 1).toString() + "_"; //Cue-Soa-target
             await this._generateAnswer([this.pic, this.rect[item[1]]], item[1], 800).then((data) => {
                 this._one += data[0];
                 get_group = data[1];
@@ -908,7 +907,6 @@ class G {
                     var div = this.spawn_div;
                     var runbtn = this.run;
                     var click = this._click;
-
                     function keyhandle(e) {
                         if (e.key == "Enter") {
                             console.log(div);
@@ -1025,7 +1023,7 @@ class H {
                 once: true
             });
             let timeout = setTimeout(() => {
-                quetion_Result += "NA_0_NA~";
+                quetion_Result += "NA_0_NA~";//Press_Acc_Rt
                 hide(item);
                 resolve([quetion_Result, press_and_time]);
             }, interval)
@@ -1042,7 +1040,7 @@ class H {
                         quetion_Result += "0_" + (end - start).toString() + "~"; //Acc_RT
                     }
                 } else {
-                    quetion_Result += "NA_0_" + (end - start).toString() + "~"; //Acc_RT
+                    quetion_Result += "NA_0_" + (end - start).toString() + "~"; //Press_Acc_RT
                 }
                 hide(item);
                 clearTimeout(timeout);
