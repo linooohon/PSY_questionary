@@ -460,11 +460,22 @@ class D {
     _createQuestion() {
         for (let i = 0; i < this.game_set[0]; ++i) {
             var tmp = [];
-            for (let j = 0; j < this.game_set[1]; ++j) {
-                tmp.push([Math.floor(Math.random() * 3), Math.floor(Math.random() * 2)]);
+            // for (let j = 0; j < this.game_set[1]; ++j) {
+            for (let j = 0; j < this.game_set[1]/3; ++j) {
+                tmp.push([0, Math.floor(Math.random() * 2)]);
             }
+            for (let j = 0; j < this.game_set[1]/3; ++j) {
+                tmp.push([1, Math.floor(Math.random() * 2)]);
+            }
+            for (let j = 0; j < this.game_set[1]/3; ++j) {
+                tmp.push([2, Math.floor(Math.random() * 2)]);
+            }
+                // tmp.push([Math.floor(Math.random() * 3), Math.floor(Math.random() * 2)]);
+            // }
+            shuffle(tmp);
             this._question.push(tmp);
         }
+        console.log(this._question);
     }
     _generateAnswer = (direction, range_min, range_max) => {
         let interval = range_min;
@@ -499,14 +510,15 @@ class D {
         });
     }
     async process() {
-        let timer=[80,80,80];
-        let last_timer=[80,80,80];
+        let timer=[80,140,210];
+        let last_timer=[80,140,210];
         let garbo;
         for (let session = 0; session < this._question.length; ++session) {            
-            let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
+            let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //0-2:各garbo題數 3-5:答對garbo題數 6-8:timer時間
             for (var item of this._question[session]) { //size direction
                 garbo = item;
                 let tmp_timer =timer[garbo[0]]; 
+                console.log(tmp_timer+"--------------");
                 console.log(this.garborsize[item[0]],item[0]);
                 await collapse(cross, 300); //start 300
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
@@ -520,9 +532,9 @@ class D {
                    if(this.correct==1){
                     console.log("correct");
                    }
-                    this.correct == 0 ? timer[garbo[0]] =timer[garbo[0]]+ (Math.abs(last_timer[garbo[0]]- timer[garbo[0]]) * 0.2 + 2) : 
-                    timer[garbo[0]]= timer[garbo[0]]- (Math.abs(last_timer[garbo[0]] -timer[garbo[0]]) * 0.2 + 2);
-                    timer[garbo[0]]-=1;
+                    this.correct == 0 ? timer[garbo[0]] =timer[garbo[0]]+ (Math.abs(last_timer[garbo[0]]- timer[garbo[0]]) * 0.2) + 5: 
+                    timer[garbo[0]]= timer[garbo[0]]- (Math.abs(last_timer[garbo[0]] -timer[garbo[0]]) * 0.2) -1;
+                    // timer[garbo[0]]+=1;
                     if (timer[garbo[0]] < 1) {
                         timer[garbo[0]] = 1;
                     }

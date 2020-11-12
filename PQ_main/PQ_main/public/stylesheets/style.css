@@ -231,14 +231,14 @@ body {
       #000000 30px 40px,
       #ffffff 40px 50px,
       #000000 50px 60px); */
-      #ffffffa8 0px 20px,
-      #000000a8 20px 40px,
-      #ffffffa8 40px 60px,
-      #000000a8 60px 80px,
-      #ffffffa8 80px 100px,
-      #000000a8 100px 120px);
+      #ffffffa8 0px 25px,
+      #000000a8 25px 50px,
+      #ffffffa8 50px 75px,
+      #000000a8 75px 100px,
+      #ffffffa8 100px 125px,
+      #000000a8 125px 150px);
   animation-name: var(--move-direction);
-  animation-duration: 1.2s;
+  animation-duration: 1.65s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
