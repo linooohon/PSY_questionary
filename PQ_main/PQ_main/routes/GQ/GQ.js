@@ -36,6 +36,7 @@ router.post('/Questionary/:which', function (req, res) {
 
 /**********************
 ./GQ/GetDate
+取得使用者過去填答時間
  ***********************/
 
 function CheckPassword(db, ID, password) {
