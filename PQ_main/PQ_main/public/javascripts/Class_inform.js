@@ -1140,7 +1140,7 @@ class I {
             for (var len = 0; len < this.each_game; ++len) {
                 var tmp = [];
                 for (var number_len = 0; number_len < this.ratio[question]; ++number_len) {
-                    tmp.push(Math.floor(Math.random() * 10));
+                    tmp.push(Math.floor(Math.random() * 9)+1);
                     this._groupset[1]++;
                 }
                 this._question.push(tmp);
