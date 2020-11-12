@@ -184,6 +184,9 @@ body {
   clip-path: circle(50% at 50% 50%);
 }
 
+.blink {
+  animation: blinker 0.5s linear infinite;
+}
 @keyframes MOVE-Right {
   from {
     transform: translateX(0);
@@ -204,9 +207,7 @@ body {
   }
 }
 
-.blink {
-  animation: blinker 0.5s linear infinite;
-}
+
 
 @keyframes blinker {
   50% {
@@ -239,7 +240,7 @@ body {
       #ffffffa8 210px 245px,
       #000000a8 245px 280px);
   animation-name: var(--move-direction);
-  animation-duration: 1.5s;
+  animation-duration: 1.2s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
