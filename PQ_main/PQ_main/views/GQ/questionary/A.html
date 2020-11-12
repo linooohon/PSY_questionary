@@ -51,10 +51,10 @@
   var game_get = null;
   var game;
   $(window).on('load', function () {
-    // $('#main-model').modal({
-    //   backdrop: 'static',
-    //   keyboard: false
-    // });
+    $('#main-model').modal({
+      backdrop: 'static',
+      keyboard: false
+    });
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
           ID: "<%=ID%>",
