@@ -362,6 +362,7 @@ class C {
                 await collapse(cross, 1000); //start 1000
                 this.run.click();
                 await collapse(this.spawn_div, 500); //500
+                console.log(this.DIRECTION[direction]);
                 await this._generateAnswer(null, direction, 3000).then((data) => { //3000
                     this._one += data[0];
                     part_right += data[1];
@@ -370,6 +371,12 @@ class C {
                 });
                 flip == 0 ? ratio = this._createQuestion(ratio,1, i, conti) : ratio = this._createQuestion(ratio,-1, i, conti);
                 ratio = Math.round(ratio*100)/100;  //ratio set to 2 decimal
+                if(ratio<0){
+                    ratio=10;
+                }else if(ratio>250){
+                    ratio=250;
+                }
+                console.log(ratio);
             }
             this._one = this._one.slice(0, -1) + "-"; //change session
             this._groupset[session] = part_right;
@@ -378,14 +385,13 @@ class C {
                 await new Promise(resolve => {
                     this.remind_btn.click();
                     this.remind_btn.nextElementSibling.textContent = "共三回合 接下來是第" + (session + 2) + "回合";
-
                     function keyhandle(e) {
                         if (e.key == "Enter") { //press enter
                             window.removeEventListener('keydown', keyhandle);
                             resolve();
                         }
                     }
-                    window.addEventListener('keydown', keyhandle); //once true ,the listener will be remove after invoke      
+                    window.addEventListener('keydown', keyhandle);
                 });
                 this.remind_btn.click();
             }
