@@ -291,7 +291,7 @@ class C {
         this.renew = document.querySelector('button[name="ballrenew"]');
         this._question = [];
         this.ballnum = 500;
-        this._whole = this.ballnum * 0.2
+        this._whole = this.ballnum * 0.4
         this._groupset = [0, 0, 0, 0, 0, 0];
         this._one = "";
         this._group = "";
