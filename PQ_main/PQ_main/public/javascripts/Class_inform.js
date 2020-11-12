@@ -291,7 +291,7 @@ class C {
         this.renew = document.querySelector('button[name="ballrenew"]');
         this._question = [];
         this.ballnum = 500;
-        this._whole = this.ballnum * 0.2
+        this._whole = this.ballnum * 0.4
         this._groupset = [0, 0, 0, 0, 0, 0];
         this._one = "";
         this._group = "";
@@ -436,8 +436,6 @@ class D {
         this.direction = ["MOVE-Right", "MOVE-Left"];
         this.averagebox = [0, 0, 0];
         this.correct = 0;
-        this.tmp = [];
-        this.timer = 500;
         this._acc=0;
         this._groupset = "";
         this._one = "";
@@ -446,9 +444,13 @@ class D {
         this._init_item();
         this._createQuestion();
     }
-    _init_item() {}
-    set garbosize(list=[20, 60, 200]){
-        this.garborsize =list;
+    _init_item() {
+        if (window.screen.width >= 1900) {
+            this.garborsize = [80, 120, 250];
+           
+        }else if (window.screen.width >= 1250) {
+            this.garborsize = [60, 90, 150];
+        }
     }
     _createQuestion() {
         for (let i = 0; i < this.game_set[0]; ++i) {
@@ -492,40 +494,35 @@ class D {
         });
     }
     async process() {
-        this.timer = 80;
-        this.last_timer = 80;
+        let timer=[80,80,80];
+        let last_timer=[80,80,80];
+        let garbo;
+    
         for (let session = 0; session < this._question.length; ++session) {            
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
-                this.tmp = item;
-                let tmp_timer = this.timer;
-                console.log(this.timer,this.last_timer,tmp_timer);  
+                garbo = item;
+                let tmp_timer =timer[garbo[0]]; 
+                console.log(this.garborsize[item[0]],item[0]);
                 await collapse(cross, 300); //start 300
                 document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
                 this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
-                await collapse(this.garbor,this.timer);//this.timer
-                this._one += (item[0] + 1) + "_" + Math.round(this.timer * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
+                await collapse(this.garbor,tmp_timer);//tmp_timer
+                this._one += (item[0] + 1) + "_" + Math.round(timer[garbo[0]] * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {//5000
                     this._one += data[0];
                     this.correct = data[1];
-                    // if (this.correct==0){
-                    //     console.log(this.timer + (Math.abs(this.last_timer - this.timer) * 0.3 + 1)+" not correct");
-                    //     this.timer = this.timer + (Math.abs(this.last_timer - this.timer) * 0.3 + 1);
-                    // }else{
-                    //     console.log(this.timer - (Math.abs(this.last_timer - this.timer) * 0.3 + 1)+" correct");
-                    //     this.timer = this.timer - (Math.abs(this.last_timer - this.timer) * 0.3 + 1);
-                    // }
-                    this.correct == 0 ? this.timer = this.timer + (Math.abs(this.last_timer - this.timer) * 0.3 + 1) : this.timer = this.timer - (Math.abs(this.last_timer - this.timer) * 0.3 + 1);
-                   
-                    if (this.timer < 1) {
-                        this.timer = 1;
+                    this.correct == 0 ? timer[garbo[0]] =timer[garbo[0]]+ (Math.abs(last_timer[garbo[0]]- timer[garbo[0]]) * 0.3 + 1) : 
+                    timer[garbo[0]]= timer[garbo[0]]- (Math.abs(last_timer[garbo[0]] -timer[garbo[0]]) * 0.3 + 1);
+                    if (timer[garbo[0]] < 1) {
+                        timer[garbo[0]] = 1;
                     }
-                    this.last_timer = tmp_timer;
-                    part[this.tmp[0]]++;
-                    part[this.tmp[0] + 6] = this.timer;
+                    last_timer[garbo[0]]= tmp_timer;
+                    part[garbo[0]]++;
+                    part[garbo[0] + 6] = timer[garbo[0]];
                     if (this.correct != 0) {
-                        part[this.tmp[0] + 3]++;
+                        part[garbo[0] + 3]++;
                     }
                 });
                 console.log(part);
