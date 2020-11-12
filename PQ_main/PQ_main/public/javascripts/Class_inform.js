@@ -517,8 +517,8 @@ class D {
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {//5000
                     this._one += data[0];
                     this.correct = data[1];
-                    this.correct == 0 ? timer[garbo[0]] =timer[garbo[0]]+ (Math.abs(last_timer[garbo[0]]- timer[garbo[0]]) * 0.3 + 1) : 
-                    timer[garbo[0]]= timer[garbo[0]]- (Math.abs(last_timer[garbo[0]] -timer[garbo[0]]) * 0.3 + 1);
+                    this.correct == 0 ? timer[garbo[0]] =timer[garbo[0]]+ (Math.abs(last_timer[garbo[0]]- timer[garbo[0]]) * 0.5 + 3) : 
+                    timer[garbo[0]]= timer[garbo[0]]- (Math.abs(last_timer[garbo[0]] -timer[garbo[0]]) * 0.5 + 3);
                     if (timer[garbo[0]] < 1) {
                         timer[garbo[0]] = 1;
                     }
