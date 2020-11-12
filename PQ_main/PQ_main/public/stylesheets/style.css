@@ -7,7 +7,7 @@ body {
 :root {
   --move-direction: MOVE-Right;
   --size: 0px;
-  --backcolor: rgb(117, 117, 117);
+  --backcolor: rgb(128, 128, 128);
 
 }
 @media(min-device-width: 0px) {
@@ -149,7 +149,7 @@ body {
     width:"80px"!important;
 } */
 
-/* .center_circle_constraint {
+.center_circle_constraint {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -159,7 +159,7 @@ body {
     border-radius: 50%;
     display: inline-block;
     clip-path: circle();
-  } */
+  }
 
 
 
@@ -177,7 +177,7 @@ body {
 .circle {
   position: fixed;
   shape-outside: circle();
-  background-color: #000000;
+  /* background-color: #000000; */
   width: var(--size);
   height: var(--size);
   -webkit-clip-path: circle(50% at 50% 50%);
@@ -224,14 +224,20 @@ body {
   height: 500px;
   width: 500px;
   background: repeating-linear-gradient(to left,
-      #ffffff 0px 10px,
+      /* #ffffff 0px 10px,
       #000000 10px 20px,
       #ffffff 20px 30px,
       #000000 30px 40px,
       #ffffff 40px 50px,
-      #000000 50px 60px);
+      #000000 50px 60px); */
+      #ffffffa8 0px 35px,
+      #000000a8 35px 70px,
+      #ffffffa8 70px 105px,
+      #000000a8 105px 140px,
+      #ffffffa8 140px 175px,
+      #000000a8 175px 210px);
   animation-name: var(--move-direction);
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
