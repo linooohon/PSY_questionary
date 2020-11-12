@@ -190,7 +190,7 @@ body {
   }
 
   to {
-    transform: translateX(80px);
+    transform: translateX(70px);
   }
 }
 
@@ -200,7 +200,7 @@ body {
   }
 
   to {
-    transform: translateX(-80px);
+    transform: translateX(-70px);
   }
 }
 
@@ -216,13 +216,13 @@ body {
 
 .bg {
   position: absolute;
-  left: -80px;
-  right: -80px;
+  left: -100px;
+  right: -100px;
   top: 0;
   bottom: 0;
   z-index: -1;
-  height: 800px;
-  width: 800px;
+  height: 900px;
+  width: 900px;
   background: repeating-linear-gradient(to left,
       /* #ffffff 0px 10px,
       #000000 10px 20px,
@@ -235,7 +235,9 @@ body {
       #ffffffa8 70px 105px,
       #000000a8 105px 140px,
       #ffffffa8 140px 175px,
-      #000000a8 175px 210px);
+      #000000a8 175px 210px,
+      #ffffffa8 210px 245px,
+      #000000a8 245px 280px);
   animation-name: var(--move-direction);
   animation-duration: 1.5s;
   animation-timing-function: linear;
