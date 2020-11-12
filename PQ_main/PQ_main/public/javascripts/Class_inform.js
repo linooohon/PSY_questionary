@@ -108,14 +108,14 @@ class A {
     }
     async process() {
         for (var item of this._question) {
-            await collapse(cross, 50, 50); //start range 200-800
+            await collapse(cross, 200, 800); //start range 200-800
             this.ball.style.backgroundColor = item;
-            await this._generateAnswer(this.ball, 500).then((data) => {
+            await this._generateAnswer(this.ball, 500).then((data) => {//500
                 this._one += data[0];
                 this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
             });
             console.log(this._one);
-            await collapse(null, 50,50);//100-300
+            await collapse(null, 100,300);//100-300
         }
         //analyzedata
         this._analyzeData();
@@ -236,17 +236,17 @@ class B {
     async process() {
         var delay_num = 200;
         for (var number in this._question) {
-            await collapse(cross, 50);//500
+            await collapse(cross, 500);//500
             this.ball.style.backgroundColor = this._question[number];
             var has_bee = this._bee[number];
-            await this._generateAnswer(this.ball, has_bee, delay_num, 500).then(
+            await this._generateAnswer(this.ball, has_bee, delay_num, 500).then(//500
                 (data) => {
                     this._one += data[0];
                     this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
                     if (data[2] >= 0 || data[2] <= 450)
                         delay_num = data[2];
                 });
-            await collapse(null, 10, 50);//100-300
+            await collapse(null, 100, 300);//100-300
         }
         this._analyzeData();
         finish_btn.click();
@@ -689,19 +689,19 @@ class E {
         for (var item of this._question) { //[cluek,arrowk,side,tag]
             let getgroup = [];
             let cross_time = Math.floor(Math.random() * 1200) + 400;
-            await collapse(cross, 100); //start -cross_time
+            await collapse(cross, cross_time); //start -cross_time
             if (item[0] == 3) {
                 this.clueplace[item[0]].setAttribute("side", this.SIDE[item[2]]);
             }
             console.log(this.clueplace[item[0]]);
             await collapse(this.clueplace[item[0]], 100);//100
             this.clueplace[item[0]].removeAttribute("side");
-            await collapse(cross, 50);//400
+            await collapse(cross, 400);//400
 
             this._one += (item[0] + 1) + "_" + (item[1] + 1) + "_" + (item[2] + 1) + "_" + (item[3] + 1) + "_"; //cue-con-pos-ori-
             //nci + right or left
             this.arrowplace[item[1] + item[3] * 3].setAttribute("side", this.SIDE[item[2]]);
-            await this._generateAnswer(this.arrowplace[item[1] + item[3] * 3], item[3], 1700).then((data) => {
+            await this._generateAnswer(this.arrowplace[item[1] + item[3] * 3], item[3], 1700).then((data) => {//1700
                 this._one += data[0];
                 getgroup = data[1];
             });
@@ -846,15 +846,15 @@ class F {
     async process() {
         for (var item of this._question) {
             let get_group = "";
-            await collapse(cross, 10); //start 1000
+            await collapse(cross, 1000); //start 1000
             this.pic.src = this.IMG_NAME[0];
-            await collapse(this.pic, 50); //eye 1000
+            await collapse(this.pic, 1000); //eye 1000
             this.pic.src = this.IMG_NAME[item[0]];
-            await collapse(this.pic, 50); //look 150
+            await collapse(this.pic, 150); //look 150
             this.pic.src = this.IMG_NAME[0]; //eye
-            await collapse(this.pic, 50); //item[2]
+            await collapse(this.pic, item[2]); //item[2]
             this._one += item[3] + "_" + (item[2] + 150) + "_" + (item[1] + 1).toString() + "_"; //Cue-Soa-target
-            await this._generateAnswer([this.pic, this.rect[item[1]]], item[1], 800).then((data) => {
+            await this._generateAnswer([this.pic, this.rect[item[1]]], item[1], 800).then((data) => {//800
                 this._one += data[0];
                 get_group = data[1];
             });
@@ -923,7 +923,7 @@ class G {
             let session_score = 0;
             for (let length = 0; length < this.game_set; ++length) {
                 this.renew.click();
-                await collapse(cross, 10); //cross 1000
+                await collapse(cross, 1000); //cross 1000
                 show(this.spawn_div);
                 await new Promise(resolve => {
                     var div = this.spawn_div;
@@ -934,7 +934,7 @@ class G {
                             console.log(div);
                             for (let i = 0; i < click; ++i) {
                                 div.childNodes[i].classList.remove('blink');
-                                //div.childNodes[i].style.backgroundColor = "rgb(0,0,100)";
+                                div.childNodes[i].style.backgroundColor = "rgb(0,0,100)";
                                 div.childNodes[i].classList.add('enable_click');
                             }
                             runbtn.click();
@@ -944,7 +944,7 @@ class G {
                     }
                     window.addEventListener('keydown', keyhandle);
                 });
-                await collapse(null, 50); //move 5000
+                await collapse(null, 5000); //move 5000
                 this.pause.click();
                 await new Promise(resolve => { //wait for player click
                     let num = 0;
@@ -1074,14 +1074,14 @@ class H {
         for (let session = 0; session < this._question.length; ++session) {
             let numbertimeset = [0, 0];
             for (var item of this._question[session]) {
-                await collapse(cross, 10, 10); //start 200 800
+                await collapse(cross, 200, 800); //start 200 800
                 this.ball.style.backgroundColor = item;
                 await this._generateAnswer(this.ball, 500).then((data) => {//500
                     this._one += data[0];
                     numbertimeset[0] += data[1][0];
                     numbertimeset[1] += data[1][1];
                 });
-                await collapse(null, 10, 10); //100,300
+                await collapse(null, 100, 300); //100,300
             }
             this._one = this._one.slice(0, -1) + "-"; //change part
             this._groupset[session] = numbertimeset[0] * 100 / this.game_set[session]; //Acc
@@ -1223,11 +1223,11 @@ class I {
     async process() {
         // console.log(this._question);
         for (var part in this._question) {
-            await collapse(cross, 10); //start 1000
+            await collapse(cross, 1000); //start 1000
             for (var item of this._question[part]) {
                 this.number.textContent = item;
-                await collapse(this.number, 10); //1000
-                await collapse(null, 10); //200
+                await collapse(this.number, 1000); //1000
+                await collapse(null, 200); //200
             }
             await this._generateAnswer(this._question[part].reverse(), this.inputline, 15000).then((data) => {
                 this._one += data[0];
@@ -1349,16 +1349,16 @@ class J {
             console.log(this._question);
             let count = 0;
             let number=0;
-            await collapse(cross, 10);//1000
+            await collapse(cross, 1000);//1000
             show(this.nine_grid);
-            await collapse(null, 10);//1000
+            await collapse(null, 1000);//1000
             for (var item of this._question) {
                 let element = document.querySelector('rect[name="' + item[0] + '"]');
                 this._one += item[0] + "_";
                 if(item[1]==true){
                     console.log("true");
                 }
-                await this._generateAnswer(element, item[1], 500).then((data) => {//250
+                await this._generateAnswer(element, item[1], 250).then((data) => {//250
                     if(count<this._level){
                         this._one +="NA_NA_NA~"
                     }else{
@@ -1366,10 +1366,6 @@ class J {
                         number += data[1];
                         console.log(number,count,data[1]);
                     }
-                   
-                    // if (count >= this._level) {
-                       
-                    // }
                     count++;
                 });
                 await collapse(null, 1250);//1250
@@ -1524,7 +1520,7 @@ class K {
     }
     async process() {
         for (var number in this.question) {
-            await collapse(cross, 10); //start 1000
+            await collapse(cross, 1000); //start 1000
             this.word.textContent = this.question[number][0];
             this.word.style.color = this.question[number][1];
             this.word.setAttribute("part", this.question[number][2]);
@@ -1537,7 +1533,7 @@ class K {
                     return num + data[2][idx];
                 });
             });
-            await collapse(null, 10,10);//100-300
+            await collapse(null, 100,300);//100-300
         }
         // console.log(this.group);
         this._analyzeData();
