@@ -556,6 +556,7 @@ class D {
                 });
                 this.remind_btn.click();
             }
+            await collapse(null, 1000); //wait  1000 ms
         }
         //analyzedata
         this._analyzeData();
