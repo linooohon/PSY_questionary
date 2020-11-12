@@ -502,7 +502,6 @@ class D {
         let timer=[80,80,80];
         let last_timer=[80,80,80];
         let garbo;
-    
         for (let session = 0; session < this._question.length; ++session) {            
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //lar t1 t2 t3
             for (var item of this._question[session]) { //size direction
