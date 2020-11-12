@@ -519,6 +519,7 @@ class D {
                     this.correct = data[1];
                     this.correct == 0 ? timer[garbo[0]] =timer[garbo[0]]+ (Math.abs(last_timer[garbo[0]]- timer[garbo[0]]) * 0.1 + 1) : 
                     timer[garbo[0]]= timer[garbo[0]]- (Math.abs(last_timer[garbo[0]] -timer[garbo[0]]) * 0.1 + 1);
+                    timer[garbo[0]]+=15;
                     if (timer[garbo[0]] < 1) {
                         timer[garbo[0]] = 1;
                     }
