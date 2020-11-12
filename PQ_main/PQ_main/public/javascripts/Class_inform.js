@@ -451,10 +451,10 @@ class D {
     }
     _init_item() {
         if (window.screen.width >= 1900) {
-            this.garborsize = [80, 120, 250];
+            this.garborsize = [60, 180, 600];
            
         }else if (window.screen.width >= 1250) {
-            this.garborsize = [60, 90, 150];
+            this.garborsize = [40, 120, 400];
         }
     }
     _createQuestion() {
