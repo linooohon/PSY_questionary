@@ -141,13 +141,14 @@
         $(document).ready(function () {
             qList = ['', 'ID', 'name', 'gender', 'age', 'birth', 'TWID', 'height', 'weight', 'phone', 'place', 'mail', 'school', 'degree', 'year', 'nice', 'Ghand', 'Phand', 'teacher', 'oneExercise', 'groupExercise'];
             var nowPassword = '<%=password%>';
+            //獲得ejs傳來的上次資料
             var str = '<%-data%>';
             var data;
             str == 'NA' ? data = 'NA' : data = JSON.parse(str);
             //填入以前填答結果
             if (data != 'NA') {
                 for (var i = 1; i < 21; i++) {
-                    if (i == 3 || i == 16 || i == 17)
+                    if (i == 3 || i == 16 || i == 17)//不同控件分開處理
                         $('select[name="q' + i.toString() + '"]')[0].selectedIndex = data[qList[i]];
                     else
                         $('input[name="q' + i.toString() + '"]').val(data[qList[i]]);
@@ -181,6 +182,7 @@
                 var NoNeedList = [14, 15, 18, 19, 20];
                 for (var i = 1; i < 21; i++) {
                     if (NoNeedList.indexOf(i) > - 1) {
+                        //允許部分題目不填
                         if ($('input[name="q' + i.toString() + '"]').val() == '')
                             $('input[name="q' + i.toString() + '"]').val("未填");
                     }

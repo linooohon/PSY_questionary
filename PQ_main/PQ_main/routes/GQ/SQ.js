@@ -44,7 +44,7 @@ const namesList_group = {
 /**********************
  each data translate function
  ***********************/
-//one
+//one 由下到上,拆解資料字串 成JSON
 function buildJson(num, names, elements) {
     var json = {};
     json['Trail'] = parseInt(num) + 1;
