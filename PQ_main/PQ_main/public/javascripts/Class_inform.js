@@ -225,6 +225,10 @@ class B {
                         clearTimeout(bee_time);
                     }
                 } else {
+                    if(bee){
+                        bee_stop.click();
+                        clearTimeout(bee_time);
+                    }
                     quetion_Result += "NA_" + "_0_" + (end - start).toString() + "_" + bee.toString() + "_SSAcc~"; //press wrong
                 }
                 hide(item);
@@ -488,6 +492,9 @@ class D {
                 once: true
             });
             let timeout = setTimeout(() => {
+                // console.log("add");
+                // console.log(quetion_Result+"========");
+                // document.removeEventListener('keydown',key_handler);
                 quetion_Result += "NA_0~";//Press-Acc
                 resolve([quetion_Result, 0]);
             }, interval)
@@ -505,6 +512,8 @@ class D {
                     }
                 } else {
                     quetion_Result += "NA_0~";//Press-Acc
+                    clearTimeout(timeout);
+                    resolve([quetion_Result, 0]);
                 }
 
             }
@@ -514,6 +523,7 @@ class D {
         let timer=[80,140,205];
         let last_timer=[80,140,205];
         let garbo;
+        let ppp=0;
         for (let session = 0; session < this._question.length; ++session) {            
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //0-2:各garbo題數 3-5:答對garbo題數 6-8:timer時間
             for (var item of this._question[session]) { //size direction
@@ -548,6 +558,9 @@ class D {
                     }
                 });
                 console.log(part);
+                console.log( this._one);
+                console.log( ppp);
+                ppp++;
             }
             this._one = this._one.slice(0, -1) + "-";
             this.averagebox[0] += part[6];
