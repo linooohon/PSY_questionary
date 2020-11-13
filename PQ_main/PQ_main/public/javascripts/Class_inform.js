@@ -437,7 +437,8 @@ class D {
         this.remind_btn = document.querySelector('button[name="remind_btn"]');
         this.garbor = document.getElementById("garbordiv");
         this._question = [];
-        this.garborsize = [20, 60, 200];
+        this.garborClass = ["small_garbor", "mid_garbor", "large_garbor"];
+        // this.garborsize = [20, 60, 200];
         this.direction = ["MOVE-Right", "MOVE-Left"];
         this.averagebox = [0, 0, 0];
         this.correct = 0;
@@ -451,10 +452,10 @@ class D {
     }
     _init_item() {
         if (window.screen.width >= 1900) {
-            this.garborsize = [60, 180, 600];
+            // this.garborsize = [60, 180, 600];
            
         }else if (window.screen.width >= 1250) {
-            this.garborsize = [40, 120, 400];
+            // this.garborsize = [40, 120, 400];
         }
     }
     _createQuestion() {
@@ -510,8 +511,8 @@ class D {
         });
     }
     async process() {
-        let timer=[80,140,210];
-        let last_timer=[80,140,210];
+        let timer=[80,140,205];
+        let last_timer=[80,140,205];
         let garbo;
         for (let session = 0; session < this._question.length; ++session) {            
             let part = [0, 0, 0, 0, 0, 0, 0, 0, 0]; //0-2:各garbo題數 3-5:答對garbo題數 6-8:timer時間
@@ -519,11 +520,12 @@ class D {
                 garbo = item;
                 let tmp_timer =timer[garbo[0]]; 
                 console.log(tmp_timer+"--------------");
-                console.log(this.garborsize[item[0]],item[0]);
+                console.log(this.garborClass[item[0]],item[0]);
                 await collapse(cross, 300); //start 300
-                document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
+                // document.documentElement.style.setProperty('--size', this.garborsize[item[0]] + 'px');
+                this.garbor.className=this.garborClass[item[0]];
                 document.documentElement.style.setProperty('--move-direction', this.direction[item[1]]);
-                this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
+                // this.garbor.setAttribute("style", "top:" + (window.innerHeight - this.garborsize[item[0]]) / 2 + "px;" + "left:" + (window.innerWidth - this.garborsize[item[0]]) / 2 + "px");
                 await collapse(this.garbor,tmp_timer);//tmp_timer
                 this._one += (item[0] + 1) + "_" + Math.round(timer[garbo[0]] * 100) / 100 + "_" + (item[1] + 1) + "_"; //size pre direction
                 await this._generateAnswer(item[1] + 1, 5000).then((data) => {//5000
@@ -1567,7 +1569,7 @@ class K {
 /*collapse function (show in specific interval then hide)
  * obj=> items
  * range_min:time interval 
- * range_max:if it exist, than interval will between(min-max)
+ * range_max:if it exist, than interval will between(min-max) 
  */
 const collapse = (obj, range_min, range_max) => {
     if (obj != null)

@@ -13,7 +13,121 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <title>D:運動抑制作業</title>
 </head>
+<style>
+  @keyframes MOVE-Right {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(60px);
+    }
+  }
 
+  @keyframes MOVE-Left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-60px);
+    }
+  }
+
+
+
+
+  .small_garbor {
+    top: 0;
+    left: 0;
+    width: 100vw; height: 100vh;
+    position: fixed;
+    color: black;
+    z-index: 1;
+  }
+  .mid_garbor {
+    top: 0;
+    left: 0;
+    width: 100vw; height: 100vh;
+    position: fixed;
+    color: black;
+    z-index: 1;
+  }
+  .large_garbor {
+    top: 0;
+    left: 0;
+    width: 100vw; height: 100vh;
+    position: fixed;
+    color: black;
+    z-index: 1;
+  }
+
+
+  /* small */
+  .small_garbor::after {
+    position: absolute;
+    content: '';
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    filter: blur(10px);
+    transform: translate(-50%, -50%);
+    box-shadow:0 0 180px 8000px  rgb(128, 128, 128),
+    0 0 5px 90px rgba(128, 128, 128, 0.95)  inset;
+  } 
+  /* middle */
+  .mid_garbor::after {
+    position: absolute;
+    content: '';
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    filter: blur(55px);
+    transform: translate(-50%, -50%);
+    box-shadow:0 0 180px 8000px  rgb(128, 128, 128),
+    0 0 25px 200px rgba(128, 128, 128, 0.98)  inset;
+  } 
+
+  /* large */
+
+  .large_garbor::after {
+    position: absolute;
+    content: '';
+    width: 1100px;
+    height: 1100px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    filter: blur(80px);
+    transform: translate(-50%, -50%);
+    box-shadow:0 0 150px 8000px  rgb(128, 128, 128),
+    0 0 2px 200px rgba(128, 128, 128, 0.95)  inset;
+  } 
+
+
+  .strip {
+    position: fixed;
+    left: -50px;
+    right: -50px;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    filter: blur(5px);
+    background: repeating-linear-gradient(to left,
+        #ffffff 0px 15px,
+        #000000 30px 45px,
+        #ffffff 57px 60px
+        );
+    animation-name: var(--move-direction);
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+</style>
 <body>
   <!-- remind modal&&button -->
   <div id="remind_modal" class="modal fade bd-example-modal-sm " data-backdrop="static" data-keyboard="false"
@@ -54,15 +168,12 @@
   <!-- cross -->
   <ten id="cross" class="center-screen ">+</ten>
 
-  <div id="garbordiv" class="  circle" style="display: none; " div_size="100">
-    <div class="bg " style="filter: blur(8px);">
+  <div id="garbordiv" class="  " style="display: none; " >
+    <div class="strip " >
     </div>
   </div>
-  <!-- <div class="bg " style="filter: blur(10px);"> -->
 
-
-
-
+  <!-- <div class="strip " > -->
   <!-- finish btn for game -->
   <button id="finish_btn" style="display: none;"></button>
   <!-- post form -->
@@ -80,15 +191,16 @@
       backdrop: 'static',
       keyboard: false
     });
-    document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - 100) + "px;" +
-      "left:" + (window.innerWidth / 2 - 100) + "px");
-    // document.documentElement.style.setProperty('--size', 500 + 'px');
-    $(window).on("resize", () => {
-      let size = document.getElementById("garbordiv").getAttribute('div_size');
-      document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - size) +
-        "px;" + "left:" + (window.innerWidth / 2 - size) + "px");
-    })
-
+    // document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - 100) + "px;" +
+    //   "left:" + (window.innerWidth / 2 - 100) + "px");
+    // // document.documentElement.style.setProperty('--size', 500 + 'px');
+    // $(window).on("resize", () => {
+    //   let size = document.getElementById("garbordiv").getAttribute('div_size');
+    //   document.getElementById("garbordiv").setAttribute("style", "top:" + (window.innerHeight / 2 - size) +
+    //     "px;" + "left:" + (window.innerWidth / 2 - size) + "px");
+    // })
+    // game = new D([3, 120]);
+    //   game.process();
 
     if (localStorage.getItem("one") != null) { //check if have local storage
       $.post("/GQ/SQ/saveData", {
