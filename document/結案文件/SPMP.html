@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        SPMP - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{padding-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important;position:relative}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit;overflow:visible}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}#MathJax_Message{z-index:1000!important}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc.both-mode{margin-left:8px}.ui-toc.both-mode .ui-toc-label{height:40px;padding:10px 4px;border-top-left-radius:0;border-bottom-left-radius:0}.ui-toc-label{background-color:#e6e6e6;border:none;color:#868686;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:20px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:50%;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-more-info{color:#888;cursor:pointer;vertical-align:middle}.ui-more-info .fa{font-size:16px}.ui-connectedGithub,.ui-published-note{color:#888}.ui-connectedGithub{line-height:23px;white-space:nowrap}.ui-connectedGithub a.file-path{color:#888;text-decoration:none;padding-left:22px}.ui-connectedGithub a.file-path:active,.ui-connectedGithub a.file-path:hover{color:#888;text-decoration:underline}.ui-connectedGithub .fa{font-size:20px}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}.selectable{-webkit-user-select:text;-o-user-select:text;user-select:text}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}.site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em;font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="SPMP" data-id="SPMP"><a class="anchor hidden-xs" href="#SPMP" title="SPMP"><span class="octicon octicon-link"></span></a><span>SPMP</span></h1><h2 id="成大心理系桌球計畫問卷系統-PSY_questionaryPQ" data-id="成大心理系桌球計畫問卷系統-PSY_questionaryPQ"><a class="anchor hidden-xs" href="#成大心理系桌球計畫問卷系統-PSY_questionaryPQ" title="成大心理系桌球計畫問卷系統-PSY_questionaryPQ"><span class="octicon octicon-link"></span></a><span>成大心理系桌球計畫問卷系統</span><small><span> PSY_questionary(PQ)</span></small></h2><p><span>執行時間 : 2020/10 ~ 2020/11</span></p><h6 id="this-is-PQ-plan-document" data-id="this-is-PQ-plan-document"><a class="anchor hidden-xs" href="#this-is-PQ-plan-document" title="this-is-PQ-plan-document"><span class="octicon octicon-link"></span></a><span>this is PQ plan document</span></h6><h6 id="version-1" data-id="version-1"><a class="anchor hidden-xs" href="#version-1" title="version-1"><span class="octicon octicon-link"></span></a><span>version 1</span></h6><h2 id="目錄" data-id="目錄"><a class="anchor hidden-xs" href="#目錄" title="目錄"><span class="octicon octicon-link"></span></a><span>目錄</span></h2><ul>
+<li><span>簡介</span>
+<ul>
+<li><span>專案目的</span></li>
+<li><span>專案範圍與目標</span></li>
+<li><span>各系統說明</span></li>
+</ul>
+</li>
+<li><span>專案工作規劃</span>
+<ul>
+<li><span>專案估算法</span></li>
+<li><span>專案分工結構圖</span></li>
+</ul>
+</li>
+<li><span>時程及查核點</span>
+<ul>
+<li><span>查核點說明</span></li>
+<li><span>時程</span></li>
+<li><span>時程與進度審查監控機制說明</span></li>
+</ul>
+</li>
+<li><span>專案成員工作指派</span>
+<ul>
+<li><span>專案分工</span></li>
+<li><span>計畫成員指派</span></li>
+</ul>
+</li>
+<li><span>專案經費規畫</span>
+<ul>
+<li><span>計畫總經費分配</span></li>
+<li><span>預算監控機制說明</span></li>
+</ul>
+</li>
+<li><span>資料管理規劃</span>
+<ul>
+<li><span>運行環境</span></li>
+<li><span>資料管理計畫</span></li>
+<li><span>列管資料總覽</span></li>
+<li><span>列管資料監控機制說明</span></li>
+</ul>
+</li>
+<li><span>風險評估規劃</span>
+<ul>
+<li><span>風險項目評估</span></li>
+<li><span>風險監控機制說明</span></li>
+</ul>
+</li>
+</ul><h2 id="簡介" data-id="簡介"><a class="anchor hidden-xs" href="#簡介" title="簡介"><span class="octicon octicon-link"></span></a><span>簡介</span></h2><h3 id="專案目的" data-id="專案目的"><a class="anchor hidden-xs" href="#專案目的" title="專案目的"><span class="octicon octicon-link"></span></a><span>專案目的</span></h3><p><span>由成大心理系教授委託我等,</span><br>
+<span>藉由建置線上心理測驗平台來取代過去的紙筆測驗與matlab測驗,</span><br>
+<span>起因於過去的測驗方式成本較大,</span><br>
+<span>也對於資料的取得有著較高的門檻。</span></p><h3 id="專案範圍與目標" data-id="專案範圍與目標"><a class="anchor hidden-xs" href="#專案範圍與目標" title="專案範圍與目標"><span class="octicon octicon-link"></span></a><span>專案範圍與目標</span></h3><p><span>建置可用統一帳號密碼與個人資料填寫三大問卷系統的心理測驗平台,</span><br>
+<span>然本次專案僅包含三大問卷系統中的【認知作業】系統,</span><br>
+<span>【認知訓練】與【問卷量表】兩項系統留待未來需求建置。</span><br>
+<span>最終目標為建置一成熟問卷平台,提供使用者利用e-mail傳送的登入帳密在自己家中完成各類複雜的心理問卷,</span><br>
+<span>且所有參數在正確存入資料庫後又可以被正確地以各類方式提取。</span></p><h3 id="各系統說明" data-id="各系統說明"><a class="anchor hidden-xs" href="#各系統說明" title="各系統說明"><span class="octicon octicon-link"></span></a><span>各系統說明</span></h3><p><span>整體而言, 本專案涵蓋5大系統</span><br>
+<span>(扣除【認知訓練】(TQ,Train questionary),【問卷量表】(QQ,quality questionary)),</span><br>
+<span>分別是=&gt;</span></p><ul>
+<li><span>PQ(PSY questionary)</span>
+<ul>
+<li><span>SRS(static resource server)</span></li>
+<li><span>EW(enter web)</span></li>
+<li><span>GQ(Game questionary)</span></li>
+<li><span>BW(Back ware)</span></li>
+<li><span>MDB(Manage Database)</span></li>
+<li><span>(先不錯)TQ(Train questionary)</span></li>
+<li><span>(已做好,待重購以適配PQ,不一定由本專案完成)QQ(Quality questionary)</span></li>
+</ul>
+</li>
+</ul><h4 id="各系統功能說明" data-id="各系統功能說明"><a class="anchor hidden-xs" href="#各系統功能說明" title="各系統功能說明"><span class="octicon octicon-link"></span></a><span>各系統功能說明</span></h4><p><span>EW =&gt;入口網站,提供以下功能</span></p><ul>
+<li><span>密碼變更</span></li>
+<li><span>個人資料寫入變更</span></li>
+<li><span>平台簡介</span></li>
+<li><span>登入</span></li>
+<li><span>同意書填寫</span></li>
+<li><span>挑選進入GQ,TQ,QQ子項目</span></li>
+</ul><p><span>GQ =&gt;問卷系統</span></p><h6 id="GQ-為本專案核心系統此處將以架構圖和說明文進行說明" data-id="GQ-為本專案核心系統此處將以架構圖和說明文進行說明"><a class="anchor hidden-xs" href="#GQ-為本專案核心系統此處將以架構圖和說明文進行說明" title="GQ-為本專案核心系統此處將以架構圖和說明文進行說明"><span class="octicon octicon-link"></span></a><span>GQ 為本專案核心系統,此處將以架構圖和說明文進行說明</span></h6><p><img src="https://i.imgur.com/DjJYsFw.png" alt=""></p><ul>
+<li><span>GQ架構圖</span>
+<ul>
+<li><span>EQ(enter questionary) 問卷選擇介面,含PR入口</span>
+<ul>
+<li><span>A (衝動控制作業)</span></li>
+<li><span>B (停止訊號作業)</span></li>
+<li><span>C (點協調作業)</span></li>
+<li><span>D (運動抑制作業)</span></li>
+<li><span>E (注意力網絡作業)</span></li>
+<li><span>F (眼神線索典範)</span></li>
+<li><span>G (多物件追蹤作業)</span></li>
+<li><span>H (反應時間作業)</span></li>
+<li><span>I (逆敘數字記憶廣度作業)</span></li>
+<li><span>J (空間記憶)</span></li>
+<li><span>K (情緒詞觸發作業)</span></li>
+<li><span>L (發球預測作業)</span></li>
+<li><span>M (桌球比賽記錄員檢定測驗)</span></li>
+</ul>
+</li>
+<li><span>PR(presentation result) GQ問卷計算PR值,輸出心理測驗結果</span></li>
+</ul>
+</li>
+</ul><h6 id="AM問卷子系統詳情請見需求書v2httpsdrivegooglecomopenid1aDQwcRCu-0JwdU6oIg94KCmTYE9PIR2t" data-id="AM問卷子系統詳情請見需求書v2httpsdrivegooglecomopenid1aDQwcRCu-0JwdU6oIg94KCmTYE9PIR2t"><a class="anchor hidden-xs" href="#AM問卷子系統詳情請見需求書v2httpsdrivegooglecomopenid1aDQwcRCu-0JwdU6oIg94KCmTYE9PIR2t" title="AM問卷子系統詳情請見需求書v2httpsdrivegooglecomopenid1aDQwcRCu-0JwdU6oIg94KCmTYE9PIR2t"><span class="octicon octicon-link"></span></a><span>A~M問卷子系統詳情請見需求書(v2):</span><a href="https://drive.google.com/open?id=1aDQwcRCu-0JwdU6oIg94KCmTYE9PIR2t" target="_blank" rel="noopener"><span>https://drive.google.com/open?id=1aDQwcRCu-0JwdU6oIg94KCmTYE9PIR2t</span></a></h6><ul>
+<li><span>A~M 問卷所含功能</span>
+<ul>
+<li><span>教學彈窗</span></li>
+<li><span>選擇模式與開始彈窗</span></li>
+<li><span>各心理測驗</span></li>
+<li><span>回傳測驗結果</span></li>
+<li><span>返回EQ跳轉</span></li>
+</ul>
+</li>
+<li><span>EQ功能</span>
+<ul>
+<li><span>返回EW功能</span></li>
+<li><span>進入PR功能</span></li>
+<li><span>進入A~M功能</span></li>
+</ul>
+</li>
+<li><span>PR功能</span>
+<ul>
+<li><span>獲得該ID測驗統計結果資料(group)</span></li>
+<li><span>獲得各參數標準</span></li>
+<li><span>結合個人與標準算出PR值輸出</span></li>
+<li><span>把結果以表格形式呈現</span></li>
+</ul>
+</li>
+</ul><p><span>MDB=&gt;管理者系統</span></p><ul>
+<li><span>下載問卷結果</span></li>
+<li><span>下載個人資料</span></li>
+<li><span>下載各人關鍵分數</span></li>
+<li><span>更改比較標定值</span></li>
+<li><span>更改GQ問題數據表格</span></li>
+<li><span>生成新帳密</span></li>
+</ul><p><span>BW =&gt;後端</span></p><ul>
+<li><span>提供api完成EW的</span>
+<ul>
+<li><span>登入</span></li>
+<li><span>個人資料處理</span></li>
+<li><span>系統跳轉</span></li>
+</ul>
+</li>
+<li><span>提供api完成GQ的</span>
+<ul>
+<li><span>EQ</span>
+<ul>
+<li><span>跳PR</span></li>
+<li><span>跳EW</span></li>
+<li><span>跳A~M</span></li>
+</ul>
+</li>
+<li><span>A~M</span>
+<ul>
+<li><span>回傳測驗結果,且跳回EQ</span></li>
+</ul>
+</li>
+<li><span>PR</span>
+<ul>
+<li><span>呼叫present所需所有個人參數</span></li>
+<li><span>呼叫比較所需各標定值</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>提供api完成MDB的</span>
+<ul>
+<li><span>PR所需各標定值存入與回傳</span></li>
+<li><span>生成全新個人帳密</span></li>
+<li><span>下載所有表格</span>
+<ul>
+<li><span>A~M_one</span></li>
+<li><span>A~M_group</span></li>
+<li><span>所有個人資料</span></li>
+<li><span>各人個指標關鍵分數</span></li>
+</ul>
+</li>
+<li><span>置換紀錄資料所需表格(EX:個影片檔名列表,與問題,…等等配對參數)</span></li>
+</ul>
+</li>
+</ul><p><span>SRS=&gt;靜態資源網址提供伺服器</span></p><ul>
+<li><span>提供GQ所需所有圖片網址</span></li>
+<li><span>提供GQ所需所有影片網址</span></li>
+</ul><h4 id="系統整體架構圖" data-id="系統整體架構圖"><a class="anchor hidden-xs" href="#系統整體架構圖" title="系統整體架構圖"><span class="octicon octicon-link"></span></a><span>系統整體架構圖</span></h4><p><img src="https://i.imgur.com/kal9FwN.png" alt=""></p><ul>
+<li><span>PQ</span>
+<ul>
+<li><span>EW  (網站入口網站)</span>
+<ul>
+<li><span>GQ(認知作業)</span></li>
+<li><span>TQ(認知訓練)</span></li>
+<li><span>QQ(問卷量表)</span></li>
+</ul>
+</li>
+<li><span>SRS (資源伺服器)</span></li>
+<li><span>BW  (EW,GQ,TQ,QQ後端)</span></li>
+<li><span>MDB (自己含前端與後端,為額外管理DB的系統)</span></li>
+</ul>
+</li>
+</ul><h4 id="硬體分配圖" data-id="硬體分配圖"><a class="anchor hidden-xs" href="#硬體分配圖" title="硬體分配圖"><span class="octicon octicon-link"></span></a><span>硬體分配圖</span></h4><p><img src="https://i.imgur.com/IZRrNdu.png" alt=""></p><ul>
+<li><span>main server (computer 1)</span>
+<ul>
+<li><span>EW,GQ,TQ,QQ</span>
+<ul>
+<li><span>BW,MDB</span>
+<ul>
+<li><span>mongoDB</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>support server (computer 2)</span>
+<ul>
+<li><span>SRS</span>
+<ul>
+<li><span>picture</span></li>
+<li><span>video</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><h2 id="專案工作規劃" data-id="專案工作規劃"><a class="anchor hidden-xs" href="#專案工作規劃" title="專案工作規劃"><span class="octicon octicon-link"></span></a><span>專案工作規劃</span></h2><h3 id="專案估算法" data-id="專案估算法"><a class="anchor hidden-xs" href="#專案估算法" title="專案估算法"><span class="octicon octicon-link"></span></a><span>專案估算法</span></h3><p><span>主要的估算是以個人推測各任務花費時間為主。</span></p><h3 id="專案分工結構圖" data-id="專案分工結構圖"><a class="anchor hidden-xs" href="#專案分工結構圖" title="專案分工結構圖"><span class="octicon octicon-link"></span></a><span>專案分工結構圖</span></h3><ul>
+<li><span>系統分析</span>
+<ul>
+<li><span>可行性分析</span>
+<ul>
+<li><span>技術可行性</span></li>
+<li><span>操作可行性</span></li>
+</ul>
+</li>
+<li><span>需求書分析</span>
+<ul>
+<li><span>內容缺乏分析</span></li>
+<li><span>內容矛盾分析</span></li>
+<li><span>內容過度分析</span></li>
+</ul>
+</li>
+<li><span>結構化系統分析</span>
+<ul>
+<li><span>組織草圖繪製</span></li>
+<li><span>資料流分析</span></li>
+<li><span>系統分析</span></li>
+<li><span>硬體分析</span></li>
+<li><span>資料庫分析</span></li>
+</ul>
+</li>
+<li><span>成本分析</span>
+<ul>
+<li><span>分析設計成本分析</span></li>
+<li><span>程式開發成本分析</span></li>
+<li><span>測試成本分析</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>系統設計</span>
+<ul>
+<li><span>結構化系統設計</span>
+<ul>
+<li><span>結構圖設計</span></li>
+<li><span>資料流設計(以api設計取代)</span></li>
+<li><span>函數設計(給GQ各問卷用的XXX.js)</span></li>
+<li><span>資料庫設計</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>專案管理</span>
+<ul>
+<li><span>SPMP</span>
+<ul>
+<li><span>基本規畫</span></li>
+<li><span>各設計圖</span></li>
+<li><span>整體進度圖</span></li>
+</ul>
+</li>
+<li><span>周專案管理</span>
+<ul>
+<li><span>第一周計畫</span></li>
+<li><span>第二周計畫</span></li>
+<li><span>第三周計畫</span></li>
+<li><span>第四周計畫</span></li>
+</ul>
+</li>
+<li><span>結案報告</span>
+<ul>
+<li><span>周計畫整理</span></li>
+<li><span>資料庫與api設計</span></li>
+<li><span>使用說明書</span></li>
+<li><span>測試報告書</span></li>
+<li><span>收費明細</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>程式開發</span>
+<ul>
+<li><span>EW</span>
+<ul>
+<li><span>page1</span></li>
+<li><span>page2</span></li>
+<li><span>page3</span></li>
+<li><span>page4</span></li>
+</ul>
+</li>
+<li><span>GQ</span>
+<ul>
+<li><span>EQ</span></li>
+<li><span>PR</span></li>
+<li><span>A~M</span></li>
+</ul>
+</li>
+<li><span>SRS</span>
+<ul>
+<li><span>picture server</span></li>
+<li><span>video server</span></li>
+</ul>
+</li>
+<li><span>BW</span>
+<ul>
+<li><span>back ware for EW</span></li>
+<li><span>back ware for GQ</span></li>
+</ul>
+</li>
+<li><span>MDB</span>
+<ul>
+<li><span>front ware</span></li>
+<li><span>back ware</span></li>
+</ul>
+</li>
+<li><span>(先不管它)QQ</span></li>
+</ul>
+</li>
+<li><span>程式測試</span>
+<ul>
+<li><span>Alpha測試</span>
+<ul>
+<li><span>功能調教</span></li>
+<li><span>介面調教</span></li>
+<li><span>效能調教</span></li>
+<li><span>安全調教</span></li>
+<li><span>實測調教</span></li>
+</ul>
+</li>
+<li><span>Beta測試</span>
+<ul>
+<li><span>穩定度測試</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>程式維護</span>
+<ul>
+<li><span>(略)交由中心維護工程師</span></li>
+</ul>
+</li>
+</ul><h2 id="時程及查核點" data-id="時程及查核點"><a class="anchor hidden-xs" href="#時程及查核點" title="時程及查核點"><span class="octicon octicon-link"></span></a><span>時程及查核點</span></h2><h3 id="查核點說明" data-id="查核點說明"><a class="anchor hidden-xs" href="#查核點說明" title="查核點說明"><span class="octicon octicon-link"></span></a><span>查核點說明</span></h3><p><span>由於本次專案需求明確,</span><br>
+<span>各部件難度不高但規模龐大。</span><br>
+<span>所以本次開發將使用</span><em><strong><span>快速開發</span></strong></em><span>(模塊式開發),</span><br>
+<span>系統與系統間具有低相依性的特徵,</span><br>
+<span>所有夥伴盡力快速開發手上系統,</span><br>
+<span>所以下方系統規定了各時間預期繳交的系統。</span></p><h3 id="時程" data-id="時程"><a class="anchor hidden-xs" href="#時程" title="時程"><span class="octicon octicon-link"></span></a><span>時程</span></h3><table>
+<thead>
+<tr>
+<th style="text-align:left"><span>預定時間</span></th>
+<th style="text-align:left"><span>查核點概講</span></th>
+<th style="text-align:left"><span>技術文件</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><span>10/3</span></td>
+<td style="text-align:left"><span>專案起始講解</span></td>
+<td style="text-align:left"><span>SPMP,各設計文件,第一周計畫</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>10/10</span></td>
+<td style="text-align:left"><span>查核第一周計畫 預計完成: GQ以外全系統原型 + 6/13 GQ原型</span></td>
+<td style="text-align:left"><span>第二周計畫</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>10/17</span></td>
+<td style="text-align:left"><span>查核第二周計畫 預計完成: GQ 原型完成</span></td>
+<td style="text-align:left"><span>第三周計畫</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>10/24</span></td>
+<td style="text-align:left"><span>查核第三周計畫 預計完成: 細節雕琢</span></td>
+<td style="text-align:left"><span>第四周計畫</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>10/31</span></td>
+<td style="text-align:left"><span>查核第四周計畫 預計完成: 測試驗證 + 細節雕琢</span></td>
+<td style="text-align:left"><span>結案報告</span></td>
+</tr>
+</tbody>
+</table><h3 id="時程與進度審查監控機制說明" data-id="時程與進度審查監控機制說明"><a class="anchor hidden-xs" href="#時程與進度審查監控機制說明" title="時程與進度審查監控機制說明"><span class="octicon octicon-link"></span></a><span>時程與進度審查監控機制說明</span></h3><p><span>本專案利用google 雲端表格動態標記自己進度,</span><br>
+<span>若進度落後遊專案負責人親至關心,</span><br>
+<span>若落後嚴重則調整規劃,</span><br>
+<span>當出現嚴重進度落差將視情況調整個人預估薪資。</span></p><h2 id="專案成員工作指派" data-id="專案成員工作指派"><a class="anchor hidden-xs" href="#專案成員工作指派" title="專案成員工作指派"><span class="octicon octicon-link"></span></a><span>專案成員工作指派</span></h2><h3 id="專案分工" data-id="專案分工"><a class="anchor hidden-xs" href="#專案分工" title="專案分工"><span class="octicon octicon-link"></span></a><span>專案分工</span></h3><p><span>(略, 於周計畫說明)</span></p><h3 id="計畫成員指派" data-id="計畫成員指派"><a class="anchor hidden-xs" href="#計畫成員指派" title="計畫成員指派"><span class="octicon octicon-link"></span></a><span>計畫成員指派</span></h3><p><span>(略, 於周計畫說明)</span></p><h2 id="專案經費規畫" data-id="專案經費規畫"><a class="anchor hidden-xs" href="#專案經費規畫" title="專案經費規畫"><span class="octicon octicon-link"></span></a><span>專案經費規畫</span></h2><h3 id="計畫總經費分配" data-id="計畫總經費分配"><a class="anchor hidden-xs" href="#計畫總經費分配" title="計畫總經費分配"><span class="octicon octicon-link"></span></a><span>計畫總經費分配</span></h3><p><span>(略)</span></p><h3 id="預算監控機制說明" data-id="預算監控機制說明"><a class="anchor hidden-xs" href="#預算監控機制說明" title="預算監控機制說明"><span class="octicon octicon-link"></span></a><span>預算監控機制說明</span></h3><p><span>若出現不可預期技術障礙導致預算激增之情況,</span><br>
+<span>將由專案管理與業主討論提高預算或功能刪減,</span><br>
+<span>該類情況須自行私訊專案管理匯報與討論。</span></p><h2 id="資料管理規劃" data-id="資料管理規劃"><a class="anchor hidden-xs" href="#資料管理規劃" title="資料管理規劃"><span class="octicon octicon-link"></span></a><span>資料管理規劃</span></h2><h3 id="運行環境" data-id="運行環境"><a class="anchor hidden-xs" href="#運行環境" title="運行環境"><span class="octicon octicon-link"></span></a><span>運行環境</span></h3><table>
+<thead>
+<tr>
+<th style="text-align:left"><span>環境</span></th>
+<th style="text-align:left"><span>名稱</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><span>作業系統</span></td>
+<td style="text-align:left"><span>windows 10,成大校園授權版本1903</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>後端語言</span></td>
+<td style="text-align:left"><span>javascript</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>後端執行環境</span></td>
+<td style="text-align:left"><span>node.js   v12.18.0</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>資料庫</span></td>
+<td style="text-align:left"><span>mongoDB    v4.2.8</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>前端語言</span></td>
+<td style="text-align:left"><span>html5/css/javascript</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>前端執行環境</span></td>
+<td style="text-align:left"><span>chrome</span></td>
+</tr>
+</tbody>
+</table><h3 id="資料管理計畫" data-id="資料管理計畫"><a class="anchor hidden-xs" href="#資料管理計畫" title="資料管理計畫"><span class="octicon octicon-link"></span></a><span>資料管理計畫</span></h3><ol>
+<li><span>程式碼部分:</span><br>
+<span>利用github fork做版本控制，</span><br>
+<span>配合hackMD動態溝通API需求以及函數內容。</span></li>
+<li><span>靜態資料部分:</span><br>
+<span>事先存放於server內的disk</span></li>
+<li><span>文件部分:</span><br>
+<span>主要文件由HackMD撰寫,網址置於群組</span><br>
+<span>次要文件網址擺放於HackMD主要文件中</span></li>
+</ol><h3 id="列管資料總覽" data-id="列管資料總覽"><a class="anchor hidden-xs" href="#列管資料總覽" title="列管資料總覽"><span class="octicon octicon-link"></span></a><span>列管資料總覽</span></h3><ul>
+<li><span>GQ</span>
+<ul>
+<li><span>L問卷影片</span></li>
+<li><span>M問卷影片</span></li>
+</ul>
+</li>
+</ul><h3 id="列管資料監控機制說明" data-id="列管資料監控機制說明"><a class="anchor hidden-xs" href="#列管資料監控機制說明" title="列管資料監控機制說明"><span class="octicon octicon-link"></span></a><span>列管資料監控機制說明</span></h3><p><span>專案管理溝通不依照規格儲存資料以及忽視資料安全的工程人員。</span></p><h2 id="風險評估規劃" data-id="風險評估規劃"><a class="anchor hidden-xs" href="#風險評估規劃" title="風險評估規劃"><span class="octicon octicon-link"></span></a><span>風險評估規劃</span></h2><h3 id="風險項目評估" data-id="風險項目評估"><a class="anchor hidden-xs" href="#風險項目評估" title="風險項目評估"><span class="octicon octicon-link"></span></a><span>風險項目評估</span></h3><table>
+<thead>
+<tr>
+<th style="text-align:left"><span>優先順序</span></th>
+<th style="text-align:left"><span>風險項目</span></th>
+<th style="text-align:left"><span>發生可能性</span></th>
+<th style="text-align:left"><span>影響程度</span></th>
+<th style="text-align:left"><span>解決方法</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><span>1</span></td>
+<td style="text-align:left"><span>做不出來</span></td>
+<td style="text-align:left"><span>20%</span></td>
+<td style="text-align:left"><span>中</span></td>
+<td style="text-align:left"><span>向業者要求降低需求</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>2</span></td>
+<td style="text-align:left"><span>平台有問題</span></td>
+<td style="text-align:left"><span>20%</span></td>
+<td style="text-align:left"><span>低</span></td>
+<td style="text-align:left"><span>向業者要求換電腦</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>3</span></td>
+<td style="text-align:left"><span>專案管理被徵召入伍</span></td>
+<td style="text-align:left"><span>25%</span></td>
+<td style="text-align:left"><span>高</span></td>
+<td style="text-align:left"><span>後期提早進行業務轉移且選出代理專案管理</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>4</span></td>
+<td style="text-align:left"><span>教授不做了</span></td>
+<td style="text-align:left"><span>10%</span></td>
+<td style="text-align:left"><span>高</span></td>
+<td style="text-align:left"><span>由專案管理洽談補償事宜</span></td>
+</tr>
+</tbody>
+</table><h3 id="風險監控機制說明" data-id="風險監控機制說明"><a class="anchor hidden-xs" href="#風險監控機制說明" title="風險監控機制說明"><span class="octicon octicon-link"></span></a><span>風險監控機制說明</span></h3><p><span>本專案監控風險之實施矯正措施基準及機制為:</span></p><ol>
+<li><span>監控頻率 :</span><br>
+<span>每週監控一次。</span></li>
+<li><span>實施矯正之基準及其措施 :</span><br>
+<span>一旦監控發現風險確實發生，</span><br>
+<span>必須立刻進行矯正程序，</span><br>
+<span>確保計畫目標能夠順利完成。</span></li>
+</ol><h6 id="矯正措施由負責人邀請計畫參與人員開會討論是否修改進度或規劃。" data-id="矯正措施由負責人邀請計畫參與人員開會討論是否修改進度或規劃。"><a class="anchor hidden-xs" href="#矯正措施由負責人邀請計畫參與人員開會討論是否修改進度或規劃。" title="矯正措施由負責人邀請計畫參與人員開會討論是否修改進度或規劃。"><span class="octicon octicon-link"></span></a><span>矯正措施由負責人邀請計畫參與人員開會討論是否修改進度或規劃。</span></h6></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#SPMP" title="SPMP">SPMP</a><ul class="nav">
+<li class=""><a href="#成大心理系桌球計畫問卷系統-PSY_questionaryPQ" title="成大心理系桌球計畫問卷系統 PSY_questionary(PQ)">成大心理系桌球計畫問卷系統 PSY_questionary(PQ)</a></li>
+<li class=""><a href="#目錄" title="目錄">目錄</a></li>
+<li class=""><a href="#簡介" title="簡介">簡介</a><ul class="nav">
+<li class=""><a href="#專案目的" title="專案目的">專案目的</a></li>
+<li class=""><a href="#專案範圍與目標" title="專案範圍與目標">專案範圍與目標</a></li>
+<li class=""><a href="#各系統說明" title="各系統說明">各系統說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#專案工作規劃" title="專案工作規劃">專案工作規劃</a><ul class="nav">
+<li class=""><a href="#專案估算法" title="專案估算法">專案估算法</a></li>
+<li class=""><a href="#專案分工結構圖" title="專案分工結構圖">專案分工結構圖</a></li>
+</ul>
+</li>
+<li class=""><a href="#時程及查核點" title="時程及查核點">時程及查核點</a><ul class="nav">
+<li class=""><a href="#查核點說明" title="查核點說明">查核點說明</a></li>
+<li class=""><a href="#時程" title="時程">時程</a></li>
+<li class=""><a href="#時程與進度審查監控機制說明" title="時程與進度審查監控機制說明">時程與進度審查監控機制說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#專案成員工作指派" title="專案成員工作指派">專案成員工作指派</a><ul class="nav">
+<li class=""><a href="#專案分工" title="專案分工">專案分工</a></li>
+<li class=""><a href="#計畫成員指派" title="計畫成員指派">計畫成員指派</a></li>
+</ul>
+</li>
+<li class=""><a href="#專案經費規畫" title="專案經費規畫">專案經費規畫</a><ul class="nav">
+<li class=""><a href="#計畫總經費分配" title="計畫總經費分配">計畫總經費分配</a></li>
+<li class=""><a href="#預算監控機制說明" title="預算監控機制說明">預算監控機制說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#資料管理規劃" title="資料管理規劃">資料管理規劃</a><ul class="nav">
+<li class=""><a href="#運行環境" title="運行環境">運行環境</a></li>
+<li class=""><a href="#資料管理計畫" title="資料管理計畫">資料管理計畫</a></li>
+<li class=""><a href="#列管資料總覽" title="列管資料總覽">列管資料總覽</a></li>
+<li class=""><a href="#列管資料監控機制說明" title="列管資料監控機制說明">列管資料監控機制說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#風險評估規劃" title="風險評估規劃">風險評估規劃</a><ul class="nav">
+<li class=""><a href="#風險項目評估" title="風險項目評估">風險項目評估</a></li>
+<li><a href="#風險監控機制說明" title="風險監控機制說明">風險監控機制說明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">全部展開</a><a class="back-to-top" href="#">回到頂部</a><a class="go-to-bottom" href="#">移至底部</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#SPMP" title="SPMP">SPMP</a><ul class="nav">
+<li class=""><a href="#成大心理系桌球計畫問卷系統-PSY_questionaryPQ" title="成大心理系桌球計畫問卷系統 PSY_questionary(PQ)">成大心理系桌球計畫問卷系統 PSY_questionary(PQ)</a></li>
+<li class=""><a href="#目錄" title="目錄">目錄</a></li>
+<li class=""><a href="#簡介" title="簡介">簡介</a><ul class="nav">
+<li class=""><a href="#專案目的" title="專案目的">專案目的</a></li>
+<li class=""><a href="#專案範圍與目標" title="專案範圍與目標">專案範圍與目標</a></li>
+<li class=""><a href="#各系統說明" title="各系統說明">各系統說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#專案工作規劃" title="專案工作規劃">專案工作規劃</a><ul class="nav">
+<li class=""><a href="#專案估算法" title="專案估算法">專案估算法</a></li>
+<li class=""><a href="#專案分工結構圖" title="專案分工結構圖">專案分工結構圖</a></li>
+</ul>
+</li>
+<li class=""><a href="#時程及查核點" title="時程及查核點">時程及查核點</a><ul class="nav">
+<li class=""><a href="#查核點說明" title="查核點說明">查核點說明</a></li>
+<li class=""><a href="#時程" title="時程">時程</a></li>
+<li class=""><a href="#時程與進度審查監控機制說明" title="時程與進度審查監控機制說明">時程與進度審查監控機制說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#專案成員工作指派" title="專案成員工作指派">專案成員工作指派</a><ul class="nav">
+<li class=""><a href="#專案分工" title="專案分工">專案分工</a></li>
+<li class=""><a href="#計畫成員指派" title="計畫成員指派">計畫成員指派</a></li>
+</ul>
+</li>
+<li class=""><a href="#專案經費規畫" title="專案經費規畫">專案經費規畫</a><ul class="nav">
+<li class=""><a href="#計畫總經費分配" title="計畫總經費分配">計畫總經費分配</a></li>
+<li class=""><a href="#預算監控機制說明" title="預算監控機制說明">預算監控機制說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#資料管理規劃" title="資料管理規劃">資料管理規劃</a><ul class="nav">
+<li class=""><a href="#運行環境" title="運行環境">運行環境</a></li>
+<li class=""><a href="#資料管理計畫" title="資料管理計畫">資料管理計畫</a></li>
+<li class=""><a href="#列管資料總覽" title="列管資料總覽">列管資料總覽</a></li>
+<li class=""><a href="#列管資料監控機制說明" title="列管資料監控機制說明">列管資料監控機制說明</a></li>
+</ul>
+</li>
+<li class=""><a href="#風險評估規劃" title="風險評估規劃">風險評估規劃</a><ul class="nav">
+<li class=""><a href="#風險項目評估" title="風險項目評估">風險項目評估</a></li>
+<li><a href="#風險監控機制說明" title="風險監控機制說明">風險監控機制說明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">全部展開</a><a class="back-to-top" href="#">回到頂部</a><a class="go-to-bottom" href="#">移至底部</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>

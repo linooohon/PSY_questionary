@@ -16,6 +16,7 @@
 
     //method
     Go(round) {
+        //事件流程 => 影片加載完成->播放完畢->點擊答案確認成功->加載影片  ( loop end )
         //one:回傳數據, player:播放器,order:隨機順序,round:第幾回合,feedback是否回傳數據(練習模式不回傳)
         var ID;
         var password;
@@ -41,6 +42,7 @@
                 type: 'video/mp4'
             });
             one = "";
+            player.controls(false);
             $("#Lplayer").text(data[round].names.split('/')[0]);
             $("#Rplayer").text(data[round].names.split('/')[1]);
             $(".row").show();
@@ -58,12 +60,14 @@
         player.on("play", () => {
             player.controls(false);
         })
+        player.on("canplaythrough", function () {
+            player.controls(true);
+        })
         //播放結束開啟新循環
         player.on("ended", () => {
             $("#MyVideo").hide();
             originSelect(round);
             $("#question").show();
-            player.controls(true);
             if (round > 0) {
                 round--;
                 var path = url + "?path=video/M/" + data[round].filepath + ".mp4";

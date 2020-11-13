@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        PQ結案書 - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{padding-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important;position:relative}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit;overflow:visible}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}#MathJax_Message{z-index:1000!important}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc.both-mode{margin-left:8px}.ui-toc.both-mode .ui-toc-label{height:40px;padding:10px 4px;border-top-left-radius:0;border-bottom-left-radius:0}.ui-toc-label{background-color:#e6e6e6;border:none;color:#868686;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:20px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:50%;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-more-info{color:#888;cursor:pointer;vertical-align:middle}.ui-more-info .fa{font-size:16px}.ui-connectedGithub,.ui-published-note{color:#888}.ui-connectedGithub{line-height:23px;white-space:nowrap}.ui-connectedGithub a.file-path{color:#888;text-decoration:none;padding-left:22px}.ui-connectedGithub a.file-path:active,.ui-connectedGithub a.file-path:hover{color:#888;text-decoration:underline}.ui-connectedGithub .fa{font-size:20px}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}.selectable{-webkit-user-select:text;-o-user-select:text;user-select:text}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}.site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .site-ui-font{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em;font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="PQ結案書" data-id="PQ結案書"><a class="anchor hidden-xs" href="#PQ結案書" title="PQ結案書"><span class="octicon octicon-link"></span></a><span>PQ結案書</span></h1><h2 id="功能概觀" data-id="功能概觀"><a class="anchor hidden-xs" href="#功能概觀" title="功能概觀"><span class="octicon octicon-link"></span></a><span>功能概觀</span></h2><ul>
+<li><span>入口網站</span>
+<ul>
+<li><span>登入功能</span></li>
+<li><span>個人資料填寫</span></li>
+<li><span>同意書</span></li>
+<li><span>各問卷跳轉</span></li>
+</ul>
+</li>
+<li><span>認知作業</span>
+<ul>
+<li><span>系統問卷選擇頁面</span></li>
+<li><span>A~M問卷</span></li>
+<li><span>個人填寫結果匯報頁</span></li>
+</ul>
+</li>
+<li><span>問卷量表</span>
+<ul>
+<li><span>系統問卷選擇頁面</span></li>
+<li><span>Q1~Q8問卷</span></li>
+<li><span>個人填寫結果匯報頁</span></li>
+</ul>
+</li>
+<li><span>管理網站</span>
+<ul>
+<li><span>使用者資料取得</span></li>
+<li><span>新使用者創建</span></li>
+<li><span>認知作業所需資源表格更新</span></li>
+<li><span>認知作業數據表格下載</span></li>
+<li><span>問卷量表數據表格下載</span></li>
+</ul>
+</li>
+<li><span>影片伺服器</span>
+<ul>
+<li><span>影片播放接口</span></li>
+</ul>
+</li>
+<li><span>桌球位置選擇軟體</span>
+<ul>
+<li><span>桌球落點點選</span></li>
+</ul>
+</li>
+</ul><h2 id="專案進度紀錄" data-id="專案進度紀錄"><a class="anchor hidden-xs" href="#專案進度紀錄" title="專案進度紀錄"><span class="octicon octicon-link"></span></a><span>專案進度紀錄</span></h2><p><span>以下日期皆為西元2020年</span></p><h6 id="第一版本需求書923開始準備週925" data-id="第一版本需求書923開始準備週925"><a class="anchor hidden-xs" href="#第一版本需求書923開始準備週925" title="第一版本需求書923開始準備週925"><span class="octicon octicon-link"></span></a><span>第一版本需求書9/23,開始準備週9/25</span></h6><p><span>準備週:9/25</span><br>
+<span>第一周:10/3</span><br>
+<span>第二周:10/10</span><br>
+<span>第三周:10/17</span><br>
+<span>第四周:10/24</span><br>
+<span>第五周:10/31</span><br>
+<span>結案:11/13</span></p><pre class="mermaid" data-processed="true"><svg id="mermaid-1605205085204" width="100%" xmlns="http://www.w3.org/2000/svg" height="100%" style="max-width:1450px;" viewBox="-50 -10 1450 826"><style>#mermaid-1605205085204 .label{font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family);color:#333}#mermaid-1605205085204 .label text{fill:#333}#mermaid-1605205085204 .node rect,#mermaid-1605205085204 .node circle,#mermaid-1605205085204 .node ellipse,#mermaid-1605205085204 .node polygon,#mermaid-1605205085204 .node path{fill:#ECECFF;stroke:#9370db;stroke-width:1px}#mermaid-1605205085204 .node .label{text-align:center}#mermaid-1605205085204 .node.clickable{cursor:pointer}#mermaid-1605205085204 .arrowheadPath{fill:#333}#mermaid-1605205085204 .edgePath .path{stroke:#333;stroke-width:1.5px}#mermaid-1605205085204 .edgeLabel{background-color:#e8e8e8;text-align:center}#mermaid-1605205085204 .cluster rect{fill:#ffffde;stroke:#aa3;stroke-width:1px}#mermaid-1605205085204 .cluster text{fill:#333}#mermaid-1605205085204 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family);font-size:12px;background:#ffffde;border:1px solid #aa3;border-radius:2px;pointer-events:none;z-index:100}#mermaid-1605205085204 .actor{stroke:#ccf;fill:#ECECFF}#mermaid-1605205085204 text.actor{fill:#000;stroke:none}#mermaid-1605205085204 .actor-line{stroke:grey}#mermaid-1605205085204 .messageLine0{stroke-width:1.5;stroke-dasharray:'2 2';stroke:#333}#mermaid-1605205085204 .messageLine1{stroke-width:1.5;stroke-dasharray:'2 2';stroke:#333}#mermaid-1605205085204 #arrowhead{fill:#333}#mermaid-1605205085204 .sequenceNumber{fill:#fff}#mermaid-1605205085204 #sequencenumber{fill:#333}#mermaid-1605205085204 #crosshead path{fill:#333 !important;stroke:#333 !important}#mermaid-1605205085204 .messageText{fill:#333;stroke:none}#mermaid-1605205085204 .labelBox{stroke:#ccf;fill:#ECECFF}#mermaid-1605205085204 .labelText{fill:#000;stroke:none}#mermaid-1605205085204 .loopText{fill:#000;stroke:none}#mermaid-1605205085204 .loopLine{stroke-width:2;stroke-dasharray:'2 2';stroke:#ccf}#mermaid-1605205085204 .note{stroke:#aa3;fill:#fff5ad}#mermaid-1605205085204 .noteText{fill:black;stroke:none;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family);font-size:14px}#mermaid-1605205085204 .activation0{fill:#f4f4f4;stroke:#666}#mermaid-1605205085204 .activation1{fill:#f4f4f4;stroke:#666}#mermaid-1605205085204 .activation2{fill:#f4f4f4;stroke:#666}#mermaid-1605205085204 .mermaid-main-font{font-family:"trebuchet ms", verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .section{stroke:none;opacity:0.2}#mermaid-1605205085204 .section0{fill:rgba(102,102,255,0.49)}#mermaid-1605205085204 .section2{fill:#fff400}#mermaid-1605205085204 .section1,#mermaid-1605205085204 .section3{fill:#fff;opacity:0.2}#mermaid-1605205085204 .sectionTitle0{fill:#333}#mermaid-1605205085204 .sectionTitle1{fill:#333}#mermaid-1605205085204 .sectionTitle2{fill:#333}#mermaid-1605205085204 .sectionTitle3{fill:#333}#mermaid-1605205085204 .sectionTitle{text-anchor:start;font-size:11px;text-height:14px;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .grid .tick{stroke:#d3d3d3;opacity:0.8;shape-rendering:crispEdges}#mermaid-1605205085204 .grid .tick text{font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .grid path{stroke-width:0}#mermaid-1605205085204 .today{fill:none;stroke:red;stroke-width:2px}#mermaid-1605205085204 .task{stroke-width:2}#mermaid-1605205085204 .taskText{text-anchor:middle;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .taskText:not([font-size]){font-size:11px}#mermaid-1605205085204 .taskTextOutsideRight{fill:#000;text-anchor:start;font-size:11px;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .taskTextOutsideLeft{fill:#000;text-anchor:end;font-size:11px}#mermaid-1605205085204 .task.clickable{cursor:pointer}#mermaid-1605205085204 .taskText.clickable{cursor:pointer;fill:#003163 !important;font-weight:bold}#mermaid-1605205085204 .taskTextOutsideLeft.clickable{cursor:pointer;fill:#003163 !important;font-weight:bold}#mermaid-1605205085204 .taskTextOutsideRight.clickable{cursor:pointer;fill:#003163 !important;font-weight:bold}#mermaid-1605205085204 .taskText0,#mermaid-1605205085204 .taskText1,#mermaid-1605205085204 .taskText2,#mermaid-1605205085204 .taskText3{fill:#fff}#mermaid-1605205085204 .task0,#mermaid-1605205085204 .task1,#mermaid-1605205085204 .task2,#mermaid-1605205085204 .task3{fill:#8a90dd;stroke:#534fbc}#mermaid-1605205085204 .taskTextOutside0,#mermaid-1605205085204 .taskTextOutside2{fill:#000}#mermaid-1605205085204 .taskTextOutside1,#mermaid-1605205085204 .taskTextOutside3{fill:#000}#mermaid-1605205085204 .active0,#mermaid-1605205085204 .active1,#mermaid-1605205085204 .active2,#mermaid-1605205085204 .active3{fill:#bfc7ff;stroke:#534fbc}#mermaid-1605205085204 .activeText0,#mermaid-1605205085204 .activeText1,#mermaid-1605205085204 .activeText2,#mermaid-1605205085204 .activeText3{fill:#000 !important}#mermaid-1605205085204 .done0,#mermaid-1605205085204 .done1,#mermaid-1605205085204 .done2,#mermaid-1605205085204 .done3{stroke:grey;fill:#d3d3d3;stroke-width:2}#mermaid-1605205085204 .doneText0,#mermaid-1605205085204 .doneText1,#mermaid-1605205085204 .doneText2,#mermaid-1605205085204 .doneText3{fill:#000 !important}#mermaid-1605205085204 .crit0,#mermaid-1605205085204 .crit1,#mermaid-1605205085204 .crit2,#mermaid-1605205085204 .crit3{stroke:#f88;fill:red;stroke-width:2}#mermaid-1605205085204 .activeCrit0,#mermaid-1605205085204 .activeCrit1,#mermaid-1605205085204 .activeCrit2,#mermaid-1605205085204 .activeCrit3{stroke:#f88;fill:#bfc7ff;stroke-width:2}#mermaid-1605205085204 .doneCrit0,#mermaid-1605205085204 .doneCrit1,#mermaid-1605205085204 .doneCrit2,#mermaid-1605205085204 .doneCrit3{stroke:#f88;fill:#d3d3d3;stroke-width:2;cursor:pointer;shape-rendering:crispEdges}#mermaid-1605205085204 .milestone{transform:rotate(45deg) scale(0.8, 0.8)}#mermaid-1605205085204 .milestoneText{font-style:italic}#mermaid-1605205085204 .doneCritText0,#mermaid-1605205085204 .doneCritText1,#mermaid-1605205085204 .doneCritText2,#mermaid-1605205085204 .doneCritText3{fill:#000 !important}#mermaid-1605205085204 .activeCritText0,#mermaid-1605205085204 .activeCritText1,#mermaid-1605205085204 .activeCritText2,#mermaid-1605205085204 .activeCritText3{fill:#000 !important}#mermaid-1605205085204 .titleText{text-anchor:middle;font-size:18px;fill:#000;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 g.classGroup text{fill:#9370db;stroke:none;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family);font-size:10px}#mermaid-1605205085204 g.classGroup text .title{font-weight:bolder}#mermaid-1605205085204 g.clickable{cursor:pointer}#mermaid-1605205085204 g.classGroup rect{fill:#ECECFF;stroke:#9370db}#mermaid-1605205085204 g.classGroup line{stroke:#9370db;stroke-width:1}#mermaid-1605205085204 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5}#mermaid-1605205085204 .classLabel .label{fill:#9370db;font-size:10px}#mermaid-1605205085204 .relation{stroke:#9370db;stroke-width:1;fill:none}#mermaid-1605205085204 .dashed-line{stroke-dasharray:3}#mermaid-1605205085204 #compositionStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #compositionEnd{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #aggregationStart{fill:#ECECFF;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #aggregationEnd{fill:#ECECFF;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #dependencyStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #dependencyEnd{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #extensionStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 #extensionEnd{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1605205085204 .commit-id,#mermaid-1605205085204 .commit-msg,#mermaid-1605205085204 .branch-label{fill:lightgrey;color:lightgrey;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .pieTitleText{text-anchor:middle;font-size:25px;fill:#000;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 .slice{font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 g.stateGroup text{fill:#9370db;stroke:none;font-size:10px;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}#mermaid-1605205085204 g.stateGroup text{fill:#9370db;stroke:none;font-size:10px}#mermaid-1605205085204 g.stateGroup .state-title{font-weight:bolder;fill:#000}#mermaid-1605205085204 g.stateGroup rect{fill:#ECECFF;stroke:#9370db}#mermaid-1605205085204 g.stateGroup line{stroke:#9370db;stroke-width:1}#mermaid-1605205085204 .transition{stroke:#9370db;stroke-width:1;fill:none}#mermaid-1605205085204 .stateGroup .composit{fill:white;border-bottom:1px}#mermaid-1605205085204 .stateGroup .alt-composit{fill:#e0e0e0;border-bottom:1px}#mermaid-1605205085204 .state-note{stroke:#aa3;fill:#fff5ad}#mermaid-1605205085204 .state-note text{fill:black;stroke:none;font-size:10px}#mermaid-1605205085204 .stateLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5}#mermaid-1605205085204 .stateLabel text{fill:#000;font-size:10px;font-weight:bold;font-family:'trebuchet ms', verdana, arial;font-family:var(--mermaid-font-family)}:root{--mermaid-font-family: '"trebuchet ms", verdana, arial';--mermaid-font-family: "Comic Sans MS", "Comic Sans", cursive}
+
+:root { --mermaid-font-family: "trebuchet ms", verdana, arial;}</style><style>#mermaid-1605205085204 {
+    color: rgb(223, 223, 223);
+    font: 13.6px / 19.72px "trebuchet ms", verdana, arial;
+  }</style><g></g><g><line id="actor1585" x1="75" y1="5" x2="75" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="0" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="75" dy="0">準備週</tspan></text></g><g><line id="actor1586" x1="275" y1="5" x2="275" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="200" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="275" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="275" dy="0">第一週</tspan></text></g><g><line id="actor1587" x1="475" y1="5" x2="475" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="400" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="475" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="475" dy="0">第二週</tspan></text></g><g><line id="actor1588" x1="675" y1="5" x2="675" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="600" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="675" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="675" dy="0">第三週</tspan></text></g><g><line id="actor1589" x1="875" y1="5" x2="875" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="800" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="875" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="875" dy="0">第四週</tspan></text></g><g><line id="actor1590" x1="1075" y1="5" x2="1075" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="1000" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="1075" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="1075" dy="0">第五週</tspan></text></g><g><line id="actor1591" x1="1275" y1="5" x2="1275" y2="815" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="1200" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="1275" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="1275" dy="0">結案</tspan></text></g><defs><marker id="arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto"><path d="M 0,0 V 4 L6,2 Z"></path></marker></defs><defs><marker id="crosshead" markerWidth="15" markerHeight="8" orient="auto" refX="16" refY="4"><path fill="black" stroke="#000000" stroke-width="1px" d="M 9,2 V 6 L16,4 Z" style="stroke-dasharray: 0, 0;"></path><path fill="none" stroke="#000000" stroke-width="1px" d="M 0,1 L 6,7 M 6,1 L 0,7" style="stroke-dasharray: 0, 0;"></path></marker></defs><defs><marker id="sequencenumber" refX="15" refY="15" markerWidth="60" markerHeight="40" orient="auto"><circle cx="15" cy="15" r="6"></circle></marker></defs><g><text x="175" y="93" class="messageText" style="text-anchor: middle;">找負責工程師</text><line x1="75" y1="100" x2="275" y2="100" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="175" y="128" class="messageText" style="text-anchor: middle;">系統分析</text><line x1="75" y1="135" x2="275" y2="135" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="175" y="163" class="messageText" style="text-anchor: middle;">系統設計</text><line x1="75" y1="170" x2="275" y2="170" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="175" y="198" class="messageText" style="text-anchor: middle;">需求書分析與整理</text><line x1="75" y1="205" x2="275" y2="205" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="375" y="233" class="messageText" style="text-anchor: middle;">入口網站建置</text><line x1="275" y1="240" x2="475" y2="240" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="375" y="268" class="messageText" style="text-anchor: middle;">管理網站建置</text><line x1="275" y1="275" x2="475" y2="275" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="475" y="303" class="messageText" style="text-anchor: middle;">認知作業建置</text><line x1="275" y1="310" x2="675" y2="310" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="575" y="338" class="messageText" style="text-anchor: middle;">問卷量表建置</text><line x1="475" y1="345" x2="675" y2="345" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="575" y="373" class="messageText" style="text-anchor: middle;">影片伺服器建置</text><line x1="475" y1="380" x2="675" y2="380" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="575" y="408" class="messageText" style="text-anchor: middle;">個人填寫結果匯報頁建置</text><line x1="475" y1="415" x2="675" y2="415" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="775" y="443" class="messageText" style="text-anchor: middle;">硬體建置</text><line x1="675" y1="450" x2="875" y2="450" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="775" y="478" class="messageText" style="text-anchor: middle;">後期添加各問券功能建置</text><line x1="675" y1="485" x2="875" y2="485" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="775" y="513" class="messageText" style="text-anchor: middle;">內部細節精修</text><line x1="675" y1="520" x2="875" y2="520" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="975" y="548" class="messageText" style="text-anchor: middle;">桌球位置選擇軟體建置</text><line x1="875" y1="555" x2="1075" y2="555" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="975" y="583" class="messageText" style="text-anchor: middle;">使用者內部測試</text><line x1="875" y1="590" x2="1075" y2="590" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="1075" y="618" class="messageText" style="text-anchor: middle;">各系統精修</text><line x1="875" y1="625" x2="1275" y2="625" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="1175" y="653" class="messageText" style="text-anchor: middle;">使用者測試結果精修</text><line x1="1075" y1="660" x2="1275" y2="660" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="1175" y="688" class="messageText" style="text-anchor: middle;">參數調教</text><line x1="1075" y1="695" x2="1275" y2="695" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><text x="1175" y="723" class="messageText" style="text-anchor: middle;">撰寫文件</text><line x1="1075" y1="730" x2="1275" y2="730" class="messageLine0" stroke-width="2" stroke="black" style="fill: none;"></line></g><g><rect x="0" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="75" dy="0">準備週</tspan></text></g><g><rect x="200" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="275" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="275" dy="0">第一週</tspan></text></g><g><rect x="400" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="475" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="475" dy="0">第二週</tspan></text></g><g><rect x="600" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="675" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="675" dy="0">第三週</tspan></text></g><g><rect x="800" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="875" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="875" dy="0">第四週</tspan></text></g><g><rect x="1000" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="1075" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="1075" dy="0">第五週</tspan></text></g><g><rect x="1200" y="750" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="1275" y="782.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px;"><tspan x="1275" dy="0">結案</tspan></text></g></svg></pre><h2 id="UI流程" data-id="UI流程"><a class="anchor hidden-xs" href="#UI流程" title="UI流程"><span class="octicon octicon-link"></span></a><span>UI流程</span></h2><pre class="flow-chart"><svg height="1824.916015625" version="1.1" width="1048.060546875" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; top: 0.916667px;" viewBox="0 0 1048.060546875 1824.916015625" preserveAspectRatio="xMidYMid meet"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.2.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><marker id="raphael-marker-endblock33-objzl2ex" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objetylu" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-obj0uiq4" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objulkhq" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objh7sep" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objyynfg" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objjidex" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objlddmh" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objamvab" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objpl1ds" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objh96tb" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objc466o" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objg3huv" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objhtj3f" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objccvgq" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-obj7l086" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-objy0c1t" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker></defs><rect x="0" y="0" width="85.0625" height="38.6875" rx="20" ry="20" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="st" transform="matrix(1,0,0,1,113.2031,60.5234)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="stt" class="flowchartt" transform="matrix(1,0,0,1,113.2031,60.5234)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">進入網站</tspan></text><rect x="0" y="0" width="248.5625" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="getID" transform="matrix(1,0,0,1,31.4531,209.7344)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="getIDt" class="flowchartt" transform="matrix(1,0,0,1,31.4531,209.7344)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">從實驗管理者獲取登入帳號密碼</tspan></text><rect x="0" y="0" width="52.359375" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="sign" transform="matrix(1,0,0,1,129.5547,358.9453)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="signt" class="flowchartt" transform="matrix(1,0,0,1,129.5547,358.9453)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">登入</tspan></text><path fill="none" stroke="#000000" d="M57.46875,28.734375L0,57.46875L114.9375,114.9375L229.875,57.46875L114.9375,0L0,57.46875" stroke-width="2" font-family="'Andale Mono', monospace" id="first" class="flowchart" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;" transform="matrix(1,0,0,1,40.7969,470.0313)"></path><text x="62.46875" y="57.46875" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="firstt" class="flowchartt" transform="matrix(1,0,0,1,40.7969,470.0313)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">是否第一次登入?</tspan></text><rect x="0" y="0" width="101.40625" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="confirm" transform="matrix(1,0,0,1,105.0313,695.4922)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="confirmt" class="flowchartt" transform="matrix(1,0,0,1,105.0313,695.4922)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">確認同意書</tspan></text><rect x="0" y="0" width="85.0625" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="changePassword" transform="matrix(1,0,0,1,113.2031,844.7031)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="changePasswordt" class="flowchartt" transform="matrix(1,0,0,1,113.2031,844.7031)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">改變密碼</tspan></text><rect x="0" y="0" width="117.75" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="inputPersonalData" transform="matrix(1,0,0,1,96.8594,993.9141)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="inputPersonalDatat" class="flowchartt" transform="matrix(1,0,0,1,96.8594,993.9141)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">輸入個人資料</tspan></text><rect x="0" y="0" width="199.515625" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="chooseSubSystem" transform="matrix(1,0,0,1,55.9766,1143.125)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="chooseSubSystemt" class="flowchartt" transform="matrix(1,0,0,1,55.9766,1143.125)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">選擇要進入的問卷子系統</tspan></text><rect x="0" y="0" width="85.0625" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="chooseQuestionary" transform="matrix(1,0,0,1,113.2031,1292.3359)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="chooseQuestionaryt" class="flowchartt" transform="matrix(1,0,0,1,113.2031,1292.3359)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">選擇問卷</tspan></text><rect x="0" y="0" width="134.109375" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="writeQuestionary" transform="matrix(1,0,0,1,88.6797,1441.5469)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="writeQuestionaryt" class="flowchartt" transform="matrix(1,0,0,1,88.6797,1441.5469)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">填寫選擇的問卷</tspan></text><path fill="none" stroke="#000000" d="M63.603515625,31.8017578125L0,63.603515625L127.20703125,127.20703125L254.4140625,63.603515625L127.20703125,0L0,63.603515625" stroke-width="2" font-family="'Andale Mono', monospace" id="toPR" class="flowchart" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;" transform="matrix(1,0,0,1,28.5273,1546.498)"></path><text x="68.603515625" y="63.603515625" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="toPRt" class="flowchartt" transform="matrix(1,0,0,1,28.5273,1546.498)" stroke-width="1"><tspan dy="5.337890625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">是否進入個人報告?</tspan></text><rect x="0" y="0" width="134.109375" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="seePR" transform="matrix(1,0,0,1,88.6797,1784.2285)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="seePRt" class="flowchartt" transform="matrix(1,0,0,1,88.6797,1784.2285)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">查看自己的報告</tspan></text><path fill="none" stroke="#000000" d="M75.8671875,37.93359375L0,75.8671875L151.734375,151.734375L303.46875,75.8671875L151.734375,0L0,75.8671875" stroke-width="2" font-family="'Andale Mono', monospace" id="goOut" class="flowchart" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;" transform="matrix(1,0,0,1,336.9414,1534.2344)"></path><text x="80.8671875" y="75.8671875" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="goOutt" class="flowchartt" transform="matrix(1,0,0,1,336.9414,1534.2344)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">是否離開該問卷子系統?</tspan></text><rect x="0" y="0" width="117.75" height="38.6875" rx="0" ry="0" fill="none" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="updatePersonalData" transform="matrix(1,0,0,1,690.4102,508.1563)"></rect><text x="10" y="19.34375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" id="updatePersonalDatat" class="flowchartt" transform="matrix(1,0,0,1,690.4102,508.1563)" stroke-width="1"><tspan dy="5.3359375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">更新個人資料</tspan></text><path fill="none" stroke="#000000" d="M155.734375,99.2109375C155.734375,99.2109375,155.734375,189.05576997762546,155.734375,206.73519746223633" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objzl2ex)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,248.421875C155.734375,248.421875,155.734375,338.26670747762546,155.734375,355.94613496223633" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objetylu)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,397.6328125C155.734375,397.6328125,155.734375,453.37261723540723,155.734375,467.03540140394944" stroke-width="2" marker-end="url(#raphael-marker-endblock33-obj0uiq4)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,584.96875C155.734375,584.96875,155.734375,674.8135824776255,155.734375,692.4930099622363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objulkhq)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><text x="160.734375" y="594.96875" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" stroke-width="1"><tspan dy="5.6640625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">yes</tspan></text><path fill="none" stroke="#000000" d="M270.671875,527.5C270.671875,527.5,649.8362199563999,527.5,687.4194045394804,527.5" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objh7sep)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><text x="275.671875" y="517.5" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" stroke-width="1"><tspan dy="5.6640625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">no</tspan></text><path fill="none" stroke="#000000" d="M155.734375,734.1796875C155.734375,734.1796875,155.734375,824.0245199776255,155.734375,841.7039474622363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objyynfg)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,883.390625C155.734375,883.390625,155.734375,973.2354574776255,155.734375,990.9148849622363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objjidex)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,1032.6015625C155.734375,1032.6015625,155.734375,1122.4463949776255,155.734375,1140.1258224622363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objlddmh)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,1181.8125C155.734375,1181.8125,155.734375,1271.6573324776255,155.734375,1289.3367599622363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objamvab)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,1331.0234375C155.734375,1331.0234375,155.734375,1420.8682699776255,155.734375,1438.5476974622363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objpl1ds)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,1480.234375C155.734375,1480.234375,155.734375,1530.5719203758053,155.734375,1543.500411033849" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objh96tb)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M155.734375,1673.705078125C155.734375,1673.705078125,155.734375,1763.5499106026255,155.734375,1781.2293380872363" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objc466o)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><text x="160.734375" y="1683.705078125" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" stroke-width="1"><tspan dy="5.666015625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">yes</tspan></text><path fill="none" stroke="#000000" d="M282.94140625,1610.1015625C282.94140625,1610.1015625,322.59550619125366,1610.1015625,333.94184533460066,1610.1015625" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objg3huv)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><text x="287.94140625" y="1600.1015625" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" stroke-width="1"><tspan dy="5.671875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">no</tspan></text><path fill="none" stroke="#000000" d="M88.6796875,1803.572265625C88.6796875,1803.572265625,3.52734375,1803.572265625,3.52734375,1803.572265625C3.52734375,1803.572265625,3.52734375,1521.498046875,3.52734375,1521.498046875C3.52734375,1521.498046875,155.734375,1521.498046875,155.734375,1521.498046875C155.734375,1521.498046875,155.734375,1536.87149143219,155.734375,1543.5072946492583" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objhtj3f)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><path fill="none" stroke="#000000" d="M488.67578125,1534.234375C488.67578125,1534.234375,488.67578125,1118.125,488.67578125,1118.125C488.67578125,1118.125,155.734375,1118.125,155.734375,1118.125C155.734375,1118.125,155.734375,1133.49844455719,155.734375,1140.1342477742583" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objccvgq)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><text x="493.67578125" y="1524.234375" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" stroke-width="1"><tspan dy="5.6640625" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">yes</tspan></text><path fill="none" stroke="#000000" d="M640.41015625,1610.1015625C640.41015625,1610.1015625,665.41015625,1610.1015625,665.41015625,1610.1015625C665.41015625,1610.1015625,665.41015625,1267.3359375,665.41015625,1267.3359375C665.41015625,1267.3359375,492.67578125,1267.3359375,492.67578125,1267.3359375C492.67578125,1267.3359375,488.67578125,1259.3359375,484.67578125,1267.3359375C484.67578125,1267.3359375,155.734375,1267.3359375,155.734375,1267.3359375C155.734375,1267.3359375,155.734375,1282.70938205719,155.734375,1289.3451852742583" stroke-width="2" marker-end="url(#raphael-marker-endblock33-obj7l086)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path><text x="645.41015625" y="1600.1015625" text-anchor="start" font-family="'Andale Mono', monospace" font-size="16px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: &quot;Andale Mono&quot;, monospace; font-size: 16px;" stroke-width="1"><tspan dy="5.671875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">no</tspan></text><path fill="none" stroke="#000000" d="M749.28515625,546.84375C749.28515625,546.84375,749.28515625,1118.125,749.28515625,1118.125C749.28515625,1118.125,155.734375,1118.125,155.734375,1118.125C155.734375,1118.125,155.734375,1133.49844455719,155.734375,1140.1342477742583" stroke-width="2" marker-end="url(#raphael-marker-endblock33-objy0c1t)" font-family="'Andale Mono', monospace" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: &quot;Andale Mono&quot;, monospace;"></path></svg></pre><h2 id="管理者模式說明書" data-id="管理者模式說明書"><a class="anchor hidden-xs" href="#管理者模式說明書" title="管理者模式說明書"><span class="octicon octicon-link"></span></a><span>管理者模式說明書</span></h2><h3 id="登入頁" data-id="登入頁"><a class="anchor hidden-xs" href="#登入頁" title="登入頁"><span class="octicon octicon-link"></span></a><span>登入頁</span></h3><p><img src="https://i.imgur.com/LyUol2B.png" alt=""><br>
+<span>填寫管理者帳號以及密碼即可登入</span><br>
+<span>預設帳號:admin</span><br>
+<span>預設密碼:0000</span></p><h3 id="管理板塊選擇頁" data-id="管理板塊選擇頁"><a class="anchor hidden-xs" href="#管理板塊選擇頁" title="管理板塊選擇頁"><span class="octicon octicon-link"></span></a><span>管理板塊選擇頁</span></h3><p><img src="https://i.imgur.com/7d2uQeQ.png" alt=""></p><ol>
+<li><span>基本管理頁</span></li>
+</ol><ul>
+<li><span>創建新使用者</span></li>
+<li><span>取得使用者帳號密碼</span></li>
+<li><span>取得使用者個人資料</span></li>
+</ul><ol start="2">
+<li><span>認知作業</span></li>
+</ol><ul>
+<li><span>更新PR值分界表</span></li>
+<li><span>更新影片資源表</span></li>
+<li><span>下載認知作業填答結果</span></li>
+</ul><ol start="3">
+<li><span>認知訓練</span></li>
+</ol><ul>
+<li><span>未製作,此功能不開放</span></li>
+</ul><ol start="4">
+<li><span>問卷量表</span></li>
+</ol><ul>
+<li><span>下載問卷量表填答結果</span></li>
+</ul><h3 id="基本管理頁" data-id="基本管理頁"><a class="anchor hidden-xs" href="#基本管理頁" title="基本管理頁"><span class="octicon octicon-link"></span></a><span>基本管理頁</span></h3><p><img src="https://i.imgur.com/0fVd8Pz.png" alt=""></p><ol>
+<li><span>創建新測驗者</span><br>
+<span>皆需輸入標頭,為任意英文字母字串,會冠在個人ID前。</span><br>
+<span>創建多位新測驗者功能不會回傳創建的帳號密碼,需自行於下載完整表格的帳號密碼下載所有帳密,挑選具有對應標頭的帳號密碼複製。</span></li>
+<li><span>下載個人資料</span><br>
+<span>於目標ID填寫想搜尋的ID即可</span></li>
+</ol><h3 id="認知作業" data-id="認知作業"><a class="anchor hidden-xs" href="#認知作業" title="認知作業"><span class="octicon octicon-link"></span></a><span>認知作業</span></h3><p><img src="https://i.imgur.com/bOcTZA9.png" alt=""></p><ol>
+<li><span>更新表格</span><br>
+<span>請先下載原資料,根據原資料進行修改,存回時須為*.csv副檔名,此外,須為純csv格式,若更新表格後發現相關功能失效,請檢查表格是否為標準CSV,利用notepad++開啟,檢查是否為純逗號,換行符組成,不可含</span><code>','</code><span> </span><code>'\r\n'</code><span> 以外符號用來區分格式</span></li>
+<li><span>下載</span><br>
+<span>會在最下方選擇變換時進行下載,接收資料後會挑出下載連結,請直接點選。若想重新下載,任意切換各選項即可。</span></li>
+</ol><h3 id="問卷量表" data-id="問卷量表"><a class="anchor hidden-xs" href="#問卷量表" title="問卷量表"><span class="octicon octicon-link"></span></a><span>問卷量表</span></h3><p><img src="https://i.imgur.com/MKqAPaP.png" alt=""><br>
+<span>同前述問卷</span></p><h2 id="接受數據統一規格" data-id="接受數據統一規格"><a class="anchor hidden-xs" href="#接受數據統一規格" title="接受數據統一規格"><span class="octicon octicon-link"></span></a><span>接受數據統一規格</span></h2><ol>
+<li><span>999全部改 NA</span></li>
+<li><span>正確為1 錯誤為0</span></li>
+<li><span>按鍵</span><br>
+<span>j: “1”,</span><br>
+<span>f: “2”,</span><br>
+<span>s: “3”,</span><br>
+<span>l: “4”</span></li>
+<li><span>球號碼</span><br>
+<span>“green”: “1”,</span><br>
+<span>“red”: “2”,</span><br>
+<span>“blue”: “3”,</span><br>
+<span>“yellow”: “4”</span></li>
+</ol><h2 id="建置方法" data-id="建置方法"><a class="anchor hidden-xs" href="#建置方法" title="建置方法"><span class="octicon octicon-link"></span></a><span>建置方法</span></h2><h3 id="建置環境" data-id="建置環境"><a class="anchor hidden-xs" href="#建置環境" title="建置環境"><span class="octicon octicon-link"></span></a><span>建置環境</span></h3><table>
+<thead>
+<tr>
+<th style="text-align:left"><span>環境</span></th>
+<th style="text-align:left"><span>名稱</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><span>作業系統</span></td>
+<td style="text-align:left"><span>windows 10,成大校園授權版本1903</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>後端語言</span></td>
+<td style="text-align:left"><span>javascript</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>後端執行環境</span></td>
+<td style="text-align:left"><span>node.js   v12.18.0</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>資料庫</span></td>
+<td style="text-align:left"><span>mongoDB    v4.2.8</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>前端語言</span></td>
+<td style="text-align:left"><span>html5/css/javascript</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>前端執行環境</span></td>
+<td style="text-align:left"><span>chrome</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>發布器</span></td>
+<td style="text-align:left"><span>pm2 v4.4.1</span></td>
+</tr>
+</tbody>
+</table><ol>
+<li><span>安裝node</span><br>
+<a href="https://nodejs.org/en/" target="_blank" rel="noopener"><span>https://nodejs.org/en/</span></a><br>
+<span>下載windows安裝檔即可(*.msi)</span></li>
+<li><span>安裝mongoDB</span><br>
+<span>參考:</span><a href="https://ithelp.ithome.com.tw/articles/10244454" target="_blank" rel="noopener"><span>https://ithelp.ithome.com.tw/articles/10244454</span></a></li>
+<li><span>安裝全域 pm2</span><br>
+<span>使用npm安裝</span><br>
+<code>npm install pm2 -g</code></li>
+<li><span>安裝git</span><br>
+<span>clone 本系統</span></li>
+<li><span>pm2 發布以及windows開機自啟</span><br>
+<span>參考:</span><a href="https://ithelp.ithome.com.tw/articles/10243636" target="_blank" rel="noopener"><span>https://ithelp.ithome.com.tw/articles/10243636</span></a></li>
+<li><span>開通外部防火牆</span><br>
+<span>參考:</span><a href="https://ithelp.ithome.com.tw/articles/10253979" target="_blank" rel="noopener"><span>https://ithelp.ithome.com.tw/articles/10253979</span></a><br>
+<span>發布=&gt;PQ_main at port:1337</span><br>
+<span>發布=&gt;PQ_MDB at port:1338</span><br>
+<span>發布=&gt;PQ_SRS at port:1339</span></li>
+<li><span>開通各電腦本地防火牆</span><br>
+<span>參考:</span>
+<ol>
+<li><span>控制台\系統及安全性\Windows Defender 防火牆</span></li>
+<li><span>進階設定</span></li>
+<li><span>輸入規則</span></li>
+<li><span>新增規則</span></li>
+<li><span>連接阜-&gt;填入上一步的port</span></li>
+</ol>
+</li>
+<li><span>DB填入初始lock</span></li>
+</ol><ul>
+<li>
+<p><span>lock</span></p>
+<ul>
+<li><span>users</span>
+<ul>
+<li><span>name:usersCount</span></li>
+<li><span>count:1</span></li>
+</ul>
+</li>
+</ul>
+<p><span>cmd指令</span></p>
+</li>
+</ul><pre><code>mongo
+use lock
+db.users.insert({"name":"usersCount","count":1})
+</code></pre><ol start="9">
+<li><span>環境變數設置</span>
+<ul>
+<li><span>PQ_main資料夾找到.env檔案</span><br>
+<span>輸入:</span><br>
+<span>SRSurl=http://140.116.98.155:1339/</span><br>
+<span>(填入參數為影片伺服器網址)</span></li>
+<li><span>PQ_MDB資料夾找到.env檔案</span><br>
+<span>輸入:</span><br>
+<span>ID=admin</span><br>
+<span>password=0000</span><br>
+<span>(填入參數為管理者帳密 可自訂)</span></li>
+</ul>
+</li>
+<li><span>系統重啟</span><br>
+<span>參考第5步,利用windows service重啟服務即可</span></li>
+</ol><h2 id="未來進度" data-id="未來進度"><a class="anchor hidden-xs" href="#未來進度" title="未來進度"><span class="octicon octicon-link"></span></a><span>未來進度</span></h2><ul>
+<li><span>認知訓練系統建置(不涵蓋於本專案)</span></li>
+</ul><h2 id="維護行為" data-id="維護行為"><a class="anchor hidden-xs" href="#維護行為" title="維護行為"><span class="octicon octicon-link"></span></a><span>維護行為</span></h2><ul>
+<li><span>各問卷前端細節調整</span></li>
+<li><span>錯誤處理</span></li>
+<li><span>系統重建</span></li>
+<li><span>資料管理</span></li>
+</ul><h6 id="基於系統使用者方無關注查找過去資料功能建議定期在收取到大量資料後匯出備份再進行系統重置以此避開資料冗餘若希望資料永久儲存需再建置本地資料過濾刪除軟體或直接利用mongo-CLIGUI-進行處理" data-id="基於系統使用者方無關注查找過去資料功能建議定期在收取到大量資料後匯出備份再進行系統重置以此避開資料冗餘若希望資料永久儲存需再建置本地資料過濾刪除軟體或直接利用mongo-CLIGUI-進行處理"><a class="anchor hidden-xs" href="#基於系統使用者方無關注查找過去資料功能建議定期在收取到大量資料後匯出備份再進行系統重置以此避開資料冗餘若希望資料永久儲存需再建置本地資料過濾刪除軟體或直接利用mongo-CLIGUI-進行處理" title="基於系統使用者方無關注查找過去資料功能建議定期在收取到大量資料後匯出備份再進行系統重置以此避開資料冗餘若希望資料永久儲存需再建置本地資料過濾刪除軟體或直接利用mongo-CLIGUI-進行處理"><span class="octicon octicon-link"></span></a><span>基於系統使用者方無關注查找過去資料功能,建議定期在收取到大量資料後匯出備份,再進行系統重置,以此避開資料冗餘,若希望資料永久儲存,需再建置本地資料過濾刪除軟體或直接利用mongo CLI,GUI 進行處理</span></h6><h2 id="預算細節" data-id="預算細節"><a class="anchor hidden-xs" href="#預算細節" title="預算細節"><span class="octicon octicon-link"></span></a><span>預算細節</span></h2><ul>
+<li><span>分析設計(8000)</span>
+<ul>
+<li><span>系統分析</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+<li><span>系統設計</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+<li><span>資料庫設計</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+<li><span>ＡＰＩ設計</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>專案管理(6000)</span>
+<ul>
+<li><span>撰寫各文件</span>
+<ul>
+<li><span>3000</span></li>
+</ul>
+</li>
+<li><span>周進度文件</span>
+<ul>
+<li><span>3000</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>硬體建置(8000)</span>
+<ul>
+<li><span>各伺服器架設</span>
+<ul>
+<li><span>3000</span></li>
+</ul>
+</li>
+<li><span>硬體問題處理與溝通</span>
+<ul>
+<li><span>5000</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>軟體建置(53500)</span>
+<ul>
+<li><span>入口網站</span>
+<ul>
+<li><span>5000</span></li>
+</ul>
+</li>
+<li><span>認知作業</span>
+<ul>
+<li><span>29000</span></li>
+</ul>
+</li>
+<li><span>問卷量表</span>
+<ul>
+<li><span>5000</span></li>
+</ul>
+</li>
+<li><span>管理網站</span>
+<ul>
+<li><span>12500</span></li>
+</ul>
+</li>
+<li><span>影片伺服器</span>
+<ul>
+<li><span>1000</span></li>
+</ul>
+</li>
+<li><span>桌球位置選擇軟體</span>
+<ul>
+<li><span>1000</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>系統測試（14500）</span>
+<ul>
+<li><span>功能測試</span>
+<ul>
+<li><span>2500</span></li>
+</ul>
+</li>
+<li><span>錯誤修正</span>
+<ul>
+<li><span>5000</span></li>
+</ul>
+</li>
+<li><span>條整參數</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+<li><span>功能細節微調與優化</span>
+<ul>
+<li><span>5000</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span>維護(6000)[其實就是預支35個小時的維護費]</span>
+<ul>
+<li><span>兩個月內前端介面調整</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+<li><span>兩個月內各問卷前端調較</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+<li><span>兩個月內新增前端細節需求處理</span>
+<ul>
+<li><span>2000</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><table>
+<thead>
+<tr>
+<th style="text-align:left"><span>類別</span></th>
+<th style="text-align:left"><span>原因</span></th>
+<th style="text-align:left"><span>費用(NTD)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><span>分析設計</span></td>
+<td style="text-align:left"><span>系統分析</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>分析設計</span></td>
+<td style="text-align:left"><span>系統設計</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>分析設計</span></td>
+<td style="text-align:left"><span>資料庫設計</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>分析設計</span></td>
+<td style="text-align:left"><span>ＡＰＩ設計</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>專案管理</span></td>
+<td style="text-align:left"><span>撰寫各文件</span></td>
+<td style="text-align:left"><span>3000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>專案管理</span></td>
+<td style="text-align:left"><span>周進度文件</span></td>
+<td style="text-align:left"><span>3000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>硬體建置</span></td>
+<td style="text-align:left"><span>各伺服器架設</span></td>
+<td style="text-align:left"><span>3000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>硬體建置</span></td>
+<td style="text-align:left"><span>硬體問題處理與溝通</span></td>
+<td style="text-align:left"><span>5000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>軟體建置</span></td>
+<td style="text-align:left"><span>入口網站</span></td>
+<td style="text-align:left"><span>5000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>軟體建置</span></td>
+<td style="text-align:left"><span>認知作業</span></td>
+<td style="text-align:left"><span>29000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>軟體建置</span></td>
+<td style="text-align:left"><span>問卷量表</span></td>
+<td style="text-align:left"><span>5000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>軟體建置</span></td>
+<td style="text-align:left"><span>管理網站</span></td>
+<td style="text-align:left"><span>12500</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>軟體建置</span></td>
+<td style="text-align:left"><span>影片伺服器</span></td>
+<td style="text-align:left"><span>1000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>軟體建置</span></td>
+<td style="text-align:left"><span>桌球位置選擇軟體</span></td>
+<td style="text-align:left"><span>1000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>系統測試</span></td>
+<td style="text-align:left"><span>功能測試</span></td>
+<td style="text-align:left"><span>2500</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>系統測試</span></td>
+<td style="text-align:left"><span>錯誤修正</span></td>
+<td style="text-align:left"><span>5000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>系統測試</span></td>
+<td style="text-align:left"><span>條整參數</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>系統測試</span></td>
+<td style="text-align:left"><span>功能細節微調與優化</span></td>
+<td style="text-align:left"><span>5000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>維護</span></td>
+<td style="text-align:left"><span>兩個月內前端介面調整</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>維護</span></td>
+<td style="text-align:left"><span>兩個月內各問卷前端調較</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>維護</span></td>
+<td style="text-align:left"><span>兩個月內新增前端細節需求處理</span></td>
+<td style="text-align:left"><span>2000</span></td>
+</tr>
+<tr>
+<td style="text-align:left"><span>tottal</span></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><span>96000</span></td>
+</tr>
+</tbody>
+</table></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#PQ結案書" title="PQ結案書">PQ結案書</a><ul class="nav">
+<li class=""><a href="#功能概觀" title="功能概觀">功能概觀</a></li>
+<li class=""><a href="#專案進度紀錄" title="專案進度紀錄">專案進度紀錄</a></li>
+<li class=""><a href="#UI流程" title="UI流程">UI流程</a></li>
+<li class=""><a href="#管理者模式說明書" title="管理者模式說明書">管理者模式說明書</a><ul class="nav">
+<li class=""><a href="#登入頁" title="登入頁">登入頁</a></li>
+<li class=""><a href="#管理板塊選擇頁" title="管理板塊選擇頁">管理板塊選擇頁</a></li>
+<li class=""><a href="#基本管理頁" title="基本管理頁">基本管理頁</a></li>
+<li class=""><a href="#認知作業" title="認知作業">認知作業</a></li>
+<li class=""><a href="#問卷量表" title="問卷量表">問卷量表</a></li>
+</ul>
+</li>
+<li class=""><a href="#接受數據統一規格" title="接受數據統一規格">接受數據統一規格</a></li>
+<li class=""><a href="#建置方法" title="建置方法">建置方法</a><ul class="nav">
+<li class=""><a href="#建置環境" title="建置環境">建置環境</a></li>
+</ul>
+</li>
+<li class=""><a href="#未來進度" title="未來進度">未來進度</a></li>
+<li class=""><a href="#維護行為" title="維護行為">維護行為</a></li>
+<li class=""><a href="#預算細節" title="預算細節">預算細節</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">全部展開</a><a class="back-to-top" href="#">回到頂部</a><a class="go-to-bottom" href="#">移至底部</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#PQ結案書" title="PQ結案書">PQ結案書</a><ul class="nav">
+<li class=""><a href="#功能概觀" title="功能概觀">功能概觀</a></li>
+<li class=""><a href="#專案進度紀錄" title="專案進度紀錄">專案進度紀錄</a></li>
+<li class=""><a href="#UI流程" title="UI流程">UI流程</a></li>
+<li class=""><a href="#管理者模式說明書" title="管理者模式說明書">管理者模式說明書</a><ul class="nav">
+<li class=""><a href="#登入頁" title="登入頁">登入頁</a></li>
+<li class=""><a href="#管理板塊選擇頁" title="管理板塊選擇頁">管理板塊選擇頁</a></li>
+<li class=""><a href="#基本管理頁" title="基本管理頁">基本管理頁</a></li>
+<li class=""><a href="#認知作業" title="認知作業">認知作業</a></li>
+<li class=""><a href="#問卷量表" title="問卷量表">問卷量表</a></li>
+</ul>
+</li>
+<li class=""><a href="#接受數據統一規格" title="接受數據統一規格">接受數據統一規格</a></li>
+<li class=""><a href="#建置方法" title="建置方法">建置方法</a><ul class="nav">
+<li class=""><a href="#建置環境" title="建置環境">建置環境</a></li>
+</ul>
+</li>
+<li class=""><a href="#未來進度" title="未來進度">未來進度</a></li>
+<li class=""><a href="#維護行為" title="維護行為">維護行為</a></li>
+<li class=""><a href="#預算細節" title="預算細節">預算細節</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">全部展開</a><a class="back-to-top" href="#">回到頂部</a><a class="go-to-bottom" href="#">移至底部</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
