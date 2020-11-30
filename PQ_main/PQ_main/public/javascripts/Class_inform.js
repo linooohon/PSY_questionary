@@ -1384,7 +1384,7 @@ class J {
                 if(item[1]==true){
                     console.log("true");
                 }
-                await this._generateAnswer(element, item[1], 1250).then((data) => {//250
+                await this._generateAnswer(element, item[1], 1500).then((data) => {//1500
                     if(count<this._level){
                         this._one +="NA_NA_NA~"
                     }else{
