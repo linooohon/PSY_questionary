@@ -1427,7 +1427,7 @@ class J {
     _analyzeData() {
         this._one = this._one.slice(0, -1); //remove last~
         // let Acc = Math.round((this._total * 100 / (this.game_set * (this._level - 1))) * 100) / 100;
-        let Acc = Math.round((this._total * 100 / (this.game_set)) * 100) / 100;
+        let Acc = Math.round((this._total * 100 / (this.game_set*(this._level-1))) * 100) / 100;
         let Score = this._total;
         this._group += this._level + "_" + Acc + "_" + this._total + "_";
         for (let i = 0; i < this._groupset.length; ++i) {
