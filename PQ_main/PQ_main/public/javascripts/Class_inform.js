@@ -1398,6 +1398,7 @@ class J {
                 await this._generateAnswer(element, item[1], 1500).then((data) => { //1500
                     if (count < this._level) {
                         this._one += "NA_NA_NA~"
+                        console.log('NA');
                     } else {
                         this._one += data[0];
                         number += data[1];
