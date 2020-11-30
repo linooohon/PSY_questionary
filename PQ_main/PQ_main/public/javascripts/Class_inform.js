@@ -1324,6 +1324,8 @@ class J {
     }
     _generateAnswer = (item, press, range_min, range_max) => {
         let interval = range_min;
+        let starttime = Date.now();
+        let key_press = false;
         let quetion_Result = "";
         let group_set = 0;
         if (range_max != undefined)
@@ -1333,14 +1335,20 @@ class J {
             document.addEventListener('keydown', key_handler, {
                 once: true
             });
-            let timeout = setTimeout(() => {
-                if (press) {
-                    quetion_Result += "1_0_0~";
-                } else {
-                    group_set = 1;
-                    quetion_Result += "0_0_1~";
+            let timeout1 = setTimeout(() => {
+                hide(item);
+            }, 250)
+            setTimeout(() => {
+                if (!key_press) {
+                    if (press) {
+                        quetion_Result += "1_0_0~";
+                    } else {
+                        group_set = 1;
+                        quetion_Result += "0_0_1~";
+                    }
                 }
                 hide(item);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, group_set]);
             }, interval)
 
@@ -1352,9 +1360,12 @@ class J {
                 } else {
                     quetion_Result += "0_1_0~";
                 }
-                hide(item);
-                clearTimeout(timeout);
-                resolve([quetion_Result, group_set]);
+                key_press = true;
+                // clearTimeout(timeout);
+                if (Date.now() - starttime < 250) {
+                    hide(item);
+                    clearTimeout(timeout1);
+                }
             }
         });
     }
@@ -1373,7 +1384,7 @@ class J {
                 if(item[1]==true){
                     console.log("true");
                 }
-                await this._generateAnswer(element, item[1], 250).then((data) => {//250
+                await this._generateAnswer(element, item[1], 1250).then((data) => {//250
                     if(count<this._level){
                         this._one +="NA_NA_NA~"
                     }else{
@@ -1383,7 +1394,7 @@ class J {
                     }
                     count++;
                 });
-                await collapse(null, 1250);//1250
+                // await collapse(null, 1250);//1250
             }
             hide(this.nine_grid);
             this._groupset.push(number);
