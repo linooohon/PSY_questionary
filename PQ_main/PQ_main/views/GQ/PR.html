@@ -63,11 +63,11 @@
                         </tr>
                         <tr>
                             <td>項目</td>
-                            <td>注意力網路</td>
-                            <td>眼神線索</td>
-                            <td>多目標追蹤</td>
                             <td>衝動控制</td>
                             <td>停止訊號</td>
+                            <td>點協調</td>
+                            <td>運動抑制</td>
+                            <td>注意力網絡</td>
                         </tr>
                         <tr>
                             <td>等級</td>
@@ -79,10 +79,10 @@
                         </tr>
                         <tr>
                             <td>項目</td>
+                            <td>眼神線索</td>
+                            <td>多物件追蹤</td>
                             <td>逆敘數字記憶</td>
                             <td>空間記憶</td>
-                            <td>點協調作業</td>
-                            <td>運動抑制</td>
                             <td>情緒觸發</td>
                         </tr>
                         <tr>
@@ -110,10 +110,10 @@
                         </tr>
                         <tr>
                             <td>項目</td>
-                            <td>注意力網路</td>
-                            <td>眼神線索</td>
                             <td>衝動控制</td>
                             <td>停止訊號</td>
+                            <td>注意力網路</td>
+                            <td>眼神線索</td>
                             <td>情緒觸發</td>
                         </tr>
                         <tr>
@@ -141,11 +141,11 @@
                         </tr>
                         <tr>
                             <td>項目</td>
-                            <td>注意力網路</td>
-                            <td>眼神線索</td>
-                            <td>多目標追蹤</td>
                             <td>衝動控制</td>
                             <td>停止訊號</td>
+                            <td>點協調</td>
+                            <td>運動抑制</td>
+                            <td>注意力網絡</td>
                         </tr>
                         <tr>
                             <td>等級</td>
@@ -157,10 +157,10 @@
                         </tr>
                         <tr>
                             <td>項目</td>
+                            <td>眼神線索</td>
+                            <td>多物件追蹤</td>
                             <td>逆敘數字記憶</td>
                             <td>空間記憶</td>
-                            <td>點協調作業</td>
-                            <td>運動抑制</td>
                             <td>情緒觸發</td>
                         </tr>
                         <tr>
@@ -230,7 +230,7 @@
         }
         //內差法
         function Interval(aPR, aReal, bPR, bReal, cReal) {
-            var output = aPR + (bPR - aPR) /(bReal - aReal) * (cReal - aReal);
+            var output = aPR + (bPR - aPR) / (bReal - aReal) * (cReal - aReal);
             //console.log(output);
             return output;
         }
@@ -304,7 +304,7 @@
             var myChart1 = new Chart(Chart1, {
                 type: 'radar',
                 data: {
-                    labels: ['注意力網路', '眼神線索', '多目標追蹤', '衝動控制', '停止訊號', '逆敘數字記憶', '空間記憶', '點協調作業', '運動抑制', '情緒觸發'],
+                    labels: ['衝動控制', '停止訊號', '點協調', '運動抑制', '注意力網絡', '眼神線索', '多物件追蹤', '逆敘數字記憶', '空間記憶', '情緒觸發'],
                     datasets: [
                         {
                             label: '你的正確率',
@@ -338,7 +338,7 @@
             var myChart2 = new Chart(Chart2, {
                 type: 'radar',
                 data: {
-                    labels: ['注意力網路', '眼神線索', '衝動控制', '停止訊號', '情緒觸發'],
+                    labels: ['衝動控制', '停止訊號', '注意力網路', '眼神線索', '情緒觸發'],
                     datasets: [
                         {
                             label: '你的反應時間',
@@ -372,7 +372,7 @@
             var myChart3 = new Chart(Chart3, {
                 type: 'radar',
                 data: {
-                    labels: ['注意力網路', '眼神線索', '多目標追蹤', '衝動控制', '停止訊號', '逆敘數字記憶', '空間記憶', '點協調作業', '運動抑制', '情緒觸發'],
+                    labels: ['衝動控制', '停止訊號', '點協調', '運動抑制', '注意力網絡', '眼神線索', '多物件追蹤', '逆敘數字記憶', '空間記憶', '情緒觸發'],
                     datasets: [
                         {
                             label: '你的認知作業表現',
