@@ -65,7 +65,7 @@ class A {
         this._question = competitor([Color_Set.green, Color_Set.red], [this.ratio.G, this.ratio.R]); //change the question
     }
     _generateAnswer = (item, range_min, range_max) => {
-        let start = Date.now();
+
         let interval = range_min;
         let quetion_Result = "";
         let color = getKeyByValue(Color_Set, item.style.backgroundColor.toString());
@@ -74,6 +74,7 @@ class A {
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         quetion_Result += COLOR_NUM[color] + "_"; //Color
         show(item); //show the item
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true // fire only once
@@ -86,7 +87,7 @@ class A {
                     quetion_Result += "0_NA~"; //OAcc_RT
                 }
                 hide(item);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, group_set]);
             }, interval)
 
@@ -172,23 +173,23 @@ class B {
     _generateAnswer = (item, bee, delay_num, range_min, range_max) => {
         var bee_start = document.getElementById("beestart-btn");
         var bee_stop = document.getElementById("beestop-btn");
-        let start = Date.now();
         let interval = range_min;
         let group_set = [0, 0, 0, 0, 0, 0]; //ACC_GoAcc_GoRT_NCRate_NCRT_mSSD
         let quetion_Result = "";
         let color = getKeyByValue(Color_Set, item.style.backgroundColor);
         let plus = 0;
-        group_set[5] = delay_num; //mSSD 
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         quetion_Result += COLOR_NUM[color] + "_"; //Color
         if (bee) { //CorrAns
+            group_set[5] = delay_num; //mSSD 
             var bee_time = setTimeout(bee_start.click(), delay_num); //bee start
             quetion_Result += "0_"
         } else {
             quetion_Result += COLOR_NUM[color] + "_";
         }
         show(item);
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
@@ -204,7 +205,7 @@ class B {
                     quetion_Result += "0_0_NA_NA_SSAcc~"; //Press_Acc_RT_SSD_SSAcc
                 }
                 hide(item);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, group_set, delay_num + plus]);
             }, interval)
 
@@ -253,6 +254,10 @@ class B {
                     this._groupset = this._groupset.map((num, idx) => num + data[1][idx]);
                     if (data[2] >= 0 || data[2] <= 450)
                         delay_num = data[2];
+                    else if (data[2] < 0)
+                        delay_num = 33;
+                    else
+                        delay_num = 450;
                 });
             await collapse(null, 100, 300); //100-300
         }
@@ -277,6 +282,8 @@ class B {
         SSRT = SSRT.toString().replaceAll("NaN", 500);
         // this._pr
         this._pr = (Acc + "_" + Go_Rt + "_" + SSRT).replaceAll("NaN", "NA");
+        console.log(this._groupset);
+        console.log(mSSD);
     }
     get one() {
         return this._one;
@@ -318,13 +325,13 @@ class C {
         return nowball + correct * (41 - num) * (0.4 + 0.1 * conti);
     }
     _generateAnswer = (item, direction, range_min, range_max) => {
-        let start = Date.now();
         let interval = range_min;
         let quetion_Result = "";
         let group_set = 0;
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         show(item);
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
@@ -333,7 +340,7 @@ class C {
                 quetion_Result += "NA_0_" + direction + "_NA~"; //RT-Acc-Direction-key
                 hide(item);
                 resolve([quetion_Result, group_set]);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
             }, interval)
 
             function key_handler(e) {
@@ -461,12 +468,12 @@ class D {
         this._createQuestion();
     }
     _init_item() {
-        if (window.screen.width >= 1900) {
-            // this.garborsize = [60, 180, 600];
+        // if (window.screen.width >= 1900) {
+        //     // this.garborsize = [60, 180, 600];
 
-        } else if (window.screen.width >= 1250) {
-            // this.garborsize = [40, 120, 400];
-        }
+        // } else if (window.screen.width >= 1250) {
+        //     // this.garborsize = [40, 120, 400];
+        // }
     }
     _createQuestion() {
         for (let i = 0; i < this.game_set[0]; ++i) {
@@ -502,7 +509,7 @@ class D {
                 // console.log(quetion_Result+"========");
                 // document.removeEventListener('keydown',key_handler);
                 quetion_Result += "NA_0~"; //Press-Acc
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, 0]);
             }, interval)
 
@@ -669,13 +676,13 @@ class E {
 
     }
     _generateAnswer = (item, direction, range_min, range_max) => {
-        let start = Date.now();
         let interval = range_min;
         let quetion_Result = "";
         let group_set = [0, 0];
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         show(item);
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
@@ -684,7 +691,7 @@ class E {
                 quetion_Result += "0_0_1700~"; //press-acc-rt
                 group_set = [0, 1700];
                 hide(item);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, group_set]);
             }, interval)
 
@@ -823,13 +830,13 @@ class F {
 
     }
     _generateAnswer = (item, targetposition, range_min, range_max) => {
-        let start = Date.now();
         let interval = range_min;
         let quetion_Result = "";
         let group_set = [0, 0]; //Acc_Rt
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
         show(item);
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
@@ -838,7 +845,7 @@ class F {
                 quetion_Result += "0_2_NA~" //Press_Acc_RT
                 group_set = [0, 0];
                 hide(item);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, group_set]);
             }, interval)
 
@@ -1056,7 +1063,6 @@ class H {
         ]
     }
     _generateAnswer = (item, range_min, range_max) => {
-        let start = Date.now();
         let interval = range_min;
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
@@ -1065,6 +1071,7 @@ class H {
         let color = getKeyByValue(Color_Set, item.style.backgroundColor);
         quetion_Result += COLOR_NUM[color] + "_" + COLOR_NUM[color] + "_"; //Color -correAns
         show(item);
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
@@ -1072,7 +1079,7 @@ class H {
             let timeout = setTimeout(() => {
                 quetion_Result += "NA_0_NA~"; //Press_Acc_Rt
                 hide(item);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, press_and_time]);
             }, interval)
 
@@ -1195,12 +1202,12 @@ class I {
         console.log(numberlist);
         var quetion_Result = "";
         let length = numberlist.length;
-        let start = Date.now();
         quetion_Result += length.toString() + "_"; //NofDig
         for (let i = 0; i < length; ++i) { //show item
             quetion_Result += numberlist[i].toString(); //CorrDig
             show(inputline[i], "inline-block");
         }
+        let start = Date.now();
         quetion_Result += "_";
         return new Promise(resolve => {
             var typenum = 0;
@@ -1509,7 +1516,6 @@ class K {
         let interval = range_min;
         if (range_max != undefined)
             interval = Math.floor(Math.random() * (range_max - range_min)) + range_min;
-        let start = Date.now();
         let color = getKeyByValue(Color_Set, item.style.color);
         let condition = parseInt(item.getAttribute("part"));
         let quetion_Result = "";
@@ -1520,6 +1526,7 @@ class K {
 
         quetion_Result += COLOR_NUM[color] + "_"; //Color
         show(item);
+        let start = Date.now();
         return new Promise(resolve => {
             document.addEventListener('keydown', key_handler, {
                 once: true
@@ -1528,7 +1535,7 @@ class K {
                 // document.removeEventListener('keydown', key_handler);
                 quetion_Result += "NA_-1~"; //no input
                 hide(item);
-                document.removeEventListener('keydown',key_handler);
+                document.removeEventListener('keydown', key_handler);
                 resolve([quetion_Result, group_set, group_time]);
             }, interval)
 
