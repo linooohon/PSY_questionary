@@ -69,10 +69,14 @@ router.post('/login', function (req, res) {
             .then(pkg => {
                 if (pkg.walk == 'first')
                     loginFirstRender(db, res, ID, password)
+                        .catch(error => res.render('warming', error))
+                        .finally(pkg => db.close());
                 else
                     loginNotFirstRender(db, res, ID, password)
-            }).then(pkg => new function () { })
-            .catch(error => res.render('warming', error));
+                        .catch(error => res.render('warming', error))
+                        .finally(pkg => db.close());
+            })
+            
     });
 });
 /**********************
@@ -106,7 +110,8 @@ router.post('/jumpBoard', function (req, res) {
             if (err) { res.render('warming', { message: '伺服器連線錯誤' }); throw err; }
             jumpBoardCheckPassword(db, ID, password)
                 .then(pkg => res.render('EW/' + goal, pkg))
-                .catch(error => res.render('warming', error));
+                .catch(error => res.render('warming', error))
+                .finally(pkg => db.close());
         });
     else
         res.render('warming', { message: '非法操作, 請聯絡網站管理員' });
@@ -150,7 +155,8 @@ router.post('/changePassword', function (req, res) {
         changePasswordCheckPassword(db, ID, password)
             .then(pkg =>changePasswordUpdatePassword(db, ID, new_password))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 /**********************
@@ -190,7 +196,8 @@ router.post('/updateData', function (req, res) {
         changePasswordCheckPassword(db, ID, password)
             .then(pkg => updateDataUpdate(db, ID, data))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 

@@ -65,7 +65,8 @@ router.post('/', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetStartData(db, ID, password))
             .then(pkg => res.render("GQ/PR", pkg))
-            .catch(error => res.render('warming', error));
+            .catch(error => res.render('warming', error))
+            .finally(pkg => db.close());
     });
 });
 
@@ -105,7 +106,8 @@ router.post('/savePR', function (req, res) {
             CheckPassword(db, ID, password)
                 .then(pkg => updatePersonaldate(db, ID, type, data.split('_')))
                 .then(pkg => res.json(pkg))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         else
             res.json({ result: '無此操作權限' });
     });
@@ -140,7 +142,8 @@ router.post('/GetPersonalData', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetPersonalData(db, ID))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 
@@ -173,7 +176,8 @@ router.post('/GetCriticalData', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetCriticalData(db, mode))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 

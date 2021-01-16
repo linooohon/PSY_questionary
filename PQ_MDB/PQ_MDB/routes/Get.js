@@ -50,7 +50,8 @@ router.post('/table', function (req, res) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
             FindCollection(db, DB, collection, fillterKey, fillterValue, type)
                 .then(pkg => res.json(pkg))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         });
     }
     else
