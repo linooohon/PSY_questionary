@@ -75,8 +75,8 @@ router.post('/login', function (req, res) {
                     loginNotFirstRender(db, res, ID, password)
                         .catch(error => res.render('warming', error))
                         .finally(pkg => db.close());
-            })
-            
+            }).catch(error => res.render('warming', error));
+
     });
 });
 /**********************
@@ -137,12 +137,12 @@ function changePasswordCheckPassword(db, ID, password) {
         });
     });
 }
-function changePasswordUpdatePassword(db,ID,new_password) {
+function changePasswordUpdatePassword(db, ID, new_password) {
     return new Promise((resolve, reject) => {
         var table = db.db("EW").collection("personal_information");
         table.updateOne({ ID: ID }, { $set: { password: new_password } }, function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
-            resolve({ result : 'success'});
+            resolve({ result: 'success' });
         });
     });
 }
@@ -153,7 +153,7 @@ router.post('/changePassword', function (req, res) {
     MongoClient.connect(Get("mongoPath") + 'EW', { useNewUrlParser: true, useUnifiedTopology: true }, function (err, db) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
         changePasswordCheckPassword(db, ID, password)
-            .then(pkg =>changePasswordUpdatePassword(db, ID, new_password))
+            .then(pkg => changePasswordUpdatePassword(db, ID, new_password))
             .then(pkg => res.json(pkg))
             .catch(error => res.json(error))
             .finally(pkg => db.close());
@@ -165,7 +165,7 @@ router.post('/changePassword', function (req, res) {
  2.更新(upsert:true)
  ***********************/
 
-function updateDataUpdate(db,ID,data) {
+function updateDataUpdate(db, ID, data) {
     return new Promise((resolve, reject) => {
         var table = db.db("EW").collection("personal_data");
         var goal = { ID: ID };
@@ -179,7 +179,7 @@ function updateDataUpdate(db,ID,data) {
             reject({ result: '傳遞格式錯誤' });
             throw e;
         }
-        table.updateOne({ ID: ID }, { $set: goal }, { upsert : true }, function (err, result) {
+        table.updateOne({ ID: ID }, { $set: goal }, { upsert: true }, function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             resolve({ result: 'success' });
         });

@@ -155,7 +155,7 @@ router.post('/GetPersonalData', function (req, res) {
 function GetCriticalData(db, mode) {
     return new Promise((resolve, reject) => {
         var table = db.db("data").collection("critical_value");
-        table.find({ mode: mode }, { projection: { _id: 0, mode: 0 } }).toArray(function (err, result) {
+        table.find({ mode: mode }, { projection: { _id: 0, mode: 0 } }).sort({ _id: 1 }).toArray(function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             if (result.length == 0)
                 reject({ result: '不存在分界資料' });

@@ -28,7 +28,7 @@ function FindCollection(db, DB, collection, fillterKey, fillterValue, type) {
                 resolve({ result: "success", data: result });
             });
         else
-            table.find(findThing, set).toArray(function (err, result) {
+            table.find(findThing, set).sort({ _id: 1 }).toArray(function (err, result) {
                 if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
                 //console.log(result);
                 resolve({ result: "success", data: result });
