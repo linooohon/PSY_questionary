@@ -77,8 +77,8 @@ router.post('/GetDate', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetDate(db, ID))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
-
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 

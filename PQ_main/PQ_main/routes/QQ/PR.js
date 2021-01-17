@@ -51,7 +51,8 @@ router.post('/', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetPeronalData(db, ID, password))
             .then(pkg => res.render("QQ/PR", pkg))
-            .catch(error => res.render('warming', error));
+            .catch(error => res.render('warming', error))
+            .finally(pkg => db.close());
     });
 });
 
@@ -101,7 +102,8 @@ router.post('/getData', function (req, res) {
         AjaxCheckPassword(db, ID, password)
             .then(pkg => GetAllData(db, ID))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 

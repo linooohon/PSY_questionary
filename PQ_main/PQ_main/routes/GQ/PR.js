@@ -65,7 +65,8 @@ router.post('/', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetStartData(db, ID, password))
             .then(pkg => res.render("GQ/PR", pkg))
-            .catch(error => res.render('warming', error));
+            .catch(error => res.render('warming', error))
+            .finally(pkg => db.close());
     });
 });
 
@@ -105,7 +106,8 @@ router.post('/savePR', function (req, res) {
             CheckPassword(db, ID, password)
                 .then(pkg => updatePersonaldate(db, ID, type, data.split('_')))
                 .then(pkg => res.json(pkg))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         else
             res.json({ result: '無此操作權限' });
     });
@@ -140,7 +142,8 @@ router.post('/GetPersonalData', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetPersonalData(db, ID))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 
@@ -152,7 +155,7 @@ router.post('/GetPersonalData', function (req, res) {
 function GetCriticalData(db, mode) {
     return new Promise((resolve, reject) => {
         var table = db.db("data").collection("critical_value");
-        table.find({ mode: mode }, { projection: { _id: 0, mode: 0 } }).toArray(function (err, result) {
+        table.find({ mode: mode }, { projection: { _id: 0, mode: 0 } }).sort({ _id: 1 }).toArray(function (err, result) {
             if (err) { reject({ result: '伺服器連線錯誤' }); throw err; }
             if (result.length == 0)
                 reject({ result: '不存在分界資料' });
@@ -173,7 +176,8 @@ router.post('/GetCriticalData', function (req, res) {
         CheckPassword(db, ID, password)
             .then(pkg => GetCriticalData(db, mode))
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 

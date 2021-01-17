@@ -92,7 +92,8 @@ router.post('/table', function (req, res) {
                 removeTable(db, where)
                     .then(pkg => InsertJsonList(db, where, CsvToJsonListTable(data, where)))
                     .then(pkg => res.json(pkg))
-                    .catch(error => res.json(error));
+                    .catch(error => res.json(error))
+                    .finally(pkg => db.close());
             else
                 res.json({ result: '無此操作權限' });
         });
@@ -141,7 +142,8 @@ router.post('/criticalNumber', function (req, res) {
                     .then(pkg => InsertJsonList(db, where, CsvToJsonListCritialNumber(data, where)))
                     //.then(pkg => console.log(CsvToJsonListCritialNumber(data, where)))
                     .then(pkg => res.json(pkg))
-                    .catch(error => res.json(error));
+                    .catch(error => res.json(error))
+                    .finally(pkg => db.close());
             else
                 res.json({ result: '無此操作權限' });
         });
