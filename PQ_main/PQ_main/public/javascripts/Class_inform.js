@@ -1,5 +1,6 @@
 var cross = document.getElementById("cross"); //initial cross
 var finish_btn = document.getElementById("finish_btn") //the btn to say finish
+var result_label = document.getElementById("result_label") //to show the result label
 var body = document.body; //apend item
 
 
@@ -93,7 +94,7 @@ class A {
 
             function key_handler(e) {
                 let end = Date.now();
-                console.log(e.key);
+                // console.log(e.key);
                 if (KEY_COLOR[e.key] == color && color === BALL_COLOR.G) {
                     group_set[0]++; //ACC
                     group_set[4]++; //GACC
@@ -123,6 +124,7 @@ class A {
         }
         //analyzedata
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
     }
@@ -136,6 +138,7 @@ class A {
         Acc = Acc.toString().replaceAll("NaN", 0);
         RT = RT.toString().replaceAll("NaN", 500);
         this._pr = (Acc + "_" + RT + "_" + Acc + "_" + RT).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
     }
     get one() {
         return this._one;
@@ -262,6 +265,7 @@ class B {
             await collapse(null, 100, 300); //100-300
         }
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         finish_btn.click();
     }
     _analyzeData() {
@@ -282,6 +286,7 @@ class B {
         SSRT = SSRT.toString().replaceAll("NaN", 500);
         // this._pr
         this._pr = (Acc + "_" + Go_Rt + "_" + SSRT).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
         console.log(this._groupset);
         console.log(mSSD);
     }
@@ -416,6 +421,7 @@ class C {
         }
         //analyze data
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
     }
@@ -432,6 +438,7 @@ class C {
         let AccAver = Math.round(((AccR1 + AccR2 + AccR3) / 3) * 100) / 100;
         this._group = (AccR1 + "_" + AccR2 + "_" + AccR3 + "_" + CRR1 + "_" + CRR2 + "_" + CRR3 + "_" + Aver).replaceAll("NaN", "NA");
         this._pr = AccAver + "_" + Aver;
+        result_label.textContent="測驗結束: 正確率"+AccAver+"%";
     }
     get one() {
         return this._one;
@@ -605,6 +612,7 @@ class D {
         }
         //analyzedata
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
     }
@@ -617,6 +625,7 @@ class D {
         this._one = this._one.slice(0, -1).replaceAll("NaN", "NA"); //remove last~
         this._group = this._groupset.replaceAll("NaN", "NA");
         this._pr = Math.round((this._acc / 9) * 100) / 100 + "_" + Math.round((mt10 / mt1) * 100) / 100;
+        result_label.textContent="測驗結束: 抑制指數"+SI+"%";
     }
     get one() {
         return this._one;
@@ -752,6 +761,7 @@ class E {
         }
         //anaylyze data
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
         console.log(this.one);
@@ -772,8 +782,9 @@ class E {
         let Or = Math.round((Ce - Sp) * 100) / 100;
         let Conflict = Math.round((In - Co) * 100) / 100;
         this._group = (Acc + "_" + RT + "_" + No + "_" + Ce + "_" + Du + "_" + Sp + "_" + Co + "_" + In + "_" + Ne + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
-        RT = RT.toString().replaceAll("NaN", 1700)
+        RT = RT.toString().replaceAll("NaN", 1700);
         this._pr = (Acc + "_" + RT + "_" + Al + "_" + Or + "_" + Conflict).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
     }
     get one() {
         return this._one;
@@ -902,6 +913,7 @@ class F {
             }
         }
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
     }
@@ -917,6 +929,7 @@ class F {
         this._group = (Acc + "_" + RT + "_" + Ne + "_" + Co + "_" + Ico + "_" + Soa200 + "_" + Soa1200).replaceAll("NaN", "NA");
         RT = RT.toString().replaceAll("NaN", 800);
         this._pr = (Acc + "_" + RT + "_" + Ne + "_" + Co + "_" + Ico).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
     }
     get one() {
         return this._one;
@@ -1014,6 +1027,7 @@ class G {
             }
         }
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
     }
@@ -1023,6 +1037,7 @@ class G {
         let Acc = Math.round((this._score * 100 / ((this._level - 5) * 4 * 3)) * 100) / 100;
         this._group = (this._level + "_" + this._score + "_" + Acc).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + this._score).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
     }
     get one() {
         return this._one;
@@ -1137,6 +1152,7 @@ class H {
             }
         }
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         alert("若已做完此問卷的實際測驗，請去做K問卷");
         //finish process
         finish_btn.click();
@@ -1150,6 +1166,7 @@ class H {
         let RT2 = Math.round(this._groupset[4] * 100) / 100;
         let RT3 = Math.round(this._groupset[5] * 100) / 100;
         this._group = (Acc1 + "_" + Acc2 + "_" + Acc3 + "_" + RT1 + "_" + RT2 + "_" + RT3).replaceAll('NaN', 'NA');
+        result_label.textContent="測驗結束: 個別正確率"+Acc1+"% "+Acc2+"% "+Acc3+"%";
     }
     get one() {
         return this._one;
@@ -1268,6 +1285,7 @@ class I {
             });
         }
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
     }
@@ -1278,6 +1296,8 @@ class I {
         let Acc = Math.round(this._groupset[0] * 10000 / this._groupset[1]) / 100;
         this._group = (Score + "_" + Acc).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
+        
     }
     get one() {
         return this._one;
@@ -1440,6 +1460,7 @@ class J {
             this._one = this._one.slice(0, -1) + "-"; //remove last~
         }
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         console.log("finish");
         finish_btn.click();
@@ -1458,6 +1479,7 @@ class J {
         }
         this._group = this._group.slice(0, -1).replaceAll("NaN", "NA");
         this._pr = (Acc + "_" + Score).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
     }
     get one() {
         return this._one;
@@ -1584,6 +1606,7 @@ class K {
         }
         // console.log(this.group);
         this._analyzeData();
+        await collapse(result_label, 2000);//show the result
         //finish process
         finish_btn.click();
         // console.log(this.one);
@@ -1599,6 +1622,7 @@ class K {
         this._group = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
         RT = RT.toString().replaceAll("NaN", 3000);
         this._pr = (Acc + "_" + RT + "_" + Positive + "_" + Negative + "_" + Middle).replaceAll("NaN", "NA");
+        result_label.textContent="測驗結束: 正確率"+Acc+"%";
     }
     get one() {
         return this._one;
