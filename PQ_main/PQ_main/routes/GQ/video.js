@@ -142,7 +142,8 @@ router.post('/getLtableList', function (req, res) {
                 .then(pkg => getListByHuman(db, list[2], "3", human, pkg))
                 .then(pkg => getListByHuman(db, list[3], "0", human, pkg))
                 .then(pkg => res.json({ result: "success", data: pkg }))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         }
         else {
             getList(db, list[0], "9", [])
@@ -150,7 +151,8 @@ router.post('/getLtableList', function (req, res) {
                 .then(pkg => getList(db, list[2], "3", pkg))
                 .then(pkg => getList(db, list[3], "0", pkg))
                 .then(pkg => res.json({ result: "success", data: pkg }))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         }
     });
 });
@@ -185,7 +187,8 @@ router.post('/getMtableList', function (req, res) {
         if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
         getMList(db, count)
             .then(pkg => res.json(pkg))
-            .catch(error => res.json(error));
+            .catch(error => res.json(error))
+            .finally(pkg => db.close());
     });
 });
 

@@ -28,7 +28,7 @@ function FindCollection(db, DB, collection, fillterKey, fillterValue, type) {
                 resolve({ result: "success", data: result });
             });
         else
-            table.find(findThing, set).toArray(function (err, result) {
+            table.find(findThing, set).sort({ _id: 1 }).toArray(function (err, result) {
                 if (err) { reject({ result: "伺服器連線錯誤" }); throw err; }
                 //console.log(result);
                 resolve({ result: "success", data: result });
@@ -50,7 +50,8 @@ router.post('/table', function (req, res) {
             if (err) { res.json({ result: '伺服器連線錯誤' }); throw err; }
             FindCollection(db, DB, collection, fillterKey, fillterValue, type)
                 .then(pkg => res.json(pkg))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         });
     }
     else
