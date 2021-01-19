@@ -91,7 +91,8 @@ router.post('/saveData', function (req, res) {
                 .then(pkg => insertOnedate(db, ID, collection, data, date))
                 .then(pkg => updateDate(db, ID, date, collection))
                 .then(pkg => res.json({ result: "success" }))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         });
     }
     else

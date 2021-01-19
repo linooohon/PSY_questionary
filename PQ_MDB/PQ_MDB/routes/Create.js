@@ -59,7 +59,8 @@ router.post('/newUser', function (req, res) {
             FindAndUpdateUsersNumber(db)
                 .then(pkg => InsertNewUser(db, pkg, tag))
                 .then(pkg => res.json(pkg))
-                .catch(error => res.json(error));
+                .catch(error => res.json(error))
+                .finally(pkg => db.close());
         });
     }
     else
@@ -80,15 +81,18 @@ function catchError(error, res) {
         res.json({ result: 'success' })
 }
 
-async function createMany(tag, count, db, res) {
+function createMany(tag, count, db, res) {
     var iferror = false;
+    var promiseList = [];
     for (var i = 0; i < count; i++) {
-        FindAndUpdateUsersNumber(db)
+        promiseList.push(FindAndUpdateUsersNumber(db)
             .then(pkg => InsertNewUser(db, pkg, tag))
-            .then(pkg => console.log("success:" + pkg))
-            .catch(error => iferror = true);
+            .catch(error => iferror = true));
     }
-    await catchError(iferror, res);
+    Promise.all(promiseList).finally(pkg => {
+        catchError(iferror, res);
+        db.close();
+    });
 }
 
 router.post('/ManynewUser', function (req, res) {
