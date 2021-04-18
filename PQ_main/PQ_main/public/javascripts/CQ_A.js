@@ -90,9 +90,7 @@ class A {
 				let fruit = {
 					type: 'html-keyboard-response',
 					stimulus:
-						'<img src="../../public/image/eye_L.jpg"' +
-						randomPlaceCSS(500, 0, 1000) +
-						'>',
+						'<img src="/image/eye_L.jpg"' + randomPlaceCSS(500, 0, 1000) + '>',
 					choices: ['j'],
 					trial_duration: duration(stage),
 					post_trial_gap: randomNum(150, 300),
@@ -102,9 +100,7 @@ class A {
 				let bomb = {
 					type: 'html-keyboard-response',
 					stimulus:
-						'<img src="../../public/image/eye_R.jpg"' +
-						randomPlaceCSS(500, 0, 1000) +
-						'>',
+						'<img src="/image/eye_R.jpg"' + randomPlaceCSS(500, 0, 1000) + '>',
 					choices: ['j'],
 					trial_duration: duration(stage),
 					post_trial_gap: randomNum(150, 300),
