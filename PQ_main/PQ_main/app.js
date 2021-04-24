@@ -11,13 +11,14 @@ var routes = require('./routes/index');
 var EW = require('./routes/EW');
 var GQ = require('./routes/GQ/GQ');
 var QQ = require('./routes/QQ/QQ');
+var CQ = require('./routes/CQ/CQ');
 
 var app = express();
 
 // view engine setup
-app.engine('.html', require('ejs').__express)
+app.engine('.html', require('ejs').__express);
 app.set('views', path.join(__dirname, 'views')); //注意path要require一下
-app.set('view engine', 'html')
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -31,6 +32,8 @@ app.use('/', routes);
 app.use('/EW', EW);
 app.use('/GQ', GQ);
 app.use('/QQ', QQ);
+app.use('/CQ', CQ);
+
 //// catch 404 and forward to error handler
 //app.use(function (req, res, next) {
 //    var err = new Error('Not Found');
@@ -65,6 +68,6 @@ app.use('/QQ', QQ);
 app.set('port', process.env.PORT || 1337);
 
 var server = app.listen(app.get('port'), function () {
-    debug('Express server listening on port ' + server.address().port);
-    console.log(process.env.PORT || 1337);
+	debug('Express server listening on port ' + server.address().port);
+	console.log(process.env.PORT || 1337);
 });

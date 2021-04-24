@@ -5,6 +5,7 @@ const { Get } = require('../GetConst');
 var MongoClient = require('mongodb').MongoClient;
 var SQ = require('./SQ');
 
+
 const DQ_licence = [65, 84];
 const SW_licence = [1, 10];
 
@@ -12,6 +13,7 @@ const SW_licence = [1, 10];
 use sub route
  ***********************/
 router.use('/SQ', SQ);
+
 
 /**********************
  ./CQ/EQ
