@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>桌球運動員精準計畫</title>
@@ -8,9 +9,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <header>
-        <div name="Title" class="jumbotron  mb-0 " >
+        <div name="Title" class="jumbotron  mb-0 ">
             <div class="text-center  align-self-center">
                 <h1>桌球運動員精準計畫</h1>
             </div>
@@ -24,18 +26,27 @@
         <br>
         <div id="Introduce" style="text-align:center">
             <h1>計畫說明</h1>
-            <p>本系統是由國立成功大學心理學系蕭富仁教授團隊所研發，結合客觀的電腦化作業與主觀的問卷，量測桌球運動員心智能力。</p><p>量測結果以圖像化界面呈現，使選手對於自己的心智能力一目了然。
-針對個別選手的差異，給予客製化訓練菜單。</p><p>訓練項目包含實作與電腦作業，讓選手可以透過不同的方式強化心智能力。</p> 
-		<img src="https://i.imgur.com/gYJ0OHc.png"/>
-		<br>
-		<br>
+            <p>本系統是由國立成功大學心理學系蕭富仁教授團隊所研發，結合客觀的電腦化作業與主觀的問卷，量測桌球運動員心智能力。</p>
+            <p>量測結果以圖像化界面呈現，使選手對於自己的心智能力一目了然。
+                針對個別選手的差異，給予客製化訓練菜單。</p>
+            <p>訓練項目包含實作與電腦作業，讓選手可以透過不同的方式強化心智能力。</p>
+            <img src="https://i.imgur.com/gYJ0OHc.png" />
+            <br>
+            <br>
         </div>
         <div id="Login" style="text-align:center">
             <form action="/EW/login" method="post">
-                <input name="ID" type="text" class="col-md-4" placeholder="請輸入您的帳號" required/><br />
-                <input name="password" type="password"  class="col-md-4" placeholder="請輸入您的密碼" required/><br />
-                <input  type="submit" class="btn btn-success col-md-4" value="登入" />
+                <h3>登入</h3>
+                <input name="ID" type="text" class="col-md-4" placeholder="請輸入您的帳號" required /><br />
+                <input name="password" type="password" class="col-md-4" placeholder="請輸入您的密碼" required /><br />
+                <input type="submit" class="btn btn-success col-md-4" value="登入" />
             </form>
+            <hr>
+            <div id="register" style="text-align:center">
+                <h3>註冊</h3>
+                <input name="email" type="email" class="col-md-4" placeholder="請輸入您的電子信箱" required /><br />
+                <input type="button" class="btn btn-info col-md-4" value="註冊" />
+            </div>
         </div>
     </div>
     <script>
@@ -54,8 +65,19 @@
                     primary.removeClass("btn-primary").addClass('btn-secondary');
                 }
             });
-
+            $('#register > input[type=button]').click(function () {
+                alert("正在嘗試寄送註冊信件......請等候幾秒鐘");
+                $.post("/EW/register", { email: $('#register > input[type=email]').val() }, function (result) {
+                    console.log(result);
+                    if (result.result == "success") {
+                        alert(result.message);
+                    } else {
+                        alert("信件無法寄出, 若確認信箱無誤, 請聯絡網站管理人");
+                    }
+                })
+            })
         });
     </script>
 </body>
+
 </html>
