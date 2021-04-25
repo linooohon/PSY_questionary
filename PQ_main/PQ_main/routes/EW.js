@@ -283,6 +283,36 @@ router.post('/updateData', function (req, res) {
 });
 
 /**********************
+ ./EW/mail
+ 檢查email是否存在,若尚未激發 重寄, 寄送驗證信(含驗證信箱連結)至信箱
+ ***********************/
+
+const recordMail = (email) => {
+	// 設置發信內容
+	const mailOtions = {
+		form: sendMailer, // 發信者是誰
+		to: email, // 發給誰，用逗號分開
+		subject: '桌球運動員精準計畫 系統管理員信件', // 信件標題
+		text: '系統定期回報：主系統,影片系統及郵件系統正常', // 單純文字內容
+	};
+	return new Promise((resolve, reject) => {
+		mailTransport.sendMail(mailOtions, function (error, info) {
+			if (error) {
+				console.log(error.message);
+				reject({ result: 'error' });
+			}
+			resolve({ result: 'success' });
+		});
+	});
+};
+
+router.get('/mail', function (req, res) {
+	recordMail(Get('adminMail'))
+		.then((pkg) => res.status(200).end('success'))
+		.catch((err) => res.status(403));
+});
+
+/**********************
  ./EW/register
  檢查email是否存在,若尚未激發 重寄, 寄送驗證信(含驗證信箱連結)至信箱
  ***********************/

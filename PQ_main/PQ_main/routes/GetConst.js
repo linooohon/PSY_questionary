@@ -18,6 +18,8 @@ function Get(thing) {
 			return `使用者註冊信 <${process.env.Gmail_ID}>`;
 		case 'local_uri':
 			return process.env.local_uri;
+		case 'adminMail':
+			return process.env.adminEmail;
 		default:
 			return '';
 	}
