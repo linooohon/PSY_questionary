@@ -1,30 +1,12 @@
 //_ => ~ => -
 class A {
-    constructor(mode) {
+    constructor(isExercise) {
         this._one = '';
         this._all = '';
-        this._mode = mode;
+        this._mode = isExercise;
         this._oneAndAll = '';
     }
-    _start() {}
-    _full_trail(stage, allData) {
-        let timeline = [];
-
-        //generate random number
-        const randomNum = (min, max) => {
-            return Math.floor(Math.random() * (max - min) + min);
-        };
-        //use random number to set random place
-        const randomPlaceCSS = (basis, min, max) => {
-            return `style="margin-left:${
-                -basis + randomNum(min, max)
-            }px;margin-top:${-basis + randomNum(min, max)}px"`;
-        };
-        // higher level shorter time
-        const duration = (level) => {
-            return 550 - level * 50;
-        };
-
+    _start() {
         // randomize questions_array
         const randomList = (arr) => {
             return arr.sort(function () {
@@ -43,6 +25,26 @@ class A {
 
         //but need to randomize questions[] so put into randomList()
         questions = randomList(questions);
+        return questions;
+    }
+    _full_trail(stage) {
+        let timeline = [];
+        let questions = this._start();
+
+        //generate random number
+        const randomNum = (min, max) => {
+            return Math.floor(Math.random() * (max - min) + min);
+        };
+        //use random number to set random place
+        const randomPlaceCSS = (basis, min, max) => {
+            return `style="margin-left:${
+                -basis + randomNum(min, max)
+            }px;margin-top:${-basis + randomNum(min, max)}px"`;
+        };
+        // higher level shorter time
+        const duration = (level) => {
+            return 550 - level * 50;
+        };
 
         // 0 - 19 do 20 times
         for (let i = 0; i < 20; i++) {
@@ -85,7 +87,11 @@ class A {
             }
         }
         console.log(timeline); //so each level objectArray have 40 objects inside, 20 "+", 20 fruits and bombs mixed
-
+        return timeline;
+    }
+    _round(stage, allData) {
+        let timeline = this._full_trail(stage);
+        let questions = this._start();
         return new Promise((resolve) => {
             jsPsych.init({
                 timeline: timeline,
@@ -164,8 +170,20 @@ class A {
             });
         });
     }
+    _allGenerate(oneAndAll, stage) {
+        let finalAcc = (oneAndAll[1].Acc / (stage * 20)) * 100;
+        let finalRT = oneAndAll[1].RT_time / oneAndAll[1].RT_count;
+        let finalFA = (oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
+        let finalFA_RT = oneAndAll[1].FA_RT_time / oneAndAll[1].FA_RT_count;
+        let finalScore = oneAndAll[1].Acc;
+        if (finalFA_RT == 0) {
+            finalFA_RT = 'NS';
+        }
+        this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
+        return this._all;
+    }
     async process() {
-        console.log(this._mode);
+        // console.log(this._mode);
         let stage = 1; //從level 1開始
         let allData = {
             Acc: 0,
@@ -175,7 +193,7 @@ class A {
             FA_RT_time: 0, //加總所有炸彈有出現卻按了的反應時間
         };
         while (stage < 8) {
-            this._oneAndAll = await this._full_trail(stage, allData);
+            this._oneAndAll = await this._round(stage, allData);
             this._one += this._oneAndAll[0];
             if (this._oneAndAll[2] < 80) {
                 break;
@@ -184,19 +202,8 @@ class A {
             }
             ++stage;
         }
-        let finalAcc = (this._oneAndAll[1].Acc / (stage * 20)) * 100;
-        let finalRT = this._oneAndAll[1].RT_time / this._oneAndAll[1].RT_count;
-        let finalFA = (this._oneAndAll[1].FA_RT_count / (stage * 6)) * 100;
-        let finalFA_RT =
-            this._oneAndAll[1].FA_RT_time / this._oneAndAll[1].FA_RT_count;
-        let finalScore = this._oneAndAll[1].Acc;
-        if (finalFA_RT == 0) {
-            finalFA_RT = 'NS';
-        }
-        this._all = `${finalAcc}_${finalRT}_${finalFA}_${finalFA_RT}_${finalScore}`;
 
-        // console.log(this._one);
-        // console.log(this._all);
+        this._all = this._allGenerate(this._oneAndAll, stage);
 
         if (this._mode == false) {
             console.log(this._mode);
