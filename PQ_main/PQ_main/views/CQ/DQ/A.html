@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/jspsych-6.3.0/jspsych.js"></script>
+    <script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="/jspsych-6.3.0/plugins/jspsych-image-keyboard-response.js"></script>
+    <link href="/jspsych-6.3.0/css/jspsych.css" rel="stylesheet" type="text/css">
+    <script src="/javascripts/CQ_A.js"></script>
+    <title>A:衝動控制作業</title>
+</head>
+
+<body>
+    <!-- main modal -->
+    <div class="modal fade" id="main-model" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header ">
+                    <button class="btn btn-outline-secondary " style="position: absolute; right: 20px; top: 15px;"
+                        onclick="$('form').submit();">回首頁</button>
+                    <h4 class="modal-title " style="margin: 0 auto;" id="exampleModalLongTitle">教學</h4>
+                </div>
+                <div class="modal-body m-2 p-0 text-center"
+                    style="background-color: rgba(253, 253, 253, 0.651);height: 18em;">
+                    <img src="/image/A/A_Intro.jpg" alt="information" class=" img-fluid  p-0" style="height: 100%;">
+                </div>
+
+                <div class="btn-group btn-group-toggle d-flex p-2" data-toggle="buttons">
+                    <label class="btn btn-outline-success w-100">
+                        <input type="radio" name="practice" id="option1" val="false" checked> 練習模式
+                    </label>
+                    <label class="btn btn-outline-success w-100">
+                        <input type="radio" name="reality" id="option2" val="true"> 實際測驗
+                    </label>
+                </div>
+
+                <div class="d-flex m-2">
+                    <button id="start" type="button" class="w-100 btn btn-primary">開始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cross -->
+    <ten id="cross" class="center-screen ">+</ten>
+    <!-- result label -->
+    <label id="result_label" class="center-screen " style="  font-size: 25px; color:white; font-weight:bold"
+        style="display: none;"></label>
+    <!-- finish btn for game -->
+    <button id="finish_btn" style="display: none;"></button>
+    <!-- post form -->
+    <form method="POST" action="/EW/jumpBoard" style="display: none;">
+        <input name="ID" value="<%=ID%>">
+        <input name="password" value="<%=password%>">
+    </form>
+</body>
+<script>
+
+    $(document).ready(() => {
+
+        $('#main-model').modal({
+            backdrop: 'static',
+            keyboard: false,
+        });
+
+        $('#start').on('click', function () {
+            let mode = ($(".btn-group").find(".active").children("input").attr("val") === "true" ? true : false);
+            let a = new A(mode);
+            a.process().then(item => console.log(item));
+        });
+    });
+
+
+</script>
+
+</html>
