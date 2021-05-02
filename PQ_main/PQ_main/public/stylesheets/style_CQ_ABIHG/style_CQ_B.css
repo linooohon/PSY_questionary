@@ -1,0 +1,35 @@
+.right-car {
+    position: relative;
+    animation: right-move 2s infinite;
+    animation-timing-function: ease;
+}
+
+@keyframes right-move {
+    0% {
+        right: 300px;
+    }
+    50% {
+        right: 100px;
+    }
+    100% {
+        right: 0px;
+    }
+}
+
+.left-car {
+    position: relative;
+    animation: left-move 2s infinite;
+    animation-timing-function: ease;
+}
+
+@keyframes left-move {
+    0% {
+        left: 300px;
+    }
+    50% {
+        left: 100px;
+    }
+    100% {
+        left: 0px;
+    }
+}
