@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>桌球運動員精準計畫</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div name="Title" class="jumbotron  mb-0 ">
+            <div class="text-center  align-self-center">
+                <h1>桌球運動員精準計畫</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container" style="font-family:Microsoft JhengHei;font-size:200%">
+        <br>
+        <div class="row text-center">
+            <label class="col-4"></label>
+            <label name="null" class="col-4" style="font-size:100%"></label>
+            <label class="col-4"></label>
+        </div>
+        <div class="row text-center">
+            <div class="col-4">
+                <br>
+                <label name="attention" class="btn btn-secondary" style="font-size:100%">注意力</label><br><br>
+                <label name="watch" class="btn btn-secondary" style="font-size:100%">視知覺</label>
+            </div>
+            <div class="col-4">
+                <img src="https://i.imgur.com/wYg7r5S.png" alt="測試結果示意圖" style="width:100%;height:300px" />
+            </div>
+            <div class="col-4">
+                <br>
+                <label name="control" class=" btn btn-link" style="font-size:100%">抑制控制</label><br><br>
+                <label name="memory" class="btn btn-secondary" style="font-size:100%">記憶力</label>
+            </div>
+        </div>
+        <div class="row text-center">
+            <label class="col-4 btn btn-primary btn-bg" style="font-size:100%">回首頁</label>
+            <label name="null" class="col-4" style="font-size:100%"></label>
+            <label class="col-4 btn btn-secondary btn-bg" style="font-size:100%">訓練教學</label>
+        </div>
+        <br>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    <p>請點擊您想要前往哪一張問卷</p>
+                    <div class="modal-btn">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+        <form id="form" action="" method="post" style="display:none">
+            <input name="ID" type="text" value="<%=ID%>" /><br />
+            <input name="password" type="password" value="<%=password%>" /><br />
+            <input name="goal" type="text" value="EW5" /><br />
+        </form>
+    </div>
+    <script>
+        var eachDate = {
+            A: '未有填寫紀錄',
+            B: '未有填寫紀錄',
+            C: '未有填寫紀錄',
+            D: '未有填寫紀錄',
+            E: '未有填寫紀錄',
+            F: '未有填寫紀錄',
+            G: '未有填寫紀錄',
+            H: '未有填寫紀錄',
+            I: '未有填寫紀錄',
+            J: '未有填寫紀錄',
+            K: '未有填寫紀錄',
+            L: '未有填寫紀錄',
+            M: '未有填寫紀錄',
+            N: '未有填寫紀錄',
+            O: '未有填寫紀錄',
+            P: '未有填寫紀錄',
+            Q: '未有填寫紀錄',
+            R: '未有填寫紀錄',
+            S: '未有填寫紀錄',
+            T: '未有填寫紀錄',
+        };
+        //跳問卷
+        function movePage(name) {
+            $("#form").attr("action", "DQ/" + name).submit();
+        }
+        $(document).ready(function () {
+            $.post("/CQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
+                if (result.result == "success") {
+                    for (var i in result.data) {
+                        eachDate[i] = "上次填寫時間 : " + result.data[i];
+                    }
+                }
+                else
+                    alert(result.result + ",無法抓取過去填寫紀錄");
+            })
+            $(".btn-link").click(function () {
+                $('#modal').modal('show');
+                $(".modal-title").html($(this).text());
+                switch ($(this).attr("name")) {
+                    case "control":
+                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='水果炸彈' name='A'/>" + eachDate.A + "<br><input onclick ='movePage(this.name)'  type='button' value='汽車行駛作業' name='B'/>" + eachDate.B + "<br><input onclick ='movePage(this.name)'  type='button' value='打桌球作業' name='C'/>" + eachDate.C);
+                        break;
+                    default:
+                        $(".modal-btn").html("");
+                        break;
+                }
+            });
+            //跳功能頁
+            $(".btn-primary").click(function () {
+                $("#form").attr("action", "/EW/jumpBoard").submit();
+            });
+            $(".btn-secondary").click(function () {
+                //$("#form").attr("action", "/GQ/PR").submit();
+                alert("本功能尚未開放, 敬請期待！");
+            });
+        });
+    </script>
+</body>
+
+</html>
