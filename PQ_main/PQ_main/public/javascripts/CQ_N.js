@@ -5,6 +5,7 @@ const N_TYPE = {
 	CALCULATION_FAIL: 2,
 	RANDOM_CHAR: 3,
 	CHARS_LIST: 4,
+	SPACE: 5,
 };
 class N {
 	constructor(isExercise) {
@@ -49,6 +50,7 @@ class N {
 				trail.push(N_TYPE.RANDOM_CHAR); //calculation right
 			}
 			trail.push(N_TYPE.CHARS_LIST); //calculation right
+			trail.push(N_TYPE.SPACE);
 			questions = questions.concat(trail);
 		}
 
@@ -120,6 +122,13 @@ class N {
 						html: `<label id="userInput">${lowLine(
 							level
 						)}</label><input id="userAns" name="response" value="" style="display:none" disable>`,
+					});
+				case N_TYPE.SPACE:
+					timeline.push({
+						type: 'html-keyboard-response',
+						stimulus: '',
+						choices: jsPsych.NO_KEYS,
+						trial_duration: 200,
 					});
 					break;
 			}
