@@ -1,0 +1,28 @@
+table {
+	border-collapse: collapse;
+	border-width: 3px;
+	border-color: black;
+	table-layout: fixed;
+	word-break: break-all;
+}
+table tr {
+	border-width: 3px;
+	border-color: black;
+	table-layout: fixed;
+	word-break: break-all;
+	height: 100px;
+}
+
+table td {
+	border-width: 3px;
+	border-color: black;
+	border-style: solid;
+	table-layout: fixed;
+	word-break: break-all;
+	width: 100px;
+}
+
+table img {
+	width: 80px;
+	height: 80px;
+}
