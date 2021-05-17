@@ -28,8 +28,8 @@
         <div class="row text-center">
             <div class="col-4">
                 <br>
-                <label name="attention" class="btn btn-secondary" style="font-size:100%">注意力</label><br><br>
-                <label name="watch" class="btn btn-secondary" style="font-size:100%">視知覺</label>
+                <label name="attention" class="btn btn-link" style="font-size:100%">注意力</label><br><br>
+                <label name="watch" class="btn btn-link" style="font-size:100%">視知覺</label>
             </div>
             <div class="col-4">
                 <img src="https://i.imgur.com/wYg7r5S.png" alt="測試結果示意圖" style="width:100%;height:300px" />
@@ -37,7 +37,7 @@
             <div class="col-4">
                 <br>
                 <label name="control" class=" btn btn-link" style="font-size:100%">抑制控制</label><br><br>
-                <label name="memory" class="btn btn-secondary" style="font-size:100%">記憶力</label>
+                <label name="memory" class="btn btn-link" style="font-size:100%">記憶力</label>
             </div>
         </div>
         <div class="row text-center">
@@ -94,9 +94,44 @@
             S: '未有填寫紀錄',
             T: '未有填寫紀錄',
         };
+        const boardNameTable = {
+            control: {
+                A: "水果炸彈",
+                B: "汽車行駛作業",
+                C: "打桌球作業",
+                D: "箭頭停止訊號",
+                E: "貓狗作戰",
+            },
+            attention: {
+                F: "漁往哪裡游",
+                G: "捕抓神奇寶貝 1",
+                H: "捕抓神奇寶貝 2",
+                I: "物件追蹤訓練",
+                J: "桌球選邊訓練",
+                K: "桌球顏色反應訓練",
+                L: "桌球特徵轉換訓練",
+                M: "手眼協調訓練",
+            },
+            memory: {
+                N: "運算記憶訓練",
+                O: "順向圖像記憶",
+                P: "逆向圖像記憶",
+                Q: "空間記憶訓練",
+                R: "撲克牌配對",
+            },
+            watch: {
+                S: "蓋博圖像訓練",
+                T: "點協調訓練",
+            },
+        }
         //跳問卷
         function movePage(name) {
             $("#form").attr("action", "DQ/" + name).submit();
+        }
+        function createTag(which) {
+            return Object.keys(boardNameTable[which]).reduce((pre, cur) => {
+                return pre + `<input onclick='movePage(this.name)' type='button' value='${boardNameTable[which][cur]}' name='${cur}' />` + eachDate[cur] + "<br>";
+            }, "");
         }
         $(document).ready(function () {
             $.post("/CQ/GetDate", { ID: '<%=ID%>', password: '<%=password%>' }, function (result) {
@@ -111,14 +146,7 @@
             $(".btn-link").click(function () {
                 $('#modal').modal('show');
                 $(".modal-title").html($(this).text());
-                switch ($(this).attr("name")) {
-                    case "control":
-                        $(".modal-btn").html("<input onclick ='movePage(this.name)' type='button' value='水果炸彈' name='A'/>" + eachDate.A + "<br><input onclick ='movePage(this.name)'  type='button' value='汽車行駛作業' name='B'/>" + eachDate.B + "<br><input onclick ='movePage(this.name)'  type='button' value='打桌球作業' name='C'/>" + eachDate.C);
-                        break;
-                    default:
-                        $(".modal-btn").html("");
-                        break;
-                }
+                $(".modal-btn").html(createTag($(this).attr("name")));
             });
             //跳功能頁
             $(".btn-primary").click(function () {

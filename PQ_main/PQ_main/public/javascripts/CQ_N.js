@@ -1,4 +1,8 @@
 //_ => ~ => -
+{
+	/* <script src="/jspsych-6.3.0/plugins/jspsych-survey-html-form.js"></script>
+  <script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script> */
+}
 const N_TYPE = {
 	TEN: 0,
 	CALCULATION_RIGHT: 1,
@@ -123,6 +127,7 @@ class N {
 							level
 						)}</label><input id="userAns" name="response" value="" style="display:none" disable>`,
 					});
+					break;
 				case N_TYPE.SPACE:
 					timeline.push({
 						type: 'html-keyboard-response',

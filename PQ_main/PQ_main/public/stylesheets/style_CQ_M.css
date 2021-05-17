@@ -3,7 +3,7 @@ p {
 }
 
 .jspsych-btn {
-	display: none;
+	display: none !important;
 }
 
 #rectangle {

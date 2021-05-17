@@ -13,7 +13,7 @@ class R {
 		this._gameWidth = 2;
 		this._gameHeight = 3;
 		this._gameTime = 180;
-		this._imgPath = 'CQ_R_card/';
+		this._imgPath = '/image/CQ_R_card/';
 		this._questionType = {
 			TEN: 0,
 			GAME: 1,
@@ -288,7 +288,7 @@ class R {
 							: closeCards(openCard, tmpTrail);
 						openCard.clearAll();
 						const imgs = document.getElementsByTagName('img');
-						if (Object.values(imgs).length == 0)
+						if (Object.values(imgs).length == 1)
 							document.getElementsByTagName('button')[0].click();
 					}, 250);
 				}

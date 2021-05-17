@@ -1,4 +1,9 @@
 //_ => ~ => -
+{
+	/* <script src="/jspsych-6.3.0/plugins/jspsych-survey-html-form.js"></script>
+<script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script> */
+	//<script src="/jspsych-6.3.0/plugins/jspsych-image-keyboard-response.js"></script>
+}
 class O {
 	constructor(isExercise) {
 		this._one = '';

@@ -1,4 +1,9 @@
 //_ => ~ => -
+{
+	/* <script src="/jspsych-6.3.0/plugins/jspsych-survey-html-form.js"></script>
+<script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script>
+<script src="/jspsych-6.3.0/plugins/jspsych-image-keyboard-response.js"></script> */
+}
 class P {
 	constructor(isExercise) {
 		this._one = '';
@@ -60,13 +65,13 @@ class P {
 						trial_duration: 1000,
 					});
 					break;
-				//'/image/CQ_O_picture/1.jpg', <= real environment
+				//'/image/CQ_P_picture/1.jpg', <= real environment
 				case TYPE.IMAGE:
 					const randomInt = generateRandomInt(1, 9);
 					this._tmpImgList.push(randomInt);
 					timeline.push({
 						type: 'image-keyboard-response',
-						stimulus: `CQ_O_picture/${randomInt}.jpg`,
+						stimulus: `/image/CQ_P_picture/${randomInt}.jpg`,
 						choices: jsPsych.NO_KEYS,
 						stimulus_width: 100,
 						maintain_aspect_ratio: true,
