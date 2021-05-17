@@ -1,4 +1,7 @@
 //_ => ~ => -
+{
+	/* <script src="/jspsych-6.3.0/plugins/jspsych-html-keyboard-response.js"></script> */
+}
 class Q {
 	constructor(isExercise) {
 		this._one = '';
@@ -117,7 +120,7 @@ class Q {
 					animalList.push({
 						row: shouldSame.row,
 						col: shouldSame.col,
-						path: `CQ_Q_animal/${generateRandomInt(1, 5)}.jpg`,
+						path: `/image/CQ_Q_animal/${generateRandomInt(1, 5)}.jpg`,
 					});
 					timeline.push({
 						type: 'html-keyboard-response',

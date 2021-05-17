@@ -21,7 +21,7 @@ table img {
 }
 
 .jspsych-btn {
-	display: none;
+	display: none !important;
 }
 
 #clock {
