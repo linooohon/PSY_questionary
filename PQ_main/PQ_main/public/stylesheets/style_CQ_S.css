@@ -1,0 +1,48 @@
+table {
+	border-collapse: collapse;
+	table-layout: fixed;
+	word-break: break-all;
+}
+table tr {
+	table-layout: fixed;
+	word-break: break-all;
+	height: 100px;
+}
+
+table td {
+	table-layout: fixed;
+	word-break: break-all;
+	width: 80px;
+}
+
+table img {
+	width: 70px;
+	height: 70px;
+}
+
+table .green {
+	border: 5px;
+	border-color: yellowgreen;
+	border-style: solid;
+}
+
+table .yellow {
+	border: 5px;
+	border-color: yellow;
+	border-style: solid;
+}
+
+.jspsych-btn {
+	display: none !important;
+}
+
+#clock {
+	text-align: center;
+	color: red;
+	font-size: 50px;
+}
+
+#jspsych-experiment {
+	width: 100%;
+	height: 80vh;
+}
