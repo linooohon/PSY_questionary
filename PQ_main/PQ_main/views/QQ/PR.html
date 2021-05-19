@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>桌球運動員精準計畫</title>
@@ -9,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <header>
         <div name="Title" class="jumbotron  mb-0 ">
@@ -29,23 +31,37 @@
                 <tbody class="table table-bordered">
                     <tr>
                         <td bgcolor="yellow">姓名</td>
-                        <td><%=name%></td>
+                        <td>
+                            <%=name%>
+                        </td>
                         <td bgcolor="yellow">性別</td>
-                        <td id="gender"><%=gender%></td>
+                        <td id="gender">
+                            <%=gender%>
+                        </td>
                         <td bgcolor="yellow">年齡</td>
-                        <td><%=age%></td>
+                        <td>
+                            <%=age%>
+                        </td>
                     </tr>
                     <tr>
                         <td bgcolor="yellow">球齡</td>
-                        <td><%=year%></td>
+                        <td>
+                            <%=year%>
+                        </td>
                         <td bgcolor="yellow">慣用手</td>
-                        <td id="Ghand"><%=Ghand%></td>
+                        <td id="Ghand">
+                            <%=Ghand%>
+                        </td>
                         <td bgcolor="yellow">打球慣用手</td>
-                        <td id="Phand"><%=Phand%></td>
+                        <td id="Phand">
+                            <%=Phand%>
+                        </td>
                     </tr>
                     <tr>
                         <td bgcolor="yellow">最佳成績</td>
-                        <td colspan="5"><%=nice%></td>
+                        <td colspan="5">
+                            <%=nice%>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -207,8 +223,8 @@
     </div>
     <script>
         var mydata;
-        var clr1 = "rgba(255, 159, 255, 0.6)";
-        var clr2 = "rgba(255, 159, 64, 0.6)";
+        var clr1 = "rgba(255, 0, 0, 0.6)";
+        var clr2 = "rgba(0, 0, 255, 0.6)";
 
         function exchange(num, list) {
             if (num > list[0])
@@ -489,4 +505,5 @@
         });
     </script>
 </body>
+
 </html>
