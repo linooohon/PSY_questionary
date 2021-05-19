@@ -1,0 +1,24 @@
+.jspsych-content-wrapper .table {
+	position: absolute;
+	max-width: 350px;
+	margin-left: -175px;
+	margin-top: -90px;
+	z-index: 1;
+}
+
+.jspsych-content-wrapper .ball {
+	position: absolute;
+	max-width: 20px;
+	z-index: 2;
+}
+
+#jspsych-experiment {
+	width: 100%;
+	height: 80vh;
+}
+
+#clock {
+	text-align: center;
+	color: red;
+	font-size: 50px;
+}
