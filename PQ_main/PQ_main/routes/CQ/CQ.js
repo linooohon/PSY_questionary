@@ -121,7 +121,7 @@ const whichScore = {
 	B: 'Score',
 	C: 'Score',
 	D: 'Score',
-	E: 'Score',
+	E: 'Acc',
 	F: 'Score',
 	G: 'Score',
 	H: 'Score',
@@ -129,6 +129,13 @@ const whichScore = {
 	K: 'Score',
 	L: 'Score',
 	M: 'Level',
+	N: 'Score',
+	O: 'Score',
+	P: 'Score',
+	Q: 'Score',
+	R: 'Score',
+	S: 'Score',
+	T: 'Score',
 };
 
 function GetScore(db, ID, which) {

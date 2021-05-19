@@ -53,6 +53,13 @@ const namesList_one = {
 	K: ['Color', 'Press', 'Acc', 'RT'],
 	L: ['Cue', 'CorrAns', 'Press', 'Acc', 'RT'],
 	M: ['Level', 'Count', 'Errors', 'Distance', 'Time'],
+	N: ['Level', 'CalculateRight', 'CharRight', 'Score'],
+	O: ['Level', 'CorrAns', 'PressAns', 'Accuracy', 'Sum', 'Time'],
+	P: ['Level', 'CorrAns', 'PressAns', 'Accuracy', 'Sum', 'Time'],
+	Q: ['Level', 'N', 'Taget', 'Position', 'CorrAns', 'Press', 'Accuracy'],
+	R: ['Level', 'Time', 'Score'],
+	S: ['Level', 'Time', 'Score'],
+	T: ['Count', 'Speed', 'A', 'Direction', 'PressKey', 'Acc', 'RT'],
 };
 
 const namesList_group = {
@@ -115,6 +122,7 @@ const namesList_group = {
 	],
 	E: ['Acc', 'Go_Acc', 'Go_RT', 'NCRate', 'NC_RT', 'mSSD', 'SSRT'],
 	F: [
+		'Acc',
 		'RT',
 		'NoCue',
 		'Center',
@@ -143,6 +151,13 @@ const namesList_group = {
 		'Last_Distance',
 		'Last_Time',
 	],
+	N: ['Level', 'Num_Score', 'Letter_Score', 'Score'],
+	O: ['Score', 'Acc'],
+	P: ['Score', 'Acc'],
+	Q: ['Level', 'N', 'Acc', 'Score', '1backScore', '2backScore'],
+	R: ['Level', 'Score'],
+	S: ['Level', 'Score'],
+	T: ['Count', 'Speed', 'Level', 'Score'],
 };
 
 /**********************
