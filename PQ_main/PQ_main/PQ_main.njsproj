@@ -78,6 +78,12 @@
     <Content Include="routes\QQ\SQ.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\CQ\DQ\A.html" />
+    <Content Include="views\CQ\DQ\B.html" />
+    <Content Include="views\CQ\DQ\C.html" />
+    <Content Include="views\CQ\EQ.html" />
+    <Content Include="views\CQ\SW\SW1.html" />
+    <Content Include="views\CQ\test.html" />
     <Content Include="views\error.html">
       <SubType>Code</SubType>
     </Content>
@@ -167,6 +173,9 @@
     <Folder Include="routes\GQ\" />
     <Folder Include="routes\QQ\" />
     <Folder Include="views\" />
+    <Folder Include="views\CQ\" />
+    <Folder Include="views\CQ\DQ\" />
+    <Folder Include="views\CQ\SW\" />
     <Folder Include="views\EW\" />
     <Folder Include="views\GQ\" />
     <Folder Include="views\GQ\questionary\" />
