@@ -46,7 +46,7 @@ class I {
         let ten = {
             type: 'html-keyboard-response',
             stimulus:
-                "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
+                "<p style='font-size: 30px; font-weight: bold; color: black'>+</p>",
             choices: jsPsych.NO_KEYS,
             trial_duration: 1000,
         }
