@@ -1,10 +1,17 @@
 //_ => ~ => -
 class A {
-    constructor(isExercise) {
+    constructor(isExercise, clockId) {
         this._one = '';
         this._all = '';
         this._mode = isExercise;
         this._oneAndAll = '';
+        this._clockId = clockId || 'clock';
+        this._tmpScore = 0;
+        this._randomPlaceCSSParameter = {
+            BASIS: 500,
+            MIN: 0,
+            MAX: 1000,
+        }
     }
     _start() {
         // randomize questions_array
@@ -30,16 +37,15 @@ class A {
     _full_trail(stage) {
         let timeline = [];
         let questions = this._start();
-
+        let returnObject = {};
         //generate random number
         const randomNum = (min, max) => {
             return Math.floor(Math.random() * (max - min) + min);
         };
         //use random number to set random place
         const randomPlaceCSS = (basis, min, max) => {
-            return `style="margin-left:${
-                -basis + randomNum(min, max)
-            }px;margin-top:${-basis + randomNum(min, max)}px"`;
+            return `style="margin-left:${-basis + randomNum(min, max)
+                }px;margin-top:${-basis + randomNum(min, max)}px"`;
         };
         // higher level shorter time
         const duration = (level) => {
@@ -52,7 +58,7 @@ class A {
             let ten = {
                 type: 'html-keyboard-response',
                 stimulus:
-                    "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
+                    "<p style='font-size: 30px; font-weight: bold; color: black'>+</p>",
                 choices: jsPsych.NO_KEYS,
                 trial_duration: randomNum(200, 800),
             };
@@ -65,11 +71,11 @@ class A {
                     type: 'html-keyboard-response',
                     stimulus:
                         `<img src="/image/A/${randomPicNumber}.jpg"` +
-                        randomPlaceCSS(500, 0, 1000) +
+                        randomPlaceCSS(this._randomPlaceCSSParameter.BASIS, this._randomPlaceCSSParameter.MIN, this._randomPlaceCSSParameter.MAX) +
                         '>',
                     choices: ['j'],
-                    trial_duration: duration(stage), //duration, not really understand -phil
-                    post_trial_gap: randomNum(150, 300), // not really understand -phil
+                    trial_duration: duration(stage),
+                    post_trial_gap: randomNum(150, 300),
                 };
                 timeline.push(fruit);
             } else {
@@ -77,7 +83,7 @@ class A {
                     type: 'html-keyboard-response',
                     stimulus:
                         '<img src="/image/A/A_Bomb.jpg"' +
-                        randomPlaceCSS(500, 0, 1000) +
+                        randomPlaceCSS(this._randomPlaceCSSParameter.BASIS, this._randomPlaceCSSParameter.MIN, this._randomPlaceCSSParameter.MAX) +
                         '>',
                     choices: ['j'],
                     trial_duration: duration(stage),
@@ -86,15 +92,37 @@ class A {
                 timeline.push(bomb);
             }
         }
-        console.log(timeline); //so each level objectArray have 40 objects inside, 20 "+", 20 fruits and bombs mixed
-        return timeline;
+        //console.log(timeline); //so each level objectArray have 40 objects inside, 20 "+", 20 fruits and bombs mixed
+        returnObject.timeline = timeline;
+        returnObject.questions = questions;
+        return returnObject;
     }
     _round(stage, allData) {
-        let timeline = this._full_trail(stage);
-        let questions = this._start();
+        let returnObject = this._full_trail(stage);
+        let questionsPlusTen = [];
+        let questionsIndex = 0;
+        const score = document.getElementById(this._clockId);
+
+        for (let i = 0; i < 20; i++) {
+            questionsPlusTen.push('+');
+            questionsPlusTen.push(returnObject.questions[i]);
+        }
+
         return new Promise((resolve) => {
             jsPsych.init({
-                timeline: timeline,
+                timeline: returnObject.timeline,
+                display_element: 'jspsych-experiment',
+                on_trial_start: () => {
+                    score.innerHTML = this._tmpScore;
+                },
+                on_trial_finish: () => {
+                    const lastData = JSON.parse(jsPsych.data.getLastTrialData().json());
+                    if ((questionsPlusTen[questionsIndex] == '1' && lastData[0].response == 'j') ||
+                        (questionsPlusTen[questionsIndex] == '2' && lastData[0].response == null)) {
+                        this._tmpScore++;
+                    }
+                    questionsIndex++;
+                },
                 on_finish: function () {
                     let resultArray = [0, 0, 0]; //最後結果陣列
                     let eachLevelAccRate; //判斷該不該進到下一個level
@@ -108,13 +136,13 @@ class A {
                         // 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41不做
                         // 0, 1, 2, 3, 4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
                         inner_data +=
-                            stage + '_' + questions[parseInt(i / 2)] + '_';
+                            stage + '_' + returnObject.questions[parseInt(i / 2)] + '_';
 
                         //判斷是不是做對了 只針對圖片出現時有沒有按對，不管十字"+"
                         if (
-                            (questions[parseInt(i / 2)] == '1' &&
+                            (returnObject.questions[parseInt(i / 2)] == '1' &&
                                 data[i].response == 'j') ||
-                            (questions[parseInt(i / 2)] == '2' &&
+                            (returnObject.questions[parseInt(i / 2)] == '2' &&
                                 data[i].response == null)
                         ) {
                             inner_data += '1_';
@@ -136,13 +164,13 @@ class A {
 
                         //統計水果出現有按對 和 炸彈出現按錯
                         if (
-                            questions[parseInt(i / 2)] == '1' &&
+                            returnObject.questions[parseInt(i / 2)] == '1' &&
                             data[i].response == 'j'
                         ) {
                             groupSet[0]++;
                             groupSet[1] += data[i].rt;
                         } else if (
-                            questions[parseInt(i / 2)] == '2' &&
+                            returnObject.questions[parseInt(i / 2)] == '2' &&
                             data[i].response != null
                         ) {
                             groupSet[2]++;
@@ -150,9 +178,6 @@ class A {
                         }
                         //stage_1_1_~stage_2_1_~stage_1_0_
                     }
-                    // console.log(inner_data); //所以有兩輪 第一輪 20 個 第二輪 20 個
-                    // console.log(groupSet);
-
                     eachLevelAccRate = (groupSet[4] / 20) * 100; //算每一level正確率
 
                     allData.RT_count += groupSet[0];
@@ -183,7 +208,6 @@ class A {
         return this._all;
     }
     async process() {
-        // console.log(this._mode);
         let stage = 1; //從level 1開始
         let allData = {
             Acc: 0,

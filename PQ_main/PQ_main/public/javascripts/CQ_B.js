@@ -1,10 +1,17 @@
 //_ => ~ => -
 class B {
-    constructor(isExercise) {
+    constructor(isExercise, clockId) {
         this._one = '';
         this._all = '';
         this._mode = isExercise;
         this._oneAndAll = '';
+        this._clockId = clockId || 'clock';
+        this._tmpScore = 0;
+        this._randomPlaceCSSParameter = {
+            BASIS: 500,
+            MIN: 0,
+            MAX: 1000,
+        }
     }
     _start() {
         // randomize questions_array
@@ -33,16 +40,15 @@ class B {
     _full_trail() {
         let timeline = [];
         let questions = this._start();
-
+        let returnObject = {};
         //generate random number
         const randomNum = (min, max) => {
             return Math.floor(Math.random() * (max - min) + min);
         };
         //use random number to set random place
         const randomPlaceCSS = (basis, min, max) => {
-            return `style="margin-left:${
-                -basis + randomNum(min, max)
-            }px;margin-top:${-basis + randomNum(min, max)}px"`;
+            return `style="margin-left:${-basis + randomNum(min, max)
+                }px;margin-top:${-basis + randomNum(min, max)}px"`;
         };
 
         // 0 - 99 do 100 times
@@ -51,7 +57,7 @@ class B {
             let ten = {
                 type: 'html-keyboard-response',
                 stimulus:
-                    "<p style='font-size: 200px; font-weight: bold; color: black'>+</p>",
+                    "<p style='font-size: 30px; font-weight: bold; color: black'>+</p>",
                 choices: jsPsych.NO_KEYS,
                 trial_duration: randomNum(200, 800),
             };
@@ -64,7 +70,7 @@ class B {
                     type: 'html-keyboard-response',
                     stimulus:
                         `<img class="right-car" src="/image/B/R0${randomPicNumber}.jpg"` +
-                        randomPlaceCSS(500, 0, 1000) +
+                        randomPlaceCSS(this._randomPlaceCSSParameter.BASIS, this._randomPlaceCSSParameter.MIN, this._randomPlaceCSSParameter.MAX) +
                         '>',
                     choices: ['j'],
                     trial_duration: 500, //持續時間
@@ -77,7 +83,7 @@ class B {
                     type: 'html-keyboard-response',
                     stimulus:
                         `<img class="left-car" src="/image/B/L0${randomPicNumber}.jpg"` +
-                        randomPlaceCSS(500, 0, 1000) +
+                        randomPlaceCSS(this._randomPlaceCSSParameter.BASIS, this._randomPlaceCSSParameter.MIN, this._randomPlaceCSSParameter.MAX) +
                         '>',
                     choices: ['f'],
                     trial_duration: 500, //持續時間
@@ -89,7 +95,7 @@ class B {
                     type: 'html-keyboard-response',
                     stimulus:
                         '<img src="/image/B/B_Stop.jpg"' +
-                        randomPlaceCSS(500, 0, 1000) +
+                        randomPlaceCSS(this._randomPlaceCSSParameter.BASIS, this._randomPlaceCSSParameter.MIN, this._randomPlaceCSSParameter.MAX) +
                         '>',
                     choices: ['j, f'],
                     trial_duration: 500,
@@ -98,15 +104,40 @@ class B {
                 timeline.push(stop);
             }
         }
-        console.log(timeline); //so objectArray have 200 objects inside, 100 "+", 100 cars and stop mixed
-        return timeline;
+        //console.log(timeline); //so objectArray have 200 objects inside, 100 "+", 100 cars and stop mixed
+        returnObject.timeline = timeline;
+        returnObject.questions = questions;
+        return returnObject;
     }
     _round(allData) {
-        let timeline = this._full_trail();
-        let questions = this._start();
+        let returnObject = this._full_trail();
+        let questionsPlusTen = [];
+        let questionsIndex = 0;
+        let score = document.getElementById(this._clockId);
+
+        for (let i = 0; i < 100; i++) {
+            questionsPlusTen.push('+');
+            questionsPlusTen.push(returnObject.questions[i]);
+        }
+
         return new Promise((resolve) => {
             jsPsych.init({
-                timeline: timeline,
+                timeline: returnObject.timeline,
+                display_element: 'jspsych-experiment',
+                on_trial_start: () => {
+                    score.innerHTML = this._tmpScore;
+                },
+                on_trial_finish: () => {
+                    const lastData = JSON.parse(jsPsych.data.getLastTrialData().json());
+                    // console.log(lastData[0].response);
+                    if ((questionsPlusTen[questionsIndex] == '1' && lastData[0].response == 'j') ||
+                        (questionsPlusTen[questionsIndex] == '2' && lastData[0].response == 'f') ||
+                        (questionsPlusTen[questionsIndex] == '3' && lastData[0].response == null)
+                    ) {
+                        this._tmpScore++;
+                    }
+                    questionsIndex++;
+                },
                 on_finish: function () {
                     let resultArray = [0, 0]; //最後結果陣列
                     let inner_data = ''; //要塞進去 resultArray 也就是對應 this._one
@@ -118,15 +149,15 @@ class B {
                     for (let i = 1; i < 200; i += 2) {
                         // 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41不做
                         // 0, 1, 2, 3, 4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
-                        inner_data += questions[parseInt(i / 2)] + '_';
+                        inner_data += returnObject.questions[parseInt(i / 2)] + '_';
 
                         //判斷是不是做對了 只針對圖片出現時有沒有按對，不管十字"+"
                         if (
-                            (questions[parseInt(i / 2)] == '1' &&
+                            (returnObject.questions[parseInt(i / 2)] == '1' &&
                                 data[i].response == 'j') ||
-                            (questions[parseInt(i / 2)] == '2' &&
+                            (returnObject.questions[parseInt(i / 2)] == '2' &&
                                 data[i].response == 'f') ||
-                            (questions[parseInt(i / 2)] == '3' &&
+                            (returnObject.questions[parseInt(i / 2)] == '3' &&
                                 data[i].response == null)
                         ) {
                             inner_data += '1_';
@@ -148,15 +179,15 @@ class B {
 
                         //統計車出現有按對 和 stop出現按錯
                         if (
-                            (questions[parseInt(i / 2)] == '1' &&
+                            (returnObject.questions[parseInt(i / 2)] == '1' &&
                                 data[i].response == 'j') ||
-                            (questions[parseInt(i / 2)] == '2' &&
+                            (returnObject.questions[parseInt(i / 2)] == '2' &&
                                 data[i].response == 'f')
                         ) {
                             groupSet[0]++;
                             groupSet[1] += data[i].rt;
                         } else if (
-                            questions[parseInt(i / 2)] == '3' &&
+                            returnObject.questions[parseInt(i / 2)] == '3' &&
                             data[i].response != null
                         ) {
                             groupSet[2]++;
