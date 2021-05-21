@@ -1,3 +1,14 @@
+#jspsych-experiment {
+	width: 100%;
+	height: 80vh;
+}
+
+#clock {
+	text-align: center;
+	color: red;
+	font-size: 50px;
+}
+
 .right-car {
     position: relative;
     animation: right-move 2s infinite;
